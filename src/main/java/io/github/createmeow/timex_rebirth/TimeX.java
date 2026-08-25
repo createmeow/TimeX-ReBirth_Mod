@@ -5,11 +5,15 @@ import io.github.createmeow.timex_rebirth.antifreeze.AntiFreezeRegistry;
 import io.github.createmeow.timex_rebirth.crops.WinterCropRegistry;
 import io.github.createmeow.timex_rebirth.food.WastelandFoodRegistry;
 import io.github.createmeow.timex_rebirth.features.PlantTempDataMap;
+import io.github.createmeow.timex_rebirth.features.FrozenRichSoilRegistry;
+import io.github.createmeow.timex_rebirth.features.CropSeedTempTracker;
+import io.github.createmeow.timex_rebirth.features.CropTempRegistry;
 import io.github.createmeow.timex_rebirth.heat.HeatRegistry;
 import io.github.createmeow.timex_rebirth.heat.FireproofRegistry;
 import io.github.createmeow.timex_rebirth.heat.HeatMaterialsRegistry;
 import io.github.createmeow.timex_rebirth.heat.station.HeatStationEvents;
 import io.github.createmeow.timex_rebirth.compat.BasecoreCompatRegistry;
+import io.github.createmeow.timex_rebirth.compat.RecipeDebugHandler;
 import io.github.createmeow.timex_rebirth.heat.station.HeatStationRegistry;
 import io.github.createmeow.timex_rebirth.network.TimeXNetwork;
 import io.github.createmeow.timex_rebirth.research.ResearchEvents;
@@ -87,6 +91,19 @@ public class TimeX {
         // ── 废土物资：废旧物品 / 西瓜皮 / 爆炸箭 / 绘制台（废旧物品→阅历）──
         WastelandRegistry.register(modEventBus);
         NeoForge.EVENT_BUS.register(WastelandEvents.class);
+
+        // 临时诊断：确认 create 面团配方的覆盖状态（排查后面团覆盖未生效时删除）
+        NeoForge.EVENT_BUS.register(RecipeDebugHandler.class);
+
+        // ── 冻结的沃土：农夫乐事沃土在低温下冻结而成，可熔炉/篝火解冻 ──
+        FrozenRichSoilRegistry.register(modEventBus);
+
+        // ── 作物种子温度继承：种植记录种子温度，收获掉落时回写 ──
+        CropTempRegistry.register(modEventBus);
+        NeoForge.EVENT_BUS.register(CropSeedTempTracker.class);
+
+        // ── fiahi 联动：为粮食/种子/树苗补注册温度 capability，使其升温/降温并持久化 ──
+        io.github.createmeow.timex_rebirth.compat.FiahiSeedCapabilityRegistration.register(modEventBus);
     }
 
     public static ResourceLocation rl(String path) {

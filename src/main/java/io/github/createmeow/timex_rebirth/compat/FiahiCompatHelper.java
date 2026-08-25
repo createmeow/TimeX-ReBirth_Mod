@@ -6,9 +6,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.items.IItemHandler;
 
 import java.util.Set;
@@ -49,16 +54,58 @@ public final class FiahiCompatHelper {
     public static final TagKey<Item> WITHERED_SEED_TAG =
             TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("timex_rebirth", "withered_seed"));
 
+    /** 原版"树苗"物品标签（minecraft:saplings）：涵盖各树苗。 */
+    public static final TagKey<Item> SAPLINGS_ITEM =
+            TagKey.create(Registries.ITEM, ResourceLocation.withDefaultNamespace("saplings"));
+
+    /** 原版"鹦鹉食物"物品标签（minecraft:parrot_food）：涵盖各作物种子（胡萝卜等无独立种子的除外）。 */
+    public static final TagKey<Item> PARROT_FOOD_ITEM =
+            TagKey.create(Registries.ITEM, ResourceLocation.withDefaultNamespace("parrot_food"));
+
+    /** 通用"种子"物品标签（c:seeds）：跨模组收集的更多种子。 */
+    public static final TagKey<Item> C_SEEDS_ITEM =
+            TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "seeds"));
+
     private FiahiCompatHelper() {
+    }
+
+    /** fiahi 是否安装（guard：fiahi 未安装时不得引用其枚举常量/组件，否则会 NoClassDefFound）。 */
+    public static boolean isLoaded() {
+        return ModList.get().isLoaded("fiahi");
     }
 
     /** 是否为会枯化为"枯萎的灌木"的种子（腐烂或冻结到程度后变成 minecraft:dead_bush）。 */
     public static boolean isWitheredSeed(ItemStack stack) {
-        return !stack.isEmpty() && stack.is(WITHERED_SEED_TAG);
+        return !stack.isEmpty() && isWitheredSeed(stack.getItem());
+    }
+
+    public static boolean isWitheredSeed(Item item) {
+        return item != null && item.builtInRegistryHolder().is(WITHERED_SEED_TAG);
     }
 
     /**
-     * 若物品是种子且温度达到 ±100（腐烂或冻结到临界），通过 leftOverSetter 把它替换为
+     * 是否为"会种下去的植物材料"（种子/树苗）：参与温度、腐烂/冻结→枯灌木、种植→拔起保留温度。
+     * 集合 = 本模组种子 tag + 通用 c:seeds + 原版作物种子（minecraft:parrot_food）+ 原版树苗（minecraft:saplings）+ 竹子。
+     */
+    public static boolean isSeedLike(ItemStack stack) {
+        return !stack.isEmpty() && isSeedLike(stack.getItem());
+    }
+
+    public static boolean isSeedLike(Item item) {
+        if (item == null) return false;
+        if (isWitheredSeed(item)) return true; // 本模组/联动种子
+        if (item.builtInRegistryHolder().is(C_SEEDS_ITEM)
+                || item.builtInRegistryHolder().is(SAPLINGS_ITEM)
+                || item.builtInRegistryHolder().is(PARROT_FOOD_ITEM)) return true; // 通用种子/原版树苗/作物种子
+        if (item instanceof BlockItem blockItem) { // 树苗方块物品（含竹子）兜底
+            Block block = blockItem.getBlock();
+            if (block instanceof SaplingBlock || block == Blocks.BAMBOO_SAPLING) return true;
+        }
+        return false;
+    }
+
+    /**
+     * 若物品是种子/树苗且温度达到 ±100（腐烂或冻结到临界），通过 leftOverSetter 把它替换为
      * "枯萎的灌木"（原版枯死的灌木 minecraft:dead_bush）。leftOverSetter 负责容器层替换。
      * <p>
      * 阈值取 ±100 是为了抢在 FIAHI 自身转换（腐烂&gt;120 / 冻结 level3 ≈ ±125）之前触发：
@@ -66,7 +113,7 @@ public final class FiahiCompatHelper {
      * 提前到 ±100 替换成枯死的灌木，避免与 FIAHI 的剩菜转换冲突。
      */
     public static void witherFrozenSeed(ItemStack food, Consumer<ItemStack> leftOverSetter) {
-        if (!isWitheredSeed(food)) return;
+        if (!isSeedLike(food)) return;
         int temp = getFoodTemperature(food);
         if (temp >= 100 || temp <= -100) {
             leftOverSetter.accept(new ItemStack(Items.DEAD_BUSH));

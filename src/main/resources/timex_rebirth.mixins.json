@@ -30,7 +30,9 @@
     "BasinRecipeTemperatureMixin",
     "FarmersDelightCookingPotMixin",
     "FarmersDelightCuttingBoardMixin",
-    "ComposterRottenBowlMixin"
+    "ComposterRottenBowlMixin",
+    "CropBlockMixin",
+    "SaplingBlockMixin"
   ],
   "client": [
     "LevelRendererMixin",

@@ -124,10 +124,11 @@ config="${mod_id}.mixins.json"
     side="BOTH"
 
 # Optional dependency on Farmer's Delight for crop seeds
+# AFTER：本模组在其之后加载，使其覆盖食物/面团等配方的数据包层叠优先于农夫乐事
 [[dependencies.${mod_id}]]
     modId="farmersdelight"
     type="optional"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 
 # Required dependency on Freeze-It-And-Heat-It for food freezing/rotting system
@@ -152,10 +153,11 @@ config="${mod_id}.mixins.json"
     side="BOTH"
 
 # Optional dependency on Create for heat flux pipe transport
+# AFTER：本模组在其之后加载，使数据包覆盖（如水+面粉→面团改为农夫乐事面团）优先于机械动力
 [[dependencies.${mod_id}]]
     modId="create"
     type="optional"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 
 # Optional dependency on JEI for the drawing table recipe category

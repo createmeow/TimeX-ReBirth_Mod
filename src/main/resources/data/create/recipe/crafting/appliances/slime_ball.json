@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "farmersdelight:wheat_dough"
+      "tag": "c:foods/dough"
     },
     {
       "tag": "c:dyes/lime"

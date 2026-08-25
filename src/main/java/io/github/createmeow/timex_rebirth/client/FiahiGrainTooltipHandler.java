@@ -28,24 +28,27 @@ public class FiahiGrainTooltipHandler {
     public static void onToolTipShow(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         if (stack.isEmpty()) return;
-        if (!FiahiCompatHelper.isPerishableGrain(stack)) return;
+        if (!FiahiCompatHelper.isPerishableGrain(stack) && !FiahiCompatHelper.isSeedLike(stack)) return;
         // 带食物组件的物品已由 FIAHI 显示温度提示，这里只处理无食物组件的粮食，避免重复。
         if (IFrozenRottenFood.canBeFrozenRotten(stack)) return;
 
         Integer attachment = stack.get(FIAHIAttachmentTypes.FOOD_TEMPERATURE);
         int temp = attachment == null ? 0 : attachment;
-        Component status = Component.translatable("item.fiahi.temperature.normal").withStyle(ChatFormatting.GRAY);
         int frozen = IFrozenRottenFood.getFrozenLevel(temp);
         int rotten = IFrozenRottenFood.getRottenLevel(temp);
-        if (frozen > 0) {
-            status = Component.translatable("item.fiahi.temperature.frozen.%d".formatted(Mth.clamp(frozen, 0, 3)))
-                    .withStyle(ChatFormatting.DARK_AQUA);
+        // 种子/粮食不是食物：正常温度（未冻结也未腐烂）不显示"新鲜食物"，仅显示冷冻/腐烂级别。
+        if (frozen > 0 || rotten > 0) {
+            Component status = Component.translatable("item.fiahi.temperature.normal").withStyle(ChatFormatting.GRAY);
+            if (frozen > 0) {
+                status = Component.translatable("item.fiahi.temperature.frozen.%d".formatted(Mth.clamp(frozen, 0, 3)))
+                        .withStyle(ChatFormatting.DARK_AQUA);
+            }
+            if (rotten > 0) {
+                status = Component.translatable("item.fiahi.temperature.rotten.%d".formatted(Mth.clamp(rotten, 0, 3)))
+                        .withStyle(ChatFormatting.DARK_RED);
+            }
+            event.getToolTip().add(status);
         }
-        if (rotten > 0) {
-            status = Component.translatable("item.fiahi.temperature.rotten.%d".formatted(Mth.clamp(rotten, 0, 3)))
-                    .withStyle(ChatFormatting.DARK_RED);
-        }
-        event.getToolTip().add(status);
         if (Minecraft.getInstance().options.advancedItemTooltips) {
             event.getToolTip().add(Component.translatable("item.fiahi.temperature.description", temp));
         }

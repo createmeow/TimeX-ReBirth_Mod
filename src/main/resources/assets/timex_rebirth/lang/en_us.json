@@ -295,5 +295,6 @@
   "msg.timex_rebirth.drawing_table.success": "§aDrawing complete! Gained %s insight",
   "jei.timex_rebirth.drawing.title": "Drawing Table · Gain Insight",
   "jei.timex_rebirth.drawing.points": "Gain %s-%s insight",
-  "emi.category.timex_rebirth.drawing": "Drawing Table · Gain Insight"
+  "emi.category.timex_rebirth.drawing": "Drawing Table · Gain Insight",
+  "block.timex_rebirth.frozen_rich_soil": "Frozen Rich Soil"
 }

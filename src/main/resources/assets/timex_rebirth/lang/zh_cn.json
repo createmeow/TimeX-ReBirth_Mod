@@ -295,5 +295,7 @@
   "msg.timex_rebirth.drawing_table.success": "§a绘制成功！获得 %s 阅历",
   "jei.timex_rebirth.drawing.title": "绘制台 · 兑换阅历",
   "jei.timex_rebirth.drawing.points": "获得 %s ~ %s 阅历",
-  "emi.category.timex_rebirth.drawing": "绘制台 · 兑换阅历"
+  "emi.category.timex_rebirth.drawing": "绘制台 · 兑换阅历",
+  "block.timex_rebirth.frozen_rich_soil": "冻结的沃土",
+  "block.timex_rebirth.frozen_rich_soil.desc": "在极寒中被冻硬的沃土，用熔炉或篝火烤化即可还原为可耕种的沃土。"
 }

@@ -20,7 +20,7 @@ public abstract class FiahiGrainRotMixin {
 
     @Inject(method = "foodTick", at = @At("HEAD"), cancellable = true)
     private void timex_rebirth$tickGrainFood(double temperature, Item item, CallbackInfo ci) {
-        if (FiahiCompatHelper.isPerishableGrain(item)) {
+        if (FiahiCompatHelper.isPerishableGrain(item) || FiahiCompatHelper.isSeedLike(item)) {
             ((IFrozenRottenFood) (Object) this).apply(temperature, item);
             ci.cancel();
         }

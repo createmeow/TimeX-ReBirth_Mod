@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "blocks",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "timex_rebirth:frozen_rich_soil"
+  },
+  "result": {
+    "id": "farmersdelight:rich_soil"
+  }
+}
