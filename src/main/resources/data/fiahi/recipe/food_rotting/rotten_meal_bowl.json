@@ -1,0 +1,10 @@
+{
+  "type": "fiahi:food_rotting",
+  "ingredient": {
+    "tag": "timex_rebirth:rotten_meal_bowl_foods"
+  },
+  "result": {
+    "id": "timex_rebirth:rotten_meal_bowl",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "timex_rebirth:watermelon_rind"
+    }
+  ],
+  "result": {
+    "id": "minecraft:melon_seeds",
+    "count": 1
+  }
+}

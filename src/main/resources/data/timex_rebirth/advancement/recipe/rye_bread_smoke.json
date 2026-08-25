@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:rye_bread_smoke"
+    ]
+  },
+  "criteria": {
+    "has_timex_rebirth_rye_dough": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:rye_dough"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:rye_bread_smoke"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_timex_rebirth_rye_dough",
+      "has_the_recipe"
+    ]
+  ]
+}

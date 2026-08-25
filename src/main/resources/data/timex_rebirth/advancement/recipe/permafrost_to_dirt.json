@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:permafrost_to_dirt"
+    ]
+  },
+  "criteria": {
+    "has_immersive_weathering_permafrost": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immersive_weathering:permafrost"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:permafrost_to_dirt"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_immersive_weathering_permafrost",
+      "has_the_recipe"
+    ]
+  ]
+}

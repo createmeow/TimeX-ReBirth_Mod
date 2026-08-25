@@ -1,0 +1,40 @@
+{
+  "values": {
+    "timex_rebirth:rye_seeds": {
+      "chance": 0.3
+    },
+    "timex_rebirth:turnip_seeds": {
+      "chance": 0.3
+    },
+    "timex_rebirth:rye": {
+      "chance": 0.65
+    },
+    "timex_rebirth:turnip": {
+      "chance": 0.65
+    },
+    "timex_rebirth:rye_flour": {
+      "chance": 0.3
+    },
+    "timex_rebirth:rye_dough": {
+      "chance": 0.3
+    },
+    "timex_rebirth:rye_straw": {
+      "chance": 0.3
+    },
+    "timex_rebirth:rye_bread": {
+      "chance": 0.85
+    },
+    "timex_rebirth:baked_turnip": {
+      "chance": 0.85
+    },
+    "timex_rebirth:watermelon_rind": {
+      "chance": 0.3
+    },
+    "timex_rebirth:rotten_meal_bowl": {
+      "chance": 0.85
+    },
+    "timex_rebirth:rotten_meat_bowl": {
+      "chance": 0.85
+    }
+  }
+}

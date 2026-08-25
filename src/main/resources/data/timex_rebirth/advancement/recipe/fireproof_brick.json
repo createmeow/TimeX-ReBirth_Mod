@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:fireproof_brick"
+    ]
+  },
+  "criteria": {
+    "has_minecraft_brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:brick"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:fireproof_brick"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_minecraft_brick",
+      "has_the_recipe"
+    ]
+  ]
+}

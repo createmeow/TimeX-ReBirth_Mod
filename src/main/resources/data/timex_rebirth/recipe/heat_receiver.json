@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AIA",
+    "IRI",
+    "AIA"
+  ],
+  "key": {
+    "A": {
+      "item": "timex_rebirth:heat_alloy_ingot"
+    },
+    "I": {
+      "item": "timex_rebirth:insulated_glass"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:heat_receiver",
+    "count": 1
+  }
+}

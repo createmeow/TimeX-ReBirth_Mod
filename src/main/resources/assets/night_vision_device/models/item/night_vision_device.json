@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "night_vision_device:item/night_vision_device"
+  }
+}

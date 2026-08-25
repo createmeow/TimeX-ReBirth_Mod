@@ -1,0 +1,13 @@
+{
+  "itemGroup.cm_plugins": "Example Mod Tab",
+  "block.cm_plugins.example_block": "Example Block",
+  "item.cm_plugins.example_item": "Example Item",
+
+  "cm_plugins.configuration.title": "createmeow's plugins Configs",
+  "cm_plugins.configuration.section.cm_plugins.common.toml": "createmeow's plugins Configs",
+  "cm_plugins.configuration.section.cm_plugins.common.toml.title": "createmeow's plugins Configs",
+  "cm_plugins.configuration.items": "Item List",
+  "cm_plugins.configuration.logDirtBlock": "Log Dirt Block",
+  "cm_plugins.configuration.magicNumberIntroduction": "Magic Number Text",
+  "cm_plugins.configuration.magicNumber": "Magic Number"
+}

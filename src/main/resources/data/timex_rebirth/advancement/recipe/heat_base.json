@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:heat_base"
+    ]
+  },
+  "criteria": {
+    "has_timex_rebirth_fireproof_brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:fireproof_brick"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:heat_base"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_timex_rebirth_fireproof_brick",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:heat_adapter"
+    ]
+  },
+  "criteria": {
+    "has_timex_rebirth_heat_alloy_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:heat_alloy_ingot"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:heat_adapter"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_timex_rebirth_heat_alloy_ingot",
+      "has_the_recipe"
+    ]
+  ]
+}

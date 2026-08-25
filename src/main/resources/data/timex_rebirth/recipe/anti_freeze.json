@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GP",
+    "PG"
+  ],
+  "key": {
+    "G": {
+      "item": "timex_rebirth:anti_freeze_gel"
+    },
+    "P": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:anti_freeze",
+    "count": 1
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:anti_freeze"
+    ]
+  },
+  "criteria": {
+    "has_timex_rebirth_anti_freeze_gel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:anti_freeze_gel"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:anti_freeze"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_timex_rebirth_anti_freeze_gel",
+      "has_the_recipe"
+    ]
+  ]
+}

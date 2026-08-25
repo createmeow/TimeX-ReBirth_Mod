@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:add_item",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": "#farmersdelight:straw_harvesters"
+      }
+    },
+    {
+      "condition": "minecraft:block_state_property",
+      "block": "timex_rebirth:rye_crop",
+      "properties": { "age": "7" }
+    }
+  ],
+  "item": "timex_rebirth:rye_straw"
+}

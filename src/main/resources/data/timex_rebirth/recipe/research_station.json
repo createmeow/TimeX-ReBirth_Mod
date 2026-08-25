@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "IBI",
+    "III"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "G": {
+      "item": "timex_rebirth:insulated_glass"
+    },
+    "I": {
+      "item": "timex_rebirth:heat_alloy_ingot"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:research_station",
+    "count": 1
+  }
+}

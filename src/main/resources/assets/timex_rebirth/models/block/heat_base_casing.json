@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "timex_rebirth:block/heat_base_casing",
+    "particle": "timex_rebirth:block/heat_base_casing"
+  }
+}

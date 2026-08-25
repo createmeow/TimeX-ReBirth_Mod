@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wheat_seeds",
+    "farmersdelight:cabbage_seeds",
+    "farmersdelight:tomato_seeds",
+    "farmersdelight:onion",
+    "farmersdelight:rice",
+    "farmersdelight:rice_panicle",
+    "timex_rebirth:rye_seeds",
+    "timex_rebirth:turnip_seeds"
+  ]
+}

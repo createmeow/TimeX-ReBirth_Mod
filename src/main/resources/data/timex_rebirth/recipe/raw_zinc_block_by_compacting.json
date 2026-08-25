@@ -1,0 +1,43 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    },
+    {
+      "item": "create:raw_zinc"
+    }
+  ],
+  "results": [
+    {
+      "id": "create:raw_zinc_block"
+    }
+  ]
+}

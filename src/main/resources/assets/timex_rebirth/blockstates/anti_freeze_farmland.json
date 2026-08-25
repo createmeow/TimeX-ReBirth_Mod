@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "timex_rebirth:block/anti_freeze_farmland"
+    },
+    "moisture=1": {
+      "model": "timex_rebirth:block/anti_freeze_farmland"
+    },
+    "moisture=2": {
+      "model": "timex_rebirth:block/anti_freeze_farmland"
+    },
+    "moisture=3": {
+      "model": "timex_rebirth:block/anti_freeze_farmland"
+    },
+    "moisture=4": {
+      "model": "timex_rebirth:block/anti_freeze_farmland"
+    },
+    "moisture=5": {
+      "model": "timex_rebirth:block/anti_freeze_farmland"
+    },
+    "moisture=6": {
+      "model": "timex_rebirth:block/anti_freeze_farmland"
+    },
+    "moisture=7": {
+      "model": "timex_rebirth:block/anti_freeze_farmland_moist"
+    }
+  }
+}

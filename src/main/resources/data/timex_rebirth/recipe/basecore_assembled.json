@@ -1,0 +1,149 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "basecore"
+    }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "basecore:electronic_component"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "chance": 90.0,
+      "id": "basecore:basecore"
+    },
+    {
+      "chance": 30.0,
+      "id": "minecraft:iron_ingot"
+    },
+    {
+      "chance": 20.0,
+      "id": "minecraft:gold_ingot"
+    },
+    {
+      "chance": 15.0,
+      "id": "minecraft:redstone"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_basecore"
+        },
+        {
+          "item": "basecore:chip"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_basecore"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_basecore"
+        },
+        {
+          "item": "basecore:refined_chip"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_basecore"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_basecore"
+        },
+        {
+          "item": "minecraft:diamond_block"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_basecore"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_basecore"
+        },
+        {
+          "item": "minecraft:gold_ingot"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_basecore"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_basecore"
+        },
+        {
+          "item": "minecraft:iron_ingot"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_basecore"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_basecore"
+        },
+        {
+          "item": "minecraft:redstone"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_basecore"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_basecore"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_basecore"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "timex_rebirth:incomplete_basecore"
+  }
+}

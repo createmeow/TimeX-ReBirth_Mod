@@ -1,0 +1,8 @@
+{
+  "type": "timex_rebirth:drawing",
+  "ingredient": {
+    "item": "timex_rebirth:damaged_ram"
+  },
+  "min": 4,
+  "max": 9
+}

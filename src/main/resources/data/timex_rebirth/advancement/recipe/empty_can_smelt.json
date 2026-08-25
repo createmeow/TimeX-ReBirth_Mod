@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:empty_can_smelt"
+    ]
+  },
+  "criteria": {
+    "has_timex_rebirth_empty_can": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:empty_can"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:empty_can_smelt"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_timex_rebirth_empty_can",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=down": { "model": "timex_rebirth:block/heat_base_casing" },
+    "facing=up": { "model": "timex_rebirth:block/heat_base_casing" },
+    "facing=north": { "model": "timex_rebirth:block/heat_base_casing" },
+    "facing=south": { "model": "timex_rebirth:block/heat_base_casing" },
+    "facing=west": { "model": "timex_rebirth:block/heat_base_casing" },
+    "facing=east": { "model": "timex_rebirth:block/heat_base_casing" }
+  }
+}

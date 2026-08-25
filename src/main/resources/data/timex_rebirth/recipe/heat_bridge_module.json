@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "basecore:component_mode_disabled"
+    }
+  ],
+  "pattern": [
+    "BIB",
+    "IRI",
+    "BIB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "I": {
+      "item": "timex_rebirth:heat_alloy_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:heat_bridge_module",
+    "count": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": { "tag": "c:foods/cooked_meat" },
+  "result": { "id": "timex_rebirth:dried_meat", "count": 1 },
+  "experience": 0.35,
+  "cookingtime": 100
+}

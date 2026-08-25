@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BP",
+    "BB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "P": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:fireproof_brick",
+    "count": 4
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "create:cardboard" }
+  ],
+  "result": {
+    "id": "timex_rebirth:paper_bowl",
+    "count": 1
+  }
+}

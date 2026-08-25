@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:anti_freeze"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.anti_freeze_pro.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.anti_freeze_pro.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "timex_rebirth:root",
+  "criteria": {
+    "dirt": {
+      "trigger": "timex_rebirth:anti_freeze_used",
+      "conditions": {
+        "soil_type": "dirt"
+      }
+    },
+    "farmland": {
+      "trigger": "timex_rebirth:anti_freeze_used",
+      "conditions": {
+        "soil_type": "farmland"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dirt",
+      "farmland"
+    ]
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "timex_rebirth:block/heat_base_bottom",
+    "top": "timex_rebirth:block/heat_base_top",
+    "side": "timex_rebirth:block/heat_base",
+    "particle": "timex_rebirth:block/heat_base"
+  }
+}

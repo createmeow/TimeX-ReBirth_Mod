@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "immersive_weathering"
+    }
+  ],
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "immersive_weathering:permafrost"
+  },
+  "result": {
+    "id": "minecraft:dirt"
+  },
+  "experience": 0.0,
+  "cookingtime": 100
+}

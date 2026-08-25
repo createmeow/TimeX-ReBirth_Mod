@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:anti_freeze_dirt"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.thaw_soil.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.thaw_soil.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "timex_rebirth:root",
+  "criteria": {
+    "thawed": {
+      "trigger": "timex_rebirth:anti_freeze_used",
+      "conditions": {
+        "soil_type": "permafrost"
+      }
+    }
+  }
+}

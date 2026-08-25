@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "timex_rebirth:canned_food",
+    "timex_rebirth:instant_noodles",
+    "reality_value:rum",
+    "timex_rebirth:rotten_meal_bowl",
+    "timex_rebirth:rotten_meat_bowl"
+  ]
+}

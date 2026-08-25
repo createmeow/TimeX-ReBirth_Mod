@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:mushroom_stew",
+    "minecraft:rabbit_stew",
+    "minecraft:beetroot_soup",
+    "minecraft:suspicious_stew",
+    "farmersdelight:hot_cocoa",
+    "farmersdelight:apple_cider",
+    "farmersdelight:bone_broth",
+    "farmersdelight:beef_stew",
+    "farmersdelight:chicken_soup",
+    "farmersdelight:fish_stew",
+    "farmersdelight:pumpkin_soup",
+    "farmersdelight:vegetable_soup",
+    "farmersdelight:noodle_soup",
+    "reality_value:rum",
+    "timex_rebirth:wasteland_stew",
+    "timex_rebirth:wasteland_broth",
+    "timex_rebirth:herbal_tea"
+  ]
+}

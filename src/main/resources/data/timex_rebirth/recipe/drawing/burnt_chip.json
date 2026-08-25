@@ -1,0 +1,8 @@
+{
+  "type": "timex_rebirth:drawing",
+  "ingredient": {
+    "item": "timex_rebirth:burnt_chip"
+  },
+  "min": 3,
+  "max": 7
+}

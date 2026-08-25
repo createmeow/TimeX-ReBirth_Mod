@@ -1,0 +1,52 @@
+{
+  "required": true,
+  "package": "io.github.createmeow.timex_rebirth.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MultiNoiseBiomeSourceMixin",
+    "SurfaceRulesStateRuleMixin",
+    "BlockStateBaseRandomTickMixin",
+    "ServerLevelMixin_PlaceExtraSnow",
+    "CampfireCookTickMixin",
+    "BlockGrowthHandlerMixin",
+    "PlantFeatureMixin",
+    "ColdSweatWorldHelperMixin",
+    "FoodPouchMenuMixin",
+    "FrozenRottenFoodMixin",
+    "LivingEntityEffectsMixin",
+    "PlaceholderBlockEntityMixin",
+    "CraftingMenuMixin",
+    "BasecoreUpgradeMenuMixin",
+    "CropBlockSoilMixin",
+    "GenericItemFillingMixin",
+    "GenericItemEmptyingMixin",
+    "BasinRecipePurityMixin",
+    "FiahiCapabilityMixin",
+    "FiahiGrainRotMixin",
+    "ItemEntitySeedWitherMixin",
+    "InventorySeedWitherMixin",
+    "CraftingTempPreserveMixin",
+    "FurnaceTempPreserveMixin",
+    "BasinRecipeTemperatureMixin",
+    "FarmersDelightCookingPotMixin",
+    "FarmersDelightCuttingBoardMixin",
+    "ComposterRottenBowlMixin"
+  ],
+  "client": [
+    "LevelRendererMixin",
+    "GuiHudMixin",
+    "BossHealthOverlayMixin",
+    "AppleSkinOverlayMixin",
+    "FarmersDelightHudOverlaysMixin",
+    "ColdSweatOverlaysMixin",
+    "RealityValueHudMixin",
+    "ThirstBarRendererMixin",
+    "ImmersiveAircraftOverlayMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

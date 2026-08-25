@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:heat_station"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.heat_station_built.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.heat_station_built.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "timex_rebirth:root",
+  "criteria": {
+    "placed": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "timex_rebirth:heat_station",
+            "properties": {}
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "fiahi:food_rotting",
+  "ingredient": {
+    "tag": "timex_rebirth:fiahi_rottable"
+  },
+  "result": {
+    "id": "fiahi:leftover_vegetable",
+    "count": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FAF",
+    "AHA",
+    "FAF"
+  ],
+  "key": {
+    "F": {
+      "item": "timex_rebirth:fireproof_casing"
+    },
+    "A": {
+      "item": "timex_rebirth:heat_alloy_ingot"
+    },
+    "H": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:heat_station",
+    "count": 1
+  }
+}

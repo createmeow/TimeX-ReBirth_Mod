@@ -1,0 +1,8 @@
+{
+  "type": "timex_rebirth:drawing",
+  "ingredient": {
+    "item": "timex_rebirth:scrap_aluminum_sheet"
+  },
+  "min": 2,
+  "max": 5
+}

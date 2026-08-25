@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:heat_station"
+    ]
+  },
+  "criteria": {
+    "has_timex_rebirth_fireproof_casing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:fireproof_casing"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:heat_station"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_timex_rebirth_fireproof_casing",
+      "has_the_recipe"
+    ]
+  ]
+}

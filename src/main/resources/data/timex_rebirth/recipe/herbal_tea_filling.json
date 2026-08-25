@@ -1,0 +1,18 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "type": "neoforge:single",
+      "amount": 250,
+      "fluid": "timex_rebirth:herbal_tea"
+    }
+  ],
+  "results": [
+    {
+      "id": "timex_rebirth:herbal_tea"
+    }
+  ]
+}

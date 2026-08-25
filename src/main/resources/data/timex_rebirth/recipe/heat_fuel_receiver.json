@@ -1,0 +1,116 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "minecraft:hopper"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "chance": 90.0,
+      "id": "timex_rebirth:heat_fuel_receiver"
+    },
+    {
+      "chance": 30.0,
+      "id": "minecraft:iron_ingot"
+    },
+    {
+      "chance": 20.0,
+      "id": "create:iron_sheet"
+    },
+    {
+      "chance": 15.0,
+      "count": 2,
+      "id": "timex_rebirth:fireproof_brick"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_heat_fuel_receiver"
+        },
+        {
+          "item": "timex_rebirth:fireproof_brick"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_heat_fuel_receiver"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_heat_fuel_receiver"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_heat_fuel_receiver"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_heat_fuel_receiver"
+        },
+        {
+          "item": "timex_rebirth:heat_alloy_ingot"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_heat_fuel_receiver"
+        }
+      ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_heat_fuel_receiver"
+        },
+        {
+          "type": "neoforge:single",
+          "amount": 500,
+          "fluid": "minecraft:lava"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_heat_fuel_receiver"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_heat_fuel_receiver"
+        },
+        {
+          "item": "minecraft:coal_block"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_heat_fuel_receiver"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "timex_rebirth:incomplete_heat_fuel_receiver"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cooking",
+  "experience": 1.0,
+  "ingredients": [
+    { "item": "timex_rebirth:rye_flour" },
+    { "item": "timex_rebirth:turnip" },
+    { "tag": "c:foods/cooked_meat" }
+  ],
+  "recipe_book_tab": "meals",
+  "container": { "id": "minecraft:iron_ingot" },
+  "result": { "id": "timex_rebirth:canned_food", "count": 1 },
+  "cookingtime": 400
+}

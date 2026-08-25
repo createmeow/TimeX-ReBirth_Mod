@@ -1,0 +1,8 @@
+{
+  "type": "timex_rebirth:drawing",
+  "ingredient": {
+    "item": "timex_rebirth:rusty_copper_sheet"
+  },
+  "min": 2,
+  "max": 5
+}

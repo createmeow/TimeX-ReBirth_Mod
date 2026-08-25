@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:baked_turnip_campfire"
+    ]
+  },
+  "criteria": {
+    "has_timex_rebirth_turnip": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:turnip"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:baked_turnip_campfire"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_timex_rebirth_turnip",
+      "has_the_recipe"
+    ]
+  ]
+}

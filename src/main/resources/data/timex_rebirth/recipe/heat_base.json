@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "S S",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "timex_rebirth:fireproof_brick"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:heat_base",
+    "count": 1
+  }
+}

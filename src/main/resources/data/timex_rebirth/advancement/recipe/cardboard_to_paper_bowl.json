@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:cardboard_to_paper_bowl"
+    ]
+  },
+  "criteria": {
+    "has_create_cardboard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "create:cardboard"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:cardboard_to_paper_bowl"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_create_cardboard",
+      "has_the_recipe"
+    ]
+  ]
+}

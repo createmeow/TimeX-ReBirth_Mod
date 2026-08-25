@@ -1,0 +1,32 @@
+{
+	"providers": [
+        {
+            "type": "bitmap",
+            "file": "minecraft:custom/createmeow_icon.png",
+            "ascent": 8,
+            "height": 8,
+            "chars": ["\uECF7"]
+        },
+        {
+            "type": "bitmap",
+            "file": "minecraft:custom/bronze_coin.png",
+            "ascent": 8,
+            "height": 9,
+            "chars": ["\uEC00"]
+        },
+        {
+            "type": "bitmap",
+            "file": "minecraft:custom/gold_coin.png",
+            "ascent": 8,
+            "height": 9,
+            "chars": ["\uEC01"]
+        },
+        {
+            "type": "bitmap",
+            "file": "minecraft:custom/silver_coin.png",
+            "ascent": 8,
+            "height": 9,
+            "chars": ["\uEC02"]
+        }
+	]
+}

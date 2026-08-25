@@ -1,0 +1,8 @@
+{
+  "type": "timex_rebirth:drawing",
+  "ingredient": {
+    "item": "timex_rebirth:burnt_cable"
+  },
+  "min": 1,
+  "max": 4
+}

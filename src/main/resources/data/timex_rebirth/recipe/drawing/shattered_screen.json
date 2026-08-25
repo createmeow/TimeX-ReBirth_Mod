@@ -1,0 +1,8 @@
+{
+  "type": "timex_rebirth:drawing",
+  "ingredient": {
+    "item": "timex_rebirth:shattered_screen"
+  },
+  "min": 3,
+  "max": 8
+}

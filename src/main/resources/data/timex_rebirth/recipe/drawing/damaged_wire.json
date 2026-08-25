@@ -1,0 +1,8 @@
+{
+  "type": "timex_rebirth:drawing",
+  "ingredient": {
+    "item": "timex_rebirth:damaged_wire"
+  },
+  "min": 1,
+  "max": 4
+}

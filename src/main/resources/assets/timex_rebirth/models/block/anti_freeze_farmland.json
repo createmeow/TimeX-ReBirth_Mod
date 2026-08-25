@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "timex_rebirth:block/anti_freeze_dirt",
+    "top": "timex_rebirth:block/anti_freeze_farmland_top"
+  }
+}

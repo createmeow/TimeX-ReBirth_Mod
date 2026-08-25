@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:heat_bridge_module"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.root.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.root.desc"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

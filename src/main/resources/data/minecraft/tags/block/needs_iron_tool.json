@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "timex_rebirth:heat_receiver",
+    "timex_rebirth:heat_station",
+    "timex_rebirth:heat_base",
+    "timex_rebirth:heat_fuel_receiver",
+    "timex_rebirth:heat_adapter",
+    "timex_rebirth:heat_module_slot",
+    "timex_rebirth:heat_base_casing",
+    "timex_rebirth:heat_station_casing"
+  ]
+}

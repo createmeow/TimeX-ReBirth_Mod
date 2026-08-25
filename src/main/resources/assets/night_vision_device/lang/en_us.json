@@ -1,0 +1,13 @@
+{
+  "item.night_vision_device.night_vision_device": "Night Vision Device",
+  "item.night_vision_device.night_vision_device.desc": "Provides night vision when worn, with a green night vision overlay",
+  "item.night_vision_device.night_vision_device.tooltip": "§7Provides night vision when worn on head",
+  "item.night_vision_device.night_vision_device.tooltip.nogreen": "§7Green overlay rendering disabled",
+  "item.night_vision_device.night_vision_device.tooltip.green": "§aWill render green night vision overlay when worn",
+  "item.components.night_vision_device.no_green": "Disable Green Overlay",
+  "tooltip.night_vision_device.no_green.true": "Yes",
+  "tooltip.night_vision_device.no_green.false": "No",
+  "night_vision_device.configuration.title": "Night Vision Device Configs",
+  "night_vision_device.configuration.section.night_vision_device.common.toml": "Night Vision Device Configs",
+  "night_vision_device.configuration.section.night_vision_device.common.toml.title": "Night Vision Device Configs"
+}

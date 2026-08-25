@@ -1,0 +1,6 @@
+{
+  "biomes": ["#minecraft:is_snowy"],
+  "temperature": -0.7,
+  "units": "MC",
+  "is_offset": true
+}

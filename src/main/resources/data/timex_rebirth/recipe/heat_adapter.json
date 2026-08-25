@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IBI",
+    "BRB",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "item": "timex_rebirth:heat_alloy_ingot"
+    },
+    "B": {
+      "item": "timex_rebirth:fireproof_brick"
+    },
+    "R": {
+      "item": "minecraft:blast_furnace"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:heat_adapter",
+    "count": 1
+  }
+}

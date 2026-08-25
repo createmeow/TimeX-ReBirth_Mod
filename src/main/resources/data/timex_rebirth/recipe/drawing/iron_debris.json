@@ -1,0 +1,8 @@
+{
+  "type": "timex_rebirth:drawing",
+  "ingredient": {
+    "item": "timex_rebirth:iron_debris"
+  },
+  "min": 2,
+  "max": 5
+}
