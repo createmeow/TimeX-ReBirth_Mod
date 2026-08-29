@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "timex_rebirth:anti_freeze_dirt",
-    "timex_rebirth:anti_freeze_farmland"
+    "timex_rebirth:frozen_rich_soil"
   ]
 }

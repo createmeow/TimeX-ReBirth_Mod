@@ -1,0 +1,11 @@
+{
+  "type": "timex_rebirth:drying_rack",
+  "ingredient": {
+    "item": "timex_rebirth:twig"
+  },
+  "dryingTime": 400,
+  "result": {
+    "id": "timex_rebirth:dry_twig",
+    "count": 1
+  }
+}

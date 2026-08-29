@@ -12,6 +12,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.bus.api.IEventBus;
@@ -45,11 +46,11 @@ public class WastelandRegistry {
     public static final DeferredBlock<DrawingTableBlock> DRAWING_TABLE =
             BLOCKS.register("drawing_table", DrawingTableBlock::new);
     public static final DeferredItem<BlockItem> DRAWING_TABLE_ITEM =
-            ITEMS.register("drawing_table", () -> new BlockItem(DRAWING_TABLE.get(), new Item.Properties()));
+            ITEMS.register("drawing_table", () -> new BlockItem(DRAWING_TABLE.get(), new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     // ── 爆炸箭（物品 + 实体）──
     public static final DeferredItem<ExplosiveArrowItem> EXPLOSIVE_ARROW =
-            ITEMS.register("explosive_arrow", () -> new ExplosiveArrowItem(new Item.Properties()));
+            ITEMS.register("explosive_arrow", () -> new ExplosiveArrowItem(new Item.Properties().rarity(Rarity.RARE)));
     public static final DeferredHolder<EntityType<?>, EntityType<ExplosiveArrow>> EXPLOSIVE_ARROW_ENTITY =
             ENTITIES.register("explosive_arrow", () -> EntityType.Builder.<ExplosiveArrow>of(
                             (type, level) -> new ExplosiveArrow(type, level), MobCategory.MISC)
@@ -91,19 +92,19 @@ public class WastelandRegistry {
     }
 
     // ── 废旧物品（废土感物资，绘制台原料，僵尸概率掉落）──
-    public static final DeferredItem<Item> DAMAGED_GPU = ITEMS.register("damaged_gpu", plainItem());
-    public static final DeferredItem<Item> DAMAGED_RAM = ITEMS.register("damaged_ram", plainItem());
+    public static final DeferredItem<Item> DAMAGED_GPU = ITEMS.register("damaged_gpu", plainItem(Rarity.RARE));
+    public static final DeferredItem<Item> DAMAGED_RAM = ITEMS.register("damaged_ram", plainItem(Rarity.UNCOMMON));
     public static final DeferredItem<Item> IRON_DEBRIS = ITEMS.register("iron_debris", plainItem());
     public static final DeferredItem<Item> RUSTY_COPPER_SHEET = ITEMS.register("rusty_copper_sheet", plainItem());
     public static final DeferredItem<Item> SCRAP_ALUMINUM_SHEET = ITEMS.register("scrap_aluminum_sheet", plainItem());
-    public static final DeferredItem<Item> BURNT_CHIP = ITEMS.register("burnt_chip", plainItem());
+    public static final DeferredItem<Item> BURNT_CHIP = ITEMS.register("burnt_chip", plainItem(Rarity.UNCOMMON));
     public static final DeferredItem<Item> DAMAGED_WIRE = ITEMS.register("damaged_wire", plainItem());
     public static final DeferredItem<Item> DAMAGED_FILTER = ITEMS.register("damaged_filter", plainItem());
-    public static final DeferredItem<Item> DAMAGED_CIRCUIT_BOARD = ITEMS.register("damaged_circuit_board", plainItem());
+    public static final DeferredItem<Item> DAMAGED_CIRCUIT_BOARD = ITEMS.register("damaged_circuit_board", plainItem(Rarity.UNCOMMON));
     public static final DeferredItem<Item> BROKEN_SCREW = ITEMS.register("broken_screw", plainItem());
     public static final DeferredItem<Item> RUSTY_SPRING = ITEMS.register("rusty_spring", plainItem());
-    public static final DeferredItem<Item> SHATTERED_SCREEN = ITEMS.register("shattered_screen", plainItem());
-    public static final DeferredItem<Item> DAMAGED_MOTOR = ITEMS.register("damaged_motor", plainItem());
+    public static final DeferredItem<Item> SHATTERED_SCREEN = ITEMS.register("shattered_screen", plainItem(Rarity.UNCOMMON));
+    public static final DeferredItem<Item> DAMAGED_MOTOR = ITEMS.register("damaged_motor", plainItem(Rarity.UNCOMMON));
     public static final DeferredItem<Item> BURNT_CABLE = ITEMS.register("burnt_cable", plainItem());
 
     // ── 绘制配方类型与序列化器 ──
@@ -116,7 +117,11 @@ public class WastelandRegistry {
     }
 
     private static java.util.function.Supplier<Item> plainItem() {
-        return () -> new Item(new Item.Properties());
+        return plainItem(Rarity.COMMON);
+    }
+
+    private static java.util.function.Supplier<Item> plainItem(Rarity rarity) {
+        return () -> new Item(new Item.Properties().rarity(rarity));
     }
 
     /** 全部废旧物品（按定义顺序，供创造标签/僵尸掉落/JEI 展示使用）。 */

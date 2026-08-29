@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "timex_rebirth:deepslate_quartz_ore"
+  },
+  "result": {
+    "id": "minecraft:quartz"
+  },
+  "experience": 0.2,
+  "cookingtime": 100
+}

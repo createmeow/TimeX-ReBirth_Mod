@@ -1,0 +1,21 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "all": "timex_rebirth:block/lit_waxed_cardboard_block",
+    "particle": "timex_rebirth:block/lit_waxed_cardboard_block"
+  },
+  "elements": [
+    {
+      "from": [3, 0, 3],
+      "to": [13, 6, 13],
+      "faces": {
+        "north": { "texture": "#all" },
+        "south": { "texture": "#all" },
+        "west": { "texture": "#all" },
+        "east": { "texture": "#all" },
+        "up": { "texture": "#all" },
+        "down": { "texture": "#all", "cullface": "down" }
+      }
+    }
+  ]
+}

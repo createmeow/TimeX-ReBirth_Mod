@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "timex_rebirth:wet_torn_socks"
+  },
+  "result": {
+    "id": "timex_rebirth:torn_socks"
+  },
+  "cookingtime": 200
+}

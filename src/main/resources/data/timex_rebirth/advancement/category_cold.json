@@ -1,0 +1,23 @@
+{
+  "parent": "timex_rebirth:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:snow"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.category_cold.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.category_cold.desc"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "automatic": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

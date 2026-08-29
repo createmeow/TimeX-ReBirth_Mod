@@ -1,4 +1,5 @@
 {
+  "parent": "timex_rebirth:category_heat",
   "display": {
     "icon": {
       "id": "timex_rebirth:heat_station"
@@ -9,24 +10,14 @@
     "description": {
       "translate": "advancement.timex_rebirth.heat_station_built.desc"
     },
-    "frame": "goal",
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "timex_rebirth:root",
   "criteria": {
-    "placed": {
-      "trigger": "minecraft:placed_block",
-      "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:block_state_property",
-            "block": "timex_rebirth:heat_station",
-            "properties": {}
-          }
-        ]
-      }
+    "built": {
+      "trigger": "timex_rebirth:heat_station_built"
     }
   }
 }

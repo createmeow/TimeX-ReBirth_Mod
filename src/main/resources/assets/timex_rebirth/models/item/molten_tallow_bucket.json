@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "timex_rebirth:item/molten_tallow_bucket"
+  }
+}

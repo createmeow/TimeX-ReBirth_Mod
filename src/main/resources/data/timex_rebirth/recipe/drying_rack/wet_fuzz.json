@@ -1,0 +1,11 @@
+{
+  "type": "timex_rebirth:drying_rack",
+  "ingredient": {
+    "item": "timex_rebirth:wet_fuzz"
+  },
+  "dryingTime": 400,
+  "result": {
+    "id": "timex_rebirth:fuzz",
+    "count": 1
+  }
+}

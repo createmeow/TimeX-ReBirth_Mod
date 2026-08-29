@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "timex_rebirth:wasteland_stew",
+    "timex_rebirth:wasteland_broth",
+    "timex_rebirth:dried_meat",
+    "timex_rebirth:canned_food",
+    "timex_rebirth:instant_noodles",
+    "timex_rebirth:herbal_tea",
+    "timex_rebirth:rye_bread",
+    "timex_rebirth:turnip",
+    "timex_rebirth:baked_turnip",
+    "timex_rebirth:rotten_meal_bowl",
+    "timex_rebirth:rotten_meat_bowl"
+  ]
+}

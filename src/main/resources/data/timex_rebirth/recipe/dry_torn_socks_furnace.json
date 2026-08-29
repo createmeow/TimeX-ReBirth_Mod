@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "timex_rebirth:wet_torn_socks"
+  },
+  "result": {
+    "id": "timex_rebirth:torn_socks"
+  },
+  "experience": 0.0,
+  "cookingtime": 100
+}

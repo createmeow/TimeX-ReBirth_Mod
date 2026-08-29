@@ -1,0 +1,23 @@
+{
+  "parent": "timex_rebirth:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:shield"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.category_defense.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.category_defense.desc"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "automatic": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

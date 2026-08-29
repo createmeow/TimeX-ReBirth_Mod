@@ -30,8 +30,7 @@ public class FrozenRichSoilRegistry {
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.ICE)
                             .strength(0.5F)
-                            .sound(SoundType.CALCITE)
-                            .requiresCorrectToolForDrops()));
+                            .sound(SoundType.CALCITE)));
 
     public static final DeferredItem<BlockItem> FROZEN_RICH_SOIL_ITEM =
             ITEMS.register("frozen_rich_soil", () -> new BlockItem(FROZEN_RICH_SOIL.get(), new Item.Properties()));

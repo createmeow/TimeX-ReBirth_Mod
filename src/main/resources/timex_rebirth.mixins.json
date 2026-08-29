@@ -32,7 +32,13 @@
     "FarmersDelightCuttingBoardMixin",
     "ComposterRottenBowlMixin",
     "CropBlockMixin",
-    "SaplingBlockMixin"
+    "SaplingBlockMixin",
+    "CampfireFuelMixin",
+    "CampfirePlaceMixin",
+    "FarmersDelightStoveFuelMixin",
+    "FarmersDelightStoveTickFuelMixin",
+    "FurnaceFuelMixin",
+    "AbstractFurnaceBlockEntityAccessor"
   ],
   "client": [
     "LevelRendererMixin",

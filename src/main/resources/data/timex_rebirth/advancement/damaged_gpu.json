@@ -1,0 +1,30 @@
+{
+  "parent": "timex_rebirth:scrap_collector",
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:damaged_gpu"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.damaged_gpu.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.damaged_gpu.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got_gpu": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "timex_rebirth:damaged_gpu"
+          }
+        ]
+      }
+    }
+  }
+}

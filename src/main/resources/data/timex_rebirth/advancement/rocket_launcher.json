@@ -1,0 +1,30 @@
+{
+  "parent": "timex_rebirth:category_defense",
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:explosive_arrow"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.rocket_launcher.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.rocket_launcher.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got_arrow": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "timex_rebirth:explosive_arrow"
+          }
+        ]
+      }
+    }
+  }
+}

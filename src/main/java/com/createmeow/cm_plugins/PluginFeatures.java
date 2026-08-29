@@ -9,6 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Random;
 
@@ -82,6 +83,16 @@ public class PluginFeatures {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             SpatialInventoryManager.loadPlayerData(serverPlayer);
             CombatStateManager.onPlayerLogin(serverPlayer);
+
+            // 首次同步「自动合并钱币」开关状态到客户端
+            PacketDistributor.sendToPlayer(serverPlayer, new AutoCoinStatePayload(
+                    PlayerCoinConsolidationHandler.isAutoConsolidate(serverPlayer.getUUID())));
+
+            // 登录时强制同步 NumismaticOverhaul 货币：用 setValue 重置当前值触发
+            // 服务端→客户端同步，等价于「+1 铜 再 -1 铜」但不刷提示、不改余额。
+            if (NumismaticHelper.isAvailable()) {
+                NumismaticHelper.setValue(serverPlayer, NumismaticHelper.getValue(serverPlayer));
+            }
         }
     }
 
@@ -90,6 +101,14 @@ public class PluginFeatures {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             SpatialInventoryManager.savePlayerData(serverPlayer);
             SpatialInventoryManager.cleanupPlayer(serverPlayer);
+        }
+    }
+
+    // 死亡后重生时客户端货币值可能显示为 0（服务端余额仍保留），需重新同步一次。
+    @SubscribeEvent
+    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer && NumismaticHelper.isAvailable()) {
+            NumismaticHelper.setValue(serverPlayer, NumismaticHelper.getValue(serverPlayer));
         }
     }
 }

@@ -1,6 +1,7 @@
 package io.github.createmeow.timex_rebirth.research;
 
 import dev.anye.mc.basecore.basecore.BasecoreServerHelper;
+import io.github.createmeow.timex_rebirth.advancement.AdvancementTriggers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -100,6 +101,8 @@ public class ResearchStationBlockEntity extends BlockEntity {
             ResearchData.clearActiveSession(p);
             if (node != null) {
                 ResearchData.unlock(p, node.id());
+                // 触发"我学会了！"成就
+                AdvancementTriggers.triggerResearcher(p);
                 p.sendSystemMessage(Component.translatable("research.timex_rebirth.unlocked",
                         Component.translatable(node.getNameTranslationKey())));
             } else {

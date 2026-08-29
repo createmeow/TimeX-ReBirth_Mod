@@ -1,0 +1,31 @@
+{
+  "parent": "timex_rebirth:food_maker",
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:rotten_meat_bowl"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.rotten_food_eater.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.rotten_food_eater.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "eat_rotten": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "timex_rebirth:rotten_meat_bowl",
+            "timex_rebirth:rotten_meal_bowl"
+          ]
+        }
+      }
+    }
+  }
+}

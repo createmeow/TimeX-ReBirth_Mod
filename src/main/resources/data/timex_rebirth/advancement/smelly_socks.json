@@ -1,0 +1,23 @@
+{
+  "parent": "timex_rebirth:drying_witness",
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:wet_torn_socks"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.smelly_socks.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.smelly_socks.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "dried_socks": {
+      "trigger": "timex_rebirth:smelly_socks"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import io.github.createmeow.timex_rebirth.TimeX;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.SoundType;
@@ -60,7 +61,8 @@ public class WinterCropRegistry {
             ITEMS.register("rye_dough", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> RYE_BREAD =
             ITEMS.register("rye_bread", () -> new Item(new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(6).saturationModifier(7.2F).build())));
+                    .food(new FoodProperties.Builder().nutrition(6).saturationModifier(7.2F).build())
+                    .rarity(Rarity.UNCOMMON)));
     // 黑麦秸秆：可作熔炉燃料（200 tick ≈ 烧制 1 个物品），同时是造纸原料
     public static final DeferredItem<Item> RYE_STRAW =
             ITEMS.register("rye_straw", () -> new Item(new Item.Properties()) {
@@ -74,7 +76,8 @@ public class WinterCropRegistry {
                     .food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.9F).build())));
     public static final DeferredItem<Item> BAKED_TURNIP =
             ITEMS.register("baked_turnip", () -> new Item(new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(4).saturationModifier(4.8F).build())));
+                    .food(new FoodProperties.Builder().nutrition(4).saturationModifier(4.8F).build())
+                    .rarity(Rarity.UNCOMMON)));
 
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);

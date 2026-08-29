@@ -124,6 +124,15 @@ public class ResearchNetwork {
                 player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("research.timex_rebirth.no_station"));
                 return;
             }
+
+            // 安全检查：验证玩家距离目标研究站不超过 16 格（防止客户端伪造坐标绕过权限）
+            BlockPos stationPos = station.getBlockPos();
+            double distance = player.distanceToSqr(stationPos.getX() + 0.5, stationPos.getY() + 0.5, stationPos.getZ() + 0.5);
+            if (distance > 256) { // 16 格的平方 = 256
+                player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("research.timex_rebirth.no_station"));
+                return;
+            }
+
             switch (packet.action()) {
                 case "start_solo" -> station.startSolo(player, packet.nodeId());
                 case "help" -> station.startHelp(player, packet.nodeId(), packet.partner());

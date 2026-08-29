@@ -5,6 +5,7 @@ import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -48,10 +49,10 @@ public class AntiFreezeRegistry {
             ITEMS.register("anti_freeze_farmland", () -> new BlockItem(ANTI_FREEZE_FARMLAND.get(), new Item.Properties()));
     /** 防冻剂：最大 16 次使用（每次右键消耗 1 点耐久）。 */
     public static final DeferredItem<AntiFreezeItem> ANTI_FREEZE =
-            ITEMS.register("anti_freeze", () -> new AntiFreezeItem(new Item.Properties().durability(16)));
+            ITEMS.register("anti_freeze", () -> new AntiFreezeItem(new Item.Properties().durability(16).rarity(Rarity.UNCOMMON)));
     /** 抗冻凝胶：低温凝胶材料，与铁板合成防冻剂（配方 anti_freeze.json）。 */
     public static final DeferredItem<Item> ANTI_FREEZE_GEL =
-            ITEMS.register("anti_freeze_gel", () -> new Item(new Item.Properties()));
+            ITEMS.register("anti_freeze_gel", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     // 自定义成就触发器：防冻剂成功转换土壤时触发（区分 dirt/farmland/permafrost）
     public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS =

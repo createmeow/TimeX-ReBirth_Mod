@@ -1,5 +1,7 @@
 package io.github.createmeow.timex_rebirth.wheelmenu;
 
+import com.createmeow.cm_plugins.OpenSpatialInventoryPayload;
+import com.createmeow.cm_plugins.UtilityScreen;
 import io.github.createmeow.timex_rebirth.TimeX;
 import io.github.createmeow.timex_rebirth.client.TechTreeScreen;
 import io.github.createmeow.timex_rebirth.client.WeatherForecastScreen;
@@ -73,6 +75,21 @@ public class WheelActions {
                 .icon(Items.BOOK)
                 .selected(() -> Minecraft.getInstance().setScreen(new TechTreeScreen()))
                 .register(event, TimeX.rl("tech_tree"));
+
+        // --- Quantum Space (cm_plugins 量子空间背包) ---
+        SelectionBuilder.create()
+                .message(Component.translatable("gui." + TimeX.MODID + ".wheel_menu.open_spatial"))
+                .icon(Items.ENDER_CHEST)
+                .selected(() -> net.neoforged.neoforge.network.PacketDistributor
+                        .sendToServer(new OpenSpatialInventoryPayload()))
+                .register(event, TimeX.rl("open_spatial"));
+
+        // --- Utility (cm_plugins 实用功能) ---
+        SelectionBuilder.create()
+                .message(Component.literal("实用功能"))
+                .icon(Items.CRAFTING_TABLE)
+                .selected(() -> Minecraft.getInstance().setScreen(new UtilityScreen()))
+                .register(event, TimeX.rl("utility"));
 
         TimeX.LOGGER.info("Registered {} wheel menu selections", event.getRegisteredCount());
     }

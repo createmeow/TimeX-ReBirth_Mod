@@ -8,6 +8,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -52,11 +53,13 @@ public class WastelandFoodRegistry {
     public static final DeferredItem<BowlFoodItem> WASTELAND_STEW =
             ITEMS.register("wasteland_stew", () -> new BowlFoodItem(new Item.Properties()
                     .stacksTo(1)
-                    .food(new FoodProperties.Builder().nutrition(10).saturationModifier(12.0F).build())));
+                    .food(new FoodProperties.Builder().nutrition(10).saturationModifier(12.0F).build())
+                    .rarity(Rarity.UNCOMMON)));
     public static final DeferredItem<BowlFoodItem> WASTELAND_BROTH =
             ITEMS.register("wasteland_broth", () -> new BowlFoodItem(new Item.Properties()
                     .stacksTo(1)
-                    .food(new FoodProperties.Builder().nutrition(6).saturationModifier(7.2F).build())));
+                    .food(new FoodProperties.Builder().nutrition(6).saturationModifier(7.2F).build())
+                    .rarity(Rarity.UNCOMMON)));
 
     // ── 耐储存食品 ──
     // 空铁罐：罐头吃完返还的容器，可烧炼回收 1 个铁锭
@@ -64,10 +67,12 @@ public class WastelandFoodRegistry {
             ITEMS.register("empty_can", () -> new Item(new Item.Properties()));
     public static final DeferredItem<CanFoodItem> CANNED_FOOD =
             ITEMS.register("canned_food", () -> new CanFoodItem(new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(6).saturationModifier(8.0F).build())));
+                    .food(new FoodProperties.Builder().nutrition(6).saturationModifier(8.0F).build())
+                    .rarity(Rarity.UNCOMMON)));
     public static final DeferredItem<Item> DRIED_MEAT =
             ITEMS.register("dried_meat", () -> new Item(new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(5).saturationModifier(6.0F).build())));
+                    .food(new FoodProperties.Builder().nutrition(5).saturationModifier(6.0F).build())
+                    .rarity(Rarity.UNCOMMON)));
 
     // ── 长保质期食品：方便面（纸碗封装）──
     // 纸碗：方便面的封装容器，食用后返还；可加热搅拌回收成纸浆（联动 Create 纸浆/纸板体系）
@@ -75,7 +80,8 @@ public class WastelandFoodRegistry {
             ITEMS.register("paper_bowl", () -> new Item(new Item.Properties()));
     public static final DeferredItem<InstantNoodlesItem> INSTANT_NOODLES =
             ITEMS.register("instant_noodles", () -> new InstantNoodlesItem(new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(6).saturationModifier(7.0F).build())));
+                    .food(new FoodProperties.Builder().nutrition(6).saturationModifier(7.0F).build())
+                    .rarity(Rarity.UNCOMMON)));
 
     // ── 饮品（瓶装，饮用后返还玻璃瓶）──
     // alwaysEat：饱食度满时也可饮用（参考机械动力建筑工茶饮）
@@ -83,7 +89,8 @@ public class WastelandFoodRegistry {
             ITEMS.register("herbal_tea", () -> new BottleDrinkItem(new Item.Properties()
                     .stacksTo(1)
                     .food(new FoodProperties.Builder().nutrition(2).saturationModifier(2.0F)
-                            .alwaysEdible().build())));
+                            .alwaysEdible().build())
+                    .rarity(Rarity.UNCOMMON)));
 
     public static void register(IEventBus modEventBus) {
         FLUID_TYPES.register(modEventBus);

@@ -1,0 +1,23 @@
+{
+  "parent": "timex_rebirth:root",
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:damaged_circuit_board"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.category_scrap.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.category_scrap.desc"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "automatic": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

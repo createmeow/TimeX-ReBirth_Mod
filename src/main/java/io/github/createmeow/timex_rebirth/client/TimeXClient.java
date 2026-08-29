@@ -91,11 +91,14 @@ public class TimeXClient {
         event.register(ModKeys.KEY_CROP_INFO);
     }
 
-    /** 爆炸箭 / 投掷火焰弹实体渲染器注册。 */
+    /** 爆炸箭 / 投掷火焰弹实体渲染器 + 晾晒架方块实体渲染器注册。 */
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(WastelandRegistry.EXPLOSIVE_ARROW_ENTITY.get(), ExplosiveArrowRenderer::new);
         event.registerEntityRenderer(WastelandRegistry.THROWN_FIRE_CHARGE_ENTITY.get(), ThrownFireChargeRenderer::new);
+        event.registerBlockEntityRenderer(
+                io.github.createmeow.timex_rebirth.features.FireToolRegistry.DRYING_RACK_BE.get(),
+                DryingRackRenderer::new);
     }
 
     @SubscribeEvent
@@ -149,5 +152,42 @@ public class TimeXClient {
                 return ResourceLocation.withDefaultNamespace("block/water_flow");
             }
         }, WastelandFoodRegistry.HERBAL_TEA_FLUID_TYPE);
+
+    // 融化的油脂流体渲染：原版水纹理 + 暗黄白染色（#E8D9A0）
+    event.registerFluidType(new IClientFluidTypeExtensions() {
+        @Override
+        public int getTintColor() {
+            return 0xFFE8D9A0;
+        }
+
+        @Override
+        public ResourceLocation getStillTexture() {
+            return ResourceLocation.withDefaultNamespace("block/water_still");
+        }
+
+        @Override
+        public ResourceLocation getFlowingTexture() {
+            return ResourceLocation.withDefaultNamespace("block/water_flow");
+        }
+    }, io.github.createmeow.timex_rebirth.features.FireToolRegistry.MOLTEN_TALLOW_TYPE);
+
+    // 融化的蜜脾流体渲染：原版水纹理 + 蜂蜜橙染色（#F0A80C）
+    event.registerFluidType(new IClientFluidTypeExtensions() {
+        @Override
+        public int getTintColor() {
+            return 0xFFF0A80C;
+        }
+
+        @Override
+        public ResourceLocation getStillTexture() {
+            return ResourceLocation.withDefaultNamespace("block/water_still");
+        }
+
+        @Override
+        public ResourceLocation getFlowingTexture() {
+            return ResourceLocation.withDefaultNamespace("block/water_flow");
+        }
+    }, io.github.createmeow.timex_rebirth.features.FireToolRegistry.MOLTEN_HONEYCOMB_TYPE);
     }
 }
+

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "fuzz=1": { "model": "timex_rebirth:block/fuzz_pile_1" },
+    "fuzz=2": { "model": "timex_rebirth:block/fuzz_pile_2" },
+    "fuzz=3": { "model": "timex_rebirth:block/fuzz_pile_3" },
+    "fuzz=4": { "model": "timex_rebirth:block/fuzz_pile_4" }
+  }
+}

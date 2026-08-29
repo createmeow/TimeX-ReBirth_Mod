@@ -1,42 +1,43 @@
 package com.createmeow.nightvisiondevice;
 
-import java.util.EnumMap;
-import java.util.List;
-
-import net.minecraft.Util;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Equipable;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
-public class NightVisionDeviceItem extends ArmorItem {
-
-    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS =
-            DeferredRegister.create(Registries.ARMOR_MATERIAL, createmeow.MODID);
-
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> NIGHT_VISION =
-            ARMOR_MATERIALS.register("night_vision",
-                    () -> new ArmorMaterial(
-                            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-                                map.put(ArmorItem.Type.BOOTS, 2);
-                                map.put(ArmorItem.Type.LEGGINGS, 2);
-                                map.put(ArmorItem.Type.CHESTPLATE, 2);
-                                map.put(ArmorItem.Type.HELMET, 2);
-                                map.put(ArmorItem.Type.BODY, 2);
-                            }),
-                            15,
-                            SoundEvents.ARMOR_EQUIP_IRON,
-                            () -> Ingredient.EMPTY,
-                            List.of(new ArmorMaterial.Layer(
-                                    ResourceLocation.fromNamespaceAndPath(createmeow.MODID, "night_vision_device"))),
-                            0.0F,
-                            0.0F));
+/**
+ * 夜视镜：装备到头部（普通物品，非盔甲）。
+ * 头部穿戴时不使用盔甲材质层，而是由原版按物品模型的 {@code display.head}
+ * 配置渲染出 3D 眼镜（同「末地烛」「雕刻南瓜」的头戴物品渲染机制）。
+ */
+public class NightVisionDeviceItem extends Item implements Equipable {
 
     public NightVisionDeviceItem(Properties properties) {
-        super(NIGHT_VISION, ArmorItem.Type.HELMET, properties);
+        super(properties);
+    }
+
+    @Override
+    public EquipmentSlot getEquipmentSlot() {
+        return EquipmentSlot.HEAD;
+    }
+
+    /** 右键穿戴到头部。 */
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        ItemStack head = player.getItemBySlot(EquipmentSlot.HEAD);
+        if (head.isEmpty()) {
+            player.setItemSlot(EquipmentSlot.HEAD, stack.split(1));
+            level.playSound(null, player.blockPosition(), SoundEvents.ARMOR_EQUIP_IRON.value(),
+                    SoundSource.PLAYERS, 1.0F, 1.0F);
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+        }
+        return InteractionResultHolder.pass(stack);
     }
 }

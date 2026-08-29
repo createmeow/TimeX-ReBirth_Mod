@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "timex_rebirth:heat_base",
+    "timex_rebirth:heat_base_casing",
+    "timex_rebirth:fireproof_casing",
+    "timex_rebirth:research_station"
+  ]
+}

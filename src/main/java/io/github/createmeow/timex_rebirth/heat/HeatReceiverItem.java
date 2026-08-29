@@ -4,6 +4,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.context.UseOnContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class HeatReceiverItem extends BlockItem {
 
     public HeatReceiverItem() {
-        super(HeatRegistry.HEAT_RECEIVER.get(), new Item.Properties());
+        super(HeatRegistry.HEAT_RECEIVER.get(), new Item.Properties().rarity(Rarity.RARE));
     }
 
     @Override

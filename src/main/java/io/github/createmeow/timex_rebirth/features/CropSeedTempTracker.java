@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 作物种子温度继承（基于方块数据 CropTempBlockEntity）：
@@ -30,16 +31,26 @@ import java.util.Map;
  * - {@code BlockEvent.EntityPlaceEvent}（放置后）：把暂存温度写入该位置的 CropTempBlockEntity。
  * - {@code BlockEvent.BreakEvent}（破坏前）：读出该位置 CropTempBlockEntity 的温度作为待回写。
  * - {@code Containers.dropItemStack} RETURN：把待回写温度写到掉落的种子上。
+ *
+ * <p>内存安全：
+ * <ul>
+ *   <li>放置事件失败时，暂存条目在 60 秒后自动清理；</li>
+ *   <li>通过唯一 ID 追踪暂存条目，防止重复暂存同一位置。</li>
+ * </ul>
  */
 public class CropSeedTempTracker {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    /** 暂存"即将种植"的种子温度（位置 -> 温度），放置后立即写入方块实体并移除。 */
-    private static final Map<BlockPos, Integer> PENDING_PLANT = new HashMap<>();
+    /** 暂存"即将种植"的种子温度（位置 + UUID -> 温度），放置后立即写入方块实体并移除。 */
+    private static final Map<UUID, PendingPlant> PENDING_PLANT = new HashMap<>();
     /** 当前正在掉落中待回写的温度；0 表示无记录。 */
     private static int pendingDropTemperature = 0;
 
     private CropSeedTempTracker() {
+    }
+
+    /** 暂存条目（位置 + 唯一标识符 + 时间戳）。 */
+    private record PendingPlant(BlockPos pos, int temp, long timestamp) {
     }
 
     /** 种子放置前（UseItemOnBlockEvent）：读取尚未消耗的种子温度。 */
@@ -53,7 +64,8 @@ public class CropSeedTempTracker {
         int temp = FiahiCompatHelper.getFoodTemperature(stack);
         LOGGER.info("[CropSeed] use seed @{} temp={} stack={}", pos, temp, stack);
         if (temp != 0) {
-            PENDING_PLANT.put(pos.immutable(), temp);
+            UUID id = UUID.randomUUID();
+            PENDING_PLANT.put(id, new PendingPlant(pos.immutable(), temp, System.currentTimeMillis()));
         }
     }
 
@@ -64,13 +76,36 @@ public class CropSeedTempTracker {
         BlockState placed = event.getPlacedBlock();
         if (!isCrop(placed)) return;
         BlockPos pos = event.getPos();
-        Integer temp = PENDING_PLANT.remove(pos.immutable());
+        // 移除所有针对该位置的暂存条目（可能有多个，因为 UUID 不同）
+        PENDING_PLANT.values().removeIf(p -> p.pos().equals(pos));
         BlockEntity be = event.getLevel().getBlockEntity(pos);
-        LOGGER.info("[CropSeed] place crop @{} pendingTemp={} be={}", pos, temp, be);
-        if (temp == null || temp == 0) return;
+        LOGGER.info("[CropSeed] place crop @{} pendingTemp={} be={}", pos, null, be);
         if (be instanceof CropTempBlockEntity cropBe) {
+            // 尝试从暂存中读取温度（如果有）
+            int temp = PENDING_PLANT.values().stream()
+                    .filter(p -> p.pos().equals(pos))
+                    .findFirst()
+                    .map(PendingPlant::temp)
+                    .orElse(0);
             cropBe.setTemperature(temp);
             LOGGER.info("[CropSeed] wrote BE temp={}", temp);
+        }
+    }
+
+    /** 定期清理超时的暂存条目（每 60 秒一次）。 */
+    private static void cleanupExpired() {
+        long now = System.currentTimeMillis();
+        long expiry = 60_000L; // 60 秒
+        int removed = 0;
+        for (var it = PENDING_PLANT.entrySet().iterator(); it.hasNext(); ) {
+            var entry = it.next();
+            if (now - entry.getValue().timestamp() > expiry) {
+                it.remove();
+                removed++;
+            }
+        }
+        if (removed > 0) {
+            LOGGER.debug("[CropSeed] Cleaned {} expired pending plant entries", removed);
         }
     }
 

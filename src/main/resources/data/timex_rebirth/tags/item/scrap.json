@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "timex_rebirth:damaged_gpu",
+    "timex_rebirth:damaged_ram",
+    "timex_rebirth:iron_debris",
+    "timex_rebirth:rusty_copper_sheet",
+    "timex_rebirth:scrap_aluminum_sheet",
+    "timex_rebirth:burnt_chip",
+    "timex_rebirth:damaged_wire",
+    "timex_rebirth:damaged_filter",
+    "timex_rebirth:damaged_circuit_board",
+    "timex_rebirth:broken_screw",
+    "timex_rebirth:rusty_spring",
+    "timex_rebirth:shattered_screen",
+    "timex_rebirth:damaged_motor",
+    "timex_rebirth:burnt_cable"
+  ]
+}

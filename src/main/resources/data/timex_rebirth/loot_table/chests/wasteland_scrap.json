@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        { "type": "minecraft:item", "name": "timex_rebirth:damaged_gpu", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:damaged_ram", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:iron_debris", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:rusty_copper_sheet", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:scrap_aluminum_sheet", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:burnt_chip", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:damaged_wire", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:damaged_filter", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:damaged_circuit_board", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:broken_screw", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:rusty_spring", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:shattered_screen", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:damaged_motor", "weight": 1 },
+        { "type": "minecraft:item", "name": "timex_rebirth:burnt_cable", "weight": 1 }
+      ],
+      "conditions": [
+        { "condition": "minecraft:random_chance", "chance": 0.5 }
+      ]
+    }
+  ]
+}

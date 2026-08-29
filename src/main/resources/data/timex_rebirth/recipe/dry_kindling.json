@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "timex_rebirth:dry_twig"
+    },
+    {
+      "item": "timex_rebirth:dry_twig"
+    },
+    {
+      "item": "timex_rebirth:dry_twig"
+    },
+    {
+      "item": "timex_rebirth:dry_twig"
+    }
+  ],
+  "result": {
+    "id": "timex_rebirth:dry_kindling",
+    "count": 1
+  }
+}

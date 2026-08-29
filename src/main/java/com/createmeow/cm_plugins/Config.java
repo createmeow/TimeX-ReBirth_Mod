@@ -95,6 +95,11 @@ public class Config {
             .comment("Combat state: custom death message on combat logout, {player} will be replaced with player name")
             .define("combatDeathMessage", " 在战斗中逃跑并付出了生命代价");
 
+    // ========== Legacy Plugins ==========
+    public static final ModConfigSpec.ConfigValue<String> LITE_ITEM_SHOW_KEYWORD = BUILDER
+            .comment("LiteItemShow: keyword that triggers item display in chat (set empty to disable)")
+            .define("liteItemShowKeyword", "[item]");
+
     static final ModConfigSpec SPEC = BUILDER.build();
 
     private static Set<String> cachedBannedMobs = Set.of();

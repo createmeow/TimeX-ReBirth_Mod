@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.LerpingBossEvent;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -41,6 +40,20 @@ public final class TimeXHudRenderer {
     /** 进度条平滑缓存（进度条标识 -> smoothed 0~1）。 */
     private final Map<String, Float> smoothedProgress = new HashMap<>();
 
+    // ── 每帧昂贵操作的缓存（仅解析一次，避免逐帧反射/注册表查询） ──
+
+    /** Gui#bossOverlay 字段反射缓存。 */
+    private static java.lang.reflect.Field bossOverlayField;
+    /** BossHealthOverlay#events 字段反射缓存。 */
+    private static java.lang.reflect.Field bossEventsField;
+    /** cold_sweat:thermometer 物品缓存（cold_sweat 未装时为空）。 */
+    private static ItemStack thermometerItem;
+    private static boolean thermometerResolved;
+    /** AppleSkin 是否安装（ModList 查询缓存）。 */
+    private static Boolean appleskinLoaded;
+    /** 效果 Holder 解析缓存（effectId -> Holder）。 */
+    private static final Map<ResourceLocation, net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>> effectHolderCache = new HashMap<>();
+
     private TimeXHudRenderer() {
     }
 
@@ -60,6 +73,8 @@ public final class TimeXHudRenderer {
         LocalPlayer p = mc.player;
         if (mc.level == null || p == null) return;
         if (mc.screen != null) return; // 打开界面时不渲染
+        if (mc.options.hideGui) return; // 按 F1 隐藏原版 HUD 时同步隐藏自定义 HUD
+        if (!io.github.createmeow.timex_rebirth.TimeXConfig.CUSTOM_HUD_ENABLED.get()) return; // 配置关闭时隐藏自定义 HUD
 
         HudVariables.load();
         int sw = g.guiWidth();
@@ -155,11 +170,6 @@ public final class TimeXHudRenderer {
             if (HudValues.realityValueHealth() <= 6) renderWarning(g, sw / 2 - 63, sh - 39, 12, 12);
             if (HudValues.realityValueSanity() <= 6) renderWarning(g, sw / 2 - 49, sh - 39, 12, 12);
             if (p.getHealth() <= 6) renderWarning(g, sw / 2 - 90, sh - 25, 180, 3);
-        }
-
-        // 玩家实体（play=开 时，右侧中部）
-        if (HudVariables.is("play", "开")) {
-            renderPlayerEntity(g, p, sw - 43, sh / 2 - 70, 50, 50);
         }
 
         // Boss 条
@@ -317,9 +327,8 @@ public final class TimeXHudRenderer {
         int ty = sh - 21;
         // 背景框（布局 shape b4677df1：element 锚点相对 item，x=8 y=2 w=32 h=12）
         g.fill(tx + 8, ty + 2, tx + 40, ty + 14, 0x5E000000);
-        // 温度计图标（16x16，从元素左上角渲染）
-        ItemStack thermo = new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM
-                .get(ResourceLocation.fromNamespaceAndPath("cold_sweat", "thermometer")));
+        // 温度计图标（16x16，从元素左上角渲染；物品已缓存避免逐帧查注册表+建对象）
+        ItemStack thermo = thermometer();
         if (!thermo.isEmpty()) {
             g.renderItem(thermo, tx, ty);
         }
@@ -365,33 +374,23 @@ public final class TimeXHudRenderer {
         blitWithAlpha(g, warn, x, y, w, h, 0, 0, size[0], size[1], size[0], size[1], alpha);
     }
 
-    // ─────────────────────────── 玩家实体 ───────────────────────────
-
-    private void renderPlayerEntity(GuiGraphics g, LocalPlayer p, int x, int y, int w, int h) {
-        int cx = x + w / 2;
-        int cy = y + h / 2;
-        float scale = Math.max(w, h) / 50.0f;
-        InventoryScreen.renderEntityInInventoryFollowsAngle(g, cx, cy, (int) (scale * 30f),
-                0, 0, 0, -30, 0, p);
-    }
-
     // ─────────────────────────── Boss 条 ───────────────────────────
 
     private void renderBossOverlay(GuiGraphics g, int yPos) {
         Minecraft mc = Minecraft.getInstance();
         try {
-            Object bossOverlay = null;
-            try {
-                java.lang.reflect.Field f = net.minecraft.client.gui.Gui.class.getDeclaredField("bossOverlay");
-                f.setAccessible(true);
-                bossOverlay = f.get(mc.gui);
-            } catch (NoSuchFieldException nsfe) {
-                return;
+            // 反射字段只在首帧解析一次并缓存，避免逐帧 getDeclaredField
+            if (bossOverlayField == null) {
+                bossOverlayField = net.minecraft.client.gui.Gui.class.getDeclaredField("bossOverlay");
+                bossOverlayField.setAccessible(true);
             }
+            if (bossEventsField == null) {
+                bossEventsField = net.minecraft.client.gui.components.BossHealthOverlay.class.getDeclaredField("events");
+                bossEventsField.setAccessible(true);
+            }
+            Object bossOverlay = bossOverlayField.get(mc.gui);
             if (bossOverlay == null) return;
-            java.lang.reflect.Field eventsField = bossOverlay.getClass().getDeclaredField("events");
-            eventsField.setAccessible(true);
-            Map<?, ?> events = (Map<?, ?>) eventsField.get(bossOverlay);
+            Map<?, ?> events = (Map<?, ?>) bossEventsField.get(bossOverlay);
             if (events == null || events.isEmpty()) return;
             int sw = g.guiWidth();
             int xPos = sw / 2 - 91;
@@ -445,16 +444,35 @@ public final class TimeXHudRenderer {
     /** 农夫乐事"舒适"效果。 */
     private static final ResourceLocation FD_COMFORT = ResourceLocation.parse("farmersdelight:comfort");
 
-    /** 玩家是否持有指定效果（按注册表 id 查找，模组未安装时返回 false）。 */
+    /** 玩家是否持有指定效果。Holder 解析一次后缓存，仅 {@code hasEffect} 逐帧动态查询。 */
     private static boolean hasEffect(LocalPlayer p, ResourceLocation effectId) {
         if (p == null) return false;
-        return BuiltInRegistries.MOB_EFFECT.getHolder(effectId)
-                .map(p::hasEffect).orElse(false);
+        net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> holder = effectHolderCache.get(effectId);
+        if (holder == null) {
+            holder = BuiltInRegistries.MOB_EFFECT.getHolder(effectId).orElse(null);
+            if (holder != null) effectHolderCache.put(effectId, holder);
+        }
+        return holder != null && p.hasEffect(holder);
     }
 
-    /** 是否安装 AppleSkin（决定饱和度/解渴度覆盖条显示）。 */
+    /** 是否安装 AppleSkin（ModList 查询缓存一次，避免逐帧调用）。 */
     private static boolean isAppleSkinLoaded() {
-        return ModList.get() != null && ModList.get().isLoaded("appleskin");
+        if (appleskinLoaded == null) {
+            appleskinLoaded = ModList.get() != null && ModList.get().isLoaded("appleskin");
+        }
+        return appleskinLoaded;
+    }
+
+    /** cold_sweat 温度计物品（缓存，避免每帧查注册表 + 建对象）。 */
+    private static ItemStack thermometer() {
+        if (!thermometerResolved) {
+            thermometerResolved = true;
+            net.minecraft.world.item.Item item = BuiltInRegistries.ITEM.get(
+                    ResourceLocation.fromNamespaceAndPath("cold_sweat", "thermometer"));
+            thermometerItem = (item == null || item == net.minecraft.world.item.Items.AIR)
+                    ? ItemStack.EMPTY : new ItemStack(item);
+        }
+        return thermometerItem;
     }
 
     private static float satPct(LocalPlayer p) {

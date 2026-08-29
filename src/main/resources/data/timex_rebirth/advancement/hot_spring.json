@@ -1,4 +1,5 @@
 {
+  "parent": "timex_rebirth:heat_station_built",
   "display": {
     "icon": {
       "id": "timex_rebirth:heat_flux_bucket"
@@ -9,18 +10,14 @@
     "description": {
       "translate": "advancement.timex_rebirth.hot_spring.desc"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "timex_rebirth:root",
   "criteria": {
-    "enter_heat_flux": {
-      "trigger": "minecraft:enter_block",
-      "conditions": {
-        "block": "timex_rebirth:heat_flux"
-      }
+    "bathed": {
+      "trigger": "timex_rebirth:hot_spring"
     }
   }
 }

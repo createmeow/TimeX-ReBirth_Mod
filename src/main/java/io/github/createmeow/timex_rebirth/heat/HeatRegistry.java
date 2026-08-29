@@ -141,6 +141,22 @@ public class HeatRegistry {
                         }
                         // 夜视装备（night_vision_device 模组，合并于本 jar）
                         output.accept(NVItems.NIGHT_VISION_DEVICE.get());
+                        // 火种与引火物：袜子/绒毛/涂蜡纸板
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.TORN_SOCKS.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.WET_TORN_SOCKS.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.FUZZ.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.WET_FUZZ.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.LIT_FUZZ.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.WAXED_CARDBOARD.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.LIT_WAXED_CARDBOARD.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.ASH.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.MOLTEN_TALLOW_BUCKET.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.MOLTEN_HONEYCOMB_BUCKET.get());
+                        // 生火/晾晒：枝条 + 干枝条 + 晾晒架
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.TWIG.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.DRY_TWIG.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.DRYING_RACK_ITEM.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.KindlingRegistry.DRY_KINDLING_ITEM.get());
                     })
                     .build());
 

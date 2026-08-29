@@ -2,6 +2,7 @@ package io.github.createmeow.timex_rebirth.heat;
 
 import io.github.createmeow.timex_rebirth.TimeX;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -18,9 +19,9 @@ public class HeatMaterialsRegistry {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TimeX.MODID);
 
     public static final DeferredItem<Item> HEAT_ALLOY_INGOT =
-            ITEMS.register("heat_alloy_ingot", () -> new Item(new Item.Properties().fireResistant()));
+            ITEMS.register("heat_alloy_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.RARE)));
     public static final DeferredItem<Item> INSULATED_GLASS =
-            ITEMS.register("insulated_glass", () -> new Item(new Item.Properties()));
+            ITEMS.register("insulated_glass", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     // ── 序列组装半成品（不可直接获得，仅作为流水线中间态）──
     public static final DeferredItem<Item> INCOMPLETE_HEAT_FUEL_RECEIVER =

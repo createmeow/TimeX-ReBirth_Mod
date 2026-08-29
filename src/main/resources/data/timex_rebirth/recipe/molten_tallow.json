@@ -1,0 +1,10 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [
+    { "item": "immersive_weathering:tallow" }
+  ],
+  "results": [
+    { "amount": 250, "id": "timex_rebirth:molten_tallow" }
+  ]
+}

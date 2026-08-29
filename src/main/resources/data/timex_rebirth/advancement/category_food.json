@@ -1,0 +1,23 @@
+{
+  "parent": "timex_rebirth:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:bowl"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.category_food.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.category_food.desc"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "automatic": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

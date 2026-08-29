@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -19,7 +20,8 @@ public class NVItems {
     public static final DeferredItem<NightVisionDeviceItem> NIGHT_VISION_DEVICE = ITEMS.register("night_vision_device",
             () -> new NightVisionDeviceItem(new NightVisionDeviceItem.Properties()
                     .stacksTo(1)
-                    .durability(300)));
+                    .durability(300)
+                    .rarity(Rarity.EPIC)));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> NO_GREEN =
             DATA_COMPONENTS.register("no_green", () -> DataComponentType.<Boolean>builder()
@@ -28,7 +30,6 @@ public class NVItems {
                     .build());
 
     public static void register(IEventBus eventBus) {
-        NightVisionDeviceItem.ARMOR_MATERIALS.register(eventBus);
         DATA_COMPONENTS.register(eventBus);
         ITEMS.register(eventBus);
     }

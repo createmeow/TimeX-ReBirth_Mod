@@ -1,0 +1,23 @@
+{
+  "parent": "timex_rebirth:category_cold",
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:twig"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.drying_witness.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.drying_witness.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "dried": {
+      "trigger": "timex_rebirth:drying_witness"
+    }
+  }
+}

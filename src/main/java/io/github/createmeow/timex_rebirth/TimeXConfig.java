@@ -134,5 +134,27 @@ public class TimeXConfig {
             .comment("击杀 BOSS（凋灵/末影龙）获得的研究点数")
             .defineInRange("research.points_per_boss", 10, 0, 1000);
 
+    // ── 客户端 UI ──
+    public static final ModConfigSpec.BooleanValue CUSTOM_HUD_ENABLED = BUILDER
+            .comment("是否启用自定义 HUD（关闭后隐藏本模组全部自定义界面元素）")
+            .define("client.custom_hud_enabled", true);
+
+    // ── 火焰燃料机制（篝火/炉灶不可虚空燃烧，参考 FrostedHeart 设计）──
+    public static final ModConfigSpec.DoubleValue FIRE_STEEL_IGNITION_CHANCE = BUILDER
+            .comment("双手打火（铁锭/粒或锌锭/粒 + 燧石）单次成功率")
+            .defineInRange("fire.steel_ignition_chance", 0.25, 0.0, 1.0);
+    public static final ModConfigSpec.DoubleValue FIRE_STICK_IGNITION_CHANCE = BUILDER
+            .comment("钻木取火（木棍对干燥的木条）单次成功率")
+            .defineInRange("fire.stick_ignition_chance", 0.20, 0.0, 1.0);
+    public static final ModConfigSpec.DoubleValue FIRE_CONSUME_CHANCE = BUILDER
+            .comment("双手打火时双手物品同时消耗的概率（无论生火成败）")
+            .defineInRange("fire.consume_chance", 0.10, 0.0, 1.0);
+    public static final ModConfigSpec.IntValue FIRE_FUEL_MULTIPLIER = BUILDER
+            .comment("燃烧时长倍率：实际燃烧 tick = 物品熔炉燃烧值 × 该倍率（篝火/灶台体系；1 = 与熔炉燃料对等）")
+            .defineInRange("fire.fuel_multiplier", 1, 1, 20);
+    public static final ModConfigSpec.IntValue FIRE_FUEL_CAP_TICKS = BUILDER
+            .comment("火焰燃料上限 (tick)：19200 ≈ 16 分钟")
+            .defineInRange("fire.fuel_cap_ticks", 19200, 200, 240000);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

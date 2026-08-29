@@ -1,0 +1,14 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    { "item": "create:cardboard" },
+    {
+      "type": "neoforge:single",
+      "amount": 125,
+      "fluid": "timex_rebirth:molten_tallow"
+    }
+  ],
+  "results": [
+    { "id": "timex_rebirth:waxed_cardboard" }
+  ]
+}

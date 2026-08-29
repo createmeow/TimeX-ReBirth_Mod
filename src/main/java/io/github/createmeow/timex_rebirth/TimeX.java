@@ -1,11 +1,13 @@
 package io.github.createmeow.timex_rebirth;
 
 import dev.anye.mc.basecore.api.BasecoreUpgradeApi;
+import io.github.createmeow.timex_rebirth.advancement.AdvancementRegistry;
 import io.github.createmeow.timex_rebirth.antifreeze.AntiFreezeRegistry;
 import io.github.createmeow.timex_rebirth.crops.WinterCropRegistry;
 import io.github.createmeow.timex_rebirth.food.WastelandFoodRegistry;
 import io.github.createmeow.timex_rebirth.features.PlantTempDataMap;
 import io.github.createmeow.timex_rebirth.features.FrozenRichSoilRegistry;
+import io.github.createmeow.timex_rebirth.mineral.QuartzOreRegistry;
 import io.github.createmeow.timex_rebirth.features.CropSeedTempTracker;
 import io.github.createmeow.timex_rebirth.features.CropTempRegistry;
 import io.github.createmeow.timex_rebirth.heat.HeatRegistry;
@@ -88,6 +90,9 @@ public class TimeX {
         modEventBus.addListener(ResearchNetwork::register);
         NeoForge.EVENT_BUS.register(ResearchEvents.class);
 
+        // ── 成就系统 ──
+        AdvancementRegistry.register(modEventBus);
+
         // ── 废土物资：废旧物品 / 西瓜皮 / 爆炸箭 / 绘制台（废旧物品→阅历）──
         WastelandRegistry.register(modEventBus);
         NeoForge.EVENT_BUS.register(WastelandEvents.class);
@@ -98,15 +103,34 @@ public class TimeX {
         // ── 冻结的沃土：农夫乐事沃土在低温下冻结而成，可熔炉/篝火解冻 ──
         FrozenRichSoilRegistry.register(modEventBus);
 
+        // ── 石英矿石：主世界新增矿物，浅层常见深层少见，兼容 Create 粉碎/冲洗与熔炼 ──
+        QuartzOreRegistry.register(modEventBus);
+
         // ── 作物种子温度继承：种植记录种子温度，收获掉落时回写 ──
         CropTempRegistry.register(modEventBus);
         NeoForge.EVENT_BUS.register(CropSeedTempTracker.class);
 
         // ── fiahi 联动：为粮食/种子/树苗补注册温度 capability，使其升温/降温并持久化 ──
         io.github.createmeow.timex_rebirth.compat.FiahiSeedCapabilityRegistration.register(modEventBus);
+
+        // ── 篝火/炉灶燃料化：附件 + 打火点燃限制 ──
+        io.github.createmeow.timex_rebirth.features.FireManager.register(modEventBus);
+
+        // ── 生火系统：干燥的木条方块 ──
+        io.github.createmeow.timex_rebirth.features.KindlingRegistry.register(modEventBus);
+
+        // ── 火焰工具：FireToolRegistry 注册 ──
+        io.github.createmeow.timex_rebirth.features.FireToolRegistry.register(modEventBus);
+
+        // ── 树叶采集掉落枝条：剑/农夫乐事刀破坏树叶概率掉「枝条」──
+        NeoForge.EVENT_BUS.register(io.github.createmeow.timex_rebirth.features.LeafTwigDropHandler.class);
     }
 
     public static ResourceLocation rl(String path) {
         return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    }
+
+    public static AdvancementRegistry advancement() {
+        return AdvancementRegistry.INSTANCE;
     }
 }

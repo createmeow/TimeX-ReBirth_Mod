@@ -3,6 +3,7 @@ package io.github.createmeow.timex_rebirth.heat;
 import io.github.createmeow.timex_rebirth.TimeX;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -25,7 +26,7 @@ public class FireproofRegistry {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TimeX.MODID);
 
     public static final DeferredItem<Item> FIREPROOF_BRICK =
-            ITEMS.register("fireproof_brick", () -> new Item(new Item.Properties().fireResistant()));
+            ITEMS.register("fireproof_brick", () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON)));
 
     public static final DeferredBlock<Block> FIREPROOF_CASING =
             BLOCKS.register("fireproof_casing", () -> new Block(BlockBehaviour.Properties.of()
@@ -34,7 +35,7 @@ public class FireproofRegistry {
                     .sound(SoundType.DEEPSLATE)
                     .pushReaction(PushReaction.NORMAL)));
     public static final DeferredItem<BlockItem> FIREPROOF_CASING_ITEM =
-            ITEMS.register("fireproof_casing", () -> new BlockItem(FIREPROOF_CASING.get(), new Item.Properties().fireResistant()));
+            ITEMS.register("fireproof_casing", () -> new BlockItem(FIREPROOF_CASING.get(), new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON)));
 
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);

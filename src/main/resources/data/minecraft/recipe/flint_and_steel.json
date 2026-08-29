@@ -1,0 +1,21 @@
+{
+  "_comment": "TimeX Rebirth: 禁用打火石合成。生火方式改为双手打火（铁/锌锭+燧石）与钻木取火。",
+  "conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "tools",
+  "pattern": [
+    "I ",
+    " F "
+  ],
+  "key": {
+    "I": "#c:ingots/iron",
+    "F": "#c:gems/flint"
+  },
+  "result": {
+    "id": "minecraft:flint_and_steel"
+  }
+}

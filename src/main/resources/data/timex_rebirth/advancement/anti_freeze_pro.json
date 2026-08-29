@@ -1,7 +1,8 @@
 {
+  "parent": "timex_rebirth:thaw_soil",
   "display": {
     "icon": {
-      "id": "timex_rebirth:anti_freeze"
+      "id": "timex_rebirth:anti_freeze_gel"
     },
     "title": {
       "translate": "advancement.timex_rebirth.anti_freeze_pro.title"
@@ -9,20 +10,19 @@
     "description": {
       "translate": "advancement.timex_rebirth.anti_freeze_pro.desc"
     },
-    "frame": "challenge",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "timex_rebirth:root",
   "criteria": {
-    "dirt": {
+    "applied": {
       "trigger": "timex_rebirth:anti_freeze_used",
       "conditions": {
         "soil_type": "dirt"
       }
     },
-    "farmland": {
+    "applied_farmland": {
       "trigger": "timex_rebirth:anti_freeze_used",
       "conditions": {
         "soil_type": "farmland"
@@ -31,8 +31,8 @@
   },
   "requirements": [
     [
-      "dirt",
-      "farmland"
+      "applied",
+      "applied_farmland"
     ]
   ]
 }

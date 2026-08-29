@@ -1,7 +1,8 @@
 {
+  "parent": "timex_rebirth:cold_hardy_crop",
   "display": {
     "icon": {
-      "id": "timex_rebirth:anti_freeze_dirt"
+      "id": "timex_rebirth:anti_freeze"
     },
     "title": {
       "translate": "advancement.timex_rebirth.thaw_soil.title"
@@ -9,12 +10,11 @@
     "description": {
       "translate": "advancement.timex_rebirth.thaw_soil.desc"
     },
-    "frame": "goal",
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "timex_rebirth:root",
   "criteria": {
     "thawed": {
       "trigger": "timex_rebirth:anti_freeze_used",
