@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "dusted=0,layers=1": {
+      "model": "timex_rebirth:block/suspicious_snow_l1_d0"
+    },
+    "dusted=0,layers=2": {
+      "model": "timex_rebirth:block/suspicious_snow_l2_d0"
+    },
+    "dusted=0,layers=3": {
+      "model": "timex_rebirth:block/suspicious_snow_l3_d0"
+    },
+    "dusted=0,layers=4": {
+      "model": "timex_rebirth:block/suspicious_snow_l4_d0"
+    },
+    "dusted=0,layers=5": {
+      "model": "timex_rebirth:block/suspicious_snow_l5_d0"
+    },
+    "dusted=0,layers=6": {
+      "model": "timex_rebirth:block/suspicious_snow_l6_d0"
+    },
+    "dusted=0,layers=7": {
+      "model": "timex_rebirth:block/suspicious_snow_l7_d0"
+    },
+    "dusted=0,layers=8": {
+      "model": "timex_rebirth:block/suspicious_snow_l8_d0"
+    },
+    "dusted=1,layers=1": {
+      "model": "timex_rebirth:block/suspicious_snow_l1_d1"
+    },
+    "dusted=1,layers=2": {
+      "model": "timex_rebirth:block/suspicious_snow_l2_d1"
+    },
+    "dusted=1,layers=3": {
+      "model": "timex_rebirth:block/suspicious_snow_l3_d1"
+    },
+    "dusted=1,layers=4": {
+      "model": "timex_rebirth:block/suspicious_snow_l4_d1"
+    },
+    "dusted=1,layers=5": {
+      "model": "timex_rebirth:block/suspicious_snow_l5_d1"
+    },
+    "dusted=1,layers=6": {
+      "model": "timex_rebirth:block/suspicious_snow_l6_d1"
+    },
+    "dusted=1,layers=7": {
+      "model": "timex_rebirth:block/suspicious_snow_l7_d1"
+    },
+    "dusted=1,layers=8": {
+      "model": "timex_rebirth:block/suspicious_snow_l8_d1"
+    },
+    "dusted=2,layers=1": {
+      "model": "timex_rebirth:block/suspicious_snow_l1_d2"
+    },
+    "dusted=2,layers=2": {
+      "model": "timex_rebirth:block/suspicious_snow_l2_d2"
+    },
+    "dusted=2,layers=3": {
+      "model": "timex_rebirth:block/suspicious_snow_l3_d2"
+    },
+    "dusted=2,layers=4": {
+      "model": "timex_rebirth:block/suspicious_snow_l4_d2"
+    },
+    "dusted=2,layers=5": {
+      "model": "timex_rebirth:block/suspicious_snow_l5_d2"
+    },
+    "dusted=2,layers=6": {
+      "model": "timex_rebirth:block/suspicious_snow_l6_d2"
+    },
+    "dusted=2,layers=7": {
+      "model": "timex_rebirth:block/suspicious_snow_l7_d2"
+    },
+    "dusted=2,layers=8": {
+      "model": "timex_rebirth:block/suspicious_snow_l8_d2"
+    },
+    "dusted=3,layers=1": {
+      "model": "timex_rebirth:block/suspicious_snow_l1_d3"
+    },
+    "dusted=3,layers=2": {
+      "model": "timex_rebirth:block/suspicious_snow_l2_d3"
+    },
+    "dusted=3,layers=3": {
+      "model": "timex_rebirth:block/suspicious_snow_l3_d3"
+    },
+    "dusted=3,layers=4": {
+      "model": "timex_rebirth:block/suspicious_snow_l4_d3"
+    },
+    "dusted=3,layers=5": {
+      "model": "timex_rebirth:block/suspicious_snow_l5_d3"
+    },
+    "dusted=3,layers=6": {
+      "model": "timex_rebirth:block/suspicious_snow_l6_d3"
+    },
+    "dusted=3,layers=7": {
+      "model": "timex_rebirth:block/suspicious_snow_l7_d3"
+    },
+    "dusted=3,layers=8": {
+      "model": "timex_rebirth:block/suspicious_snow_l8_d3"
+    }
+  }
+}

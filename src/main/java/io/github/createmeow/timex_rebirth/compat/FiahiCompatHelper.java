@@ -50,6 +50,16 @@ public final class FiahiCompatHelper {
             ResourceLocation.fromNamespaceAndPath("timex_rebirth", "turnip_seeds")
     );
 
+    /**
+     * 不参与"温度继承"的密封/干燥保存食品：罐头食品、方便面。
+     * 它们本身不会被冻结起效，但一旦被写入 FOOD_TEMPERATURE 组件，
+     * 就会与无该组件的同类物品分裂成不同堆叠，占用背包格。
+     */
+    private static final Set<ResourceLocation> TEMPERATURE_EXEMPT_FOODS = Set.of(
+            ResourceLocation.fromNamespaceAndPath("timex_rebirth", "canned_food"),
+            ResourceLocation.fromNamespaceAndPath("timex_rebirth", "instant_noodles")
+    );
+
     /** 会枯化为"枯萎的灌木"（原版枯死的灌木 minecraft:dead_bush）的种子。与 data 中的配方/tag 共用。 */
     public static final TagKey<Item> WITHERED_SEED_TAG =
             TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("timex_rebirth", "withered_seed"));
@@ -136,9 +146,15 @@ public final class FiahiCompatHelper {
         return temp == null ? 0 : temp;
     }
 
+    /** 是否为温度豁免物品（罐头/方便面等密封干燥食品）：不继承、不写入 fiahi 温度。 */
+    public static boolean isTemperatureExempt(ItemStack stack) {
+        return !stack.isEmpty()
+                && TEMPERATURE_EXEMPT_FOODS.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()));
+    }
+
     /** 把 source 的温度（非 0）写入 target，实现"加工保留温度"。 */
     public static void copyTemperature(ItemStack source, ItemStack target) {
-        if (source.isEmpty() || target.isEmpty()) return;
+        if (source.isEmpty() || target.isEmpty() || isTemperatureExempt(target)) return;
         int temp = getFoodTemperature(source);
         if (temp != 0) {
             target.set(FIAHIAttachmentTypes.FOOD_TEMPERATURE.get(), temp);
@@ -147,7 +163,7 @@ public final class FiahiCompatHelper {
 
     /** 从容器中第一个带温度的物品复制温度到 target（合成台等场景）。 */
     public static void copyTemperatureFromContainer(Container container, ItemStack target) {
-        if (target.isEmpty()) return;
+        if (target.isEmpty() || isTemperatureExempt(target)) return;
         for (int i = 0; i < container.getContainerSize(); i++) {
             int temp = getFoodTemperature(container.getItem(i));
             if (temp != 0) {
@@ -169,7 +185,7 @@ public final class FiahiCompatHelper {
 
     /** 给产物写入温度（非 0 才写，0 表示无腐烂/冻结程度）。 */
     public static void setTemperature(ItemStack target, int temp) {
-        if (target.isEmpty() || temp == 0) return;
+        if (target.isEmpty() || temp == 0 || isTemperatureExempt(target)) return;
         target.set(FIAHIAttachmentTypes.FOOD_TEMPERATURE.get(), temp);
     }
 }

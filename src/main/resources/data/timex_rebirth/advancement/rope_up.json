@@ -1,0 +1,32 @@
+{
+  "parent": "timex_rebirth:category_scrap",
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:grass_rope"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.rope_up.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.rope_up.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_grass_rope": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:grass_rope"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

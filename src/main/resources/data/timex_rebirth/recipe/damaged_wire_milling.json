@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "timex_rebirth:damaged_wire"
+    }
+  ],
+  "processing_time": 250,
+  "results": [
+    {
+      "id": "minecraft:copper_nugget",
+      "count": 2
+    },
+    {
+      "id": "minecraft:iron_nugget",
+      "count": 2
+    }
+  ]
+}

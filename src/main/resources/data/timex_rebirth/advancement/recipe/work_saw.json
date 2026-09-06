@@ -1,0 +1,56 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "timex_rebirth:work_saw"
+    ]
+  },
+  "criteria": {
+    "has_sharp_items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "timex_rebirth:sharp_items"
+          }
+        ]
+      }
+    },
+    "has_ropes": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "timex_rebirth:ropes"
+          }
+        ]
+      }
+    },
+    "has_stick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:stick"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "timex_rebirth:work_saw"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sharp_items",
+      "has_ropes",
+      "has_stick",
+      "has_the_recipe"
+    ]
+  ]
+}

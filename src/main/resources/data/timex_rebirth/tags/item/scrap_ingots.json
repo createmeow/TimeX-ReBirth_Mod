@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_ingot",
+    "minecraft:copper_ingot",
+    "create:zinc_ingot",
+    "create:brass_ingot",
+    "timex_rebirth:aluminum_ingot"
+  ]
+}

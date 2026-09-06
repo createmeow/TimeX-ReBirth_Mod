@@ -1,0 +1,15 @@
+{
+  "type": "numismaticoverhaul:money_bag",
+  "conditions": [
+    {
+      "chance": 0.15,
+      "condition": "minecraft:random_chance"
+    },
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "timex_rebirth:archaeology/suspicious_snow"
+    }
+  ],
+  "max": 200,
+  "min": 0
+}

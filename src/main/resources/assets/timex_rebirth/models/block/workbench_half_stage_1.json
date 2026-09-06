@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "timex_rebirth:block/workbench_half_stage_1_front",
+    "north": "timex_rebirth:block/workbench_half_stage_1_front",
+    "south": "timex_rebirth:block/workbench_half_stage_1_side",
+    "east": "timex_rebirth:block/workbench_half_stage_1_side",
+    "west": "timex_rebirth:block/workbench_half_stage_1_front",
+    "up": "minecraft:block/crafting_table_top",
+    "down": "minecraft:block/oak_planks"
+  }
+}

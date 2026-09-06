@@ -1,0 +1,8 @@
+{
+  "type": "create:splashing",
+  "ingredients": [{"item": "create:crushed_raw_aluminum"}],
+  "results": [
+    {"id": "timex_rebirth:aluminum_nugget", "count": 9},
+    {"id": "minecraft:glowstone_dust", "chance": 0.75}
+  ]
+}

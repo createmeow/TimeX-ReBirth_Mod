@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "create:iron_sheet",
+    "create:copper_sheet",
+    "create:zinc_sheet",
+    "create:brass_sheet",
+    "timex_rebirth:aluminum_sheet"
+  ]
+}

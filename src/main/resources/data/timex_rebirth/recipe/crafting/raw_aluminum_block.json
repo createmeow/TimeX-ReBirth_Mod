@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["III","III","III"],
+  "key": {"I": {"item": "timex_rebirth:raw_aluminum"}},
+  "result": {"count": 1, "id": "timex_rebirth:raw_aluminum_block"}
+}

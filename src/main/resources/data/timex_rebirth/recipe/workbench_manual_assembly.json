@@ -1,0 +1,21 @@
+{
+  "type": "timex_rebirth:manual_assembly",
+  "base": {
+    "tag": "minecraft:planks"
+  },
+  "steps": [
+    {
+      "item": "timex_rebirth:work_shears"
+    },
+    {
+      "item": "timex_rebirth:work_hammer"
+    },
+    {
+      "item": "timex_rebirth:work_saw"
+    }
+  ],
+  "result": {
+    "id": "minecraft:crafting_table",
+    "count": 1
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "neoforge:conditions": [
+    {"type": "neoforge:mod_loaded", "modid": "create"},
+    {"type": "neoforge:mod_loaded", "modid": "basecore"}
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": {"item": "timex_rebirth:cold_resistant_casing"},
+  "loops": 1,
+  "results": [
+    {"chance": 90.0, "id": "basecore:hash_chest"},
+    {"chance": 30.0, "id": "minecraft:iron_ingot"},
+    {"chance": 20.0, "id": "minecraft:redstone"},
+    {"chance": 15.0, "id": "minecraft:ender_pearl"}
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "timex_rebirth:incomplete_hash_chest"}, {"item": "minecraft:chest"}],
+      "results": [{"id": "timex_rebirth:incomplete_hash_chest"}]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "timex_rebirth:incomplete_hash_chest"}, {"item": "minecraft:iron_ingot"}],
+      "results": [{"id": "timex_rebirth:incomplete_hash_chest"}]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "timex_rebirth:incomplete_hash_chest"}, {"item": "basecore:electronic_component"}],
+      "results": [{"id": "timex_rebirth:incomplete_hash_chest"}]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "timex_rebirth:incomplete_hash_chest"}, {"item": "basecore:chip"}],
+      "results": [{"id": "timex_rebirth:incomplete_hash_chest"}]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "timex_rebirth:incomplete_hash_chest"}, {"item": "basecore:refined_chip"}],
+      "results": [{"id": "timex_rebirth:incomplete_hash_chest"}]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "timex_rebirth:incomplete_hash_chest"}, {"item": "timex_rebirth:aluminum_ingot"}],
+      "results": [{"id": "timex_rebirth:incomplete_hash_chest"}]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [{"item": "timex_rebirth:incomplete_hash_chest"}],
+      "results": [{"id": "timex_rebirth:incomplete_hash_chest"}]
+    }
+  ],
+  "transitional_item": {"id": "timex_rebirth:incomplete_hash_chest"}
+}

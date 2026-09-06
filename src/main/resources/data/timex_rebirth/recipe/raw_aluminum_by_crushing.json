@@ -1,0 +1,8 @@
+{
+  "type": "create:crushing",
+  "ingredients": [{"item": "timex_rebirth:raw_aluminum"}],
+  "results": [
+    {"id": "create:crushed_raw_aluminum"},
+    {"id": "create:experience_nugget", "chance": 0.75}
+  ]
+}

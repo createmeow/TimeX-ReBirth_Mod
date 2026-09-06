@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "timex_rebirth:scrap_aluminum_sheet"
+    }
+  ],
+  "processing_time": 250,
+  "results": [
+    {
+      "id": "timex_rebirth:aluminum_nugget",
+      "count": 3
+    }
+  ]
+}

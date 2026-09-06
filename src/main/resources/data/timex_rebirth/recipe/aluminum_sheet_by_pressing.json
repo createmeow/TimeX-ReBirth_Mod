@@ -1,0 +1,5 @@
+{
+  "type": "create:pressing",
+  "ingredients": [{"item": "timex_rebirth:aluminum_ingot"}],
+  "results": [{"id": "timex_rebirth:aluminum_sheet"}]
+}

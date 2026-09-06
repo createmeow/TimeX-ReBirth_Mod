@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T",
+    "T"
+  ],
+  "key": {
+    "T": {
+      "item": "timex_rebirth:dry_twig"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:grass_rope",
+    "count": 1
+  }
+}

@@ -38,6 +38,10 @@ public class TimeXConfig {
             .comment("允许雪累积的环境温度上限（Cold Sweat MC 单位，低于该值才累积）")
             .defineInRange("snow.accumulation_temp_threshold", 0.4, -3.0, 3.0);
 
+    public static final ModConfigSpec.DoubleValue BLIZZARD_SUSPICIOUS_SNOW_CHANCE = BUILDER
+            .comment("暴雪天气下每次雪层增厚时，原雪层转为「可疑的积雪」（可用刷子刷出废品）的概率")
+            .defineInRange("snow.blizzard_suspicious_chance", 0.02, 0.0, 1.0);
+
     // ── 水面结冰 ──
     public static final ModConfigSpec.BooleanValue WATER_FREEZE_ENABLED = BUILDER
             .comment("是否启用水面结冰（低温环境下露天水源转为冰）")

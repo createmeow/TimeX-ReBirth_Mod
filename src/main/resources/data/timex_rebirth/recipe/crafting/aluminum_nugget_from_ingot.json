@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "timex_rebirth:aluminum_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "timex_rebirth:aluminum_nugget"
+  }
+}

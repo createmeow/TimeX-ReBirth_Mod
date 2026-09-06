@@ -122,8 +122,14 @@ public class TimeX {
         // ── 火焰工具：FireToolRegistry 注册 ──
         io.github.createmeow.timex_rebirth.features.FireToolRegistry.register(modEventBus);
 
+        // ── 燧石工具体系：草绳 / 燧石工具 / 可疑的积雪 / 修复配方 ──
+        io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.register(modEventBus);
+
         // ── 树叶采集掉落枝条：剑/农夫乐事刀破坏树叶概率掉「枝条」──
         NeoForge.EVENT_BUS.register(io.github.createmeow.timex_rebirth.features.LeafTwigDropHandler.class);
+
+        // ── 工作台组装系统：工作剪/工作锤/工作锯 + 工作台(半成品) ──
+        io.github.createmeow.timex_rebirth.workbench.WorkbenchRegistry.register(modEventBus);
     }
 
     public static ResourceLocation rl(String path) {

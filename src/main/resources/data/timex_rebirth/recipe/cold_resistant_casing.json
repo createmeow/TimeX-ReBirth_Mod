@@ -1,0 +1,10 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {"item": "minecraft:cobbled_deepslate"},
+    {"item": "timex_rebirth:aluminum_ingot"}
+  ],
+  "results": [
+    {"id": "timex_rebirth:cold_resistant_casing"}
+  ]
+}

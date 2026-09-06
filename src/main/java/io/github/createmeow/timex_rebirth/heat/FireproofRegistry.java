@@ -37,6 +37,19 @@ public class FireproofRegistry {
     public static final DeferredItem<BlockItem> FIREPROOF_CASING_ITEM =
             ITEMS.register("fireproof_casing", () -> new BlockItem(FIREPROOF_CASING.get(), new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON)));
 
+    /**
+     * 耐寒机壳：手持铝锭右键深板岩圆石获得（Create item_application）。
+     * 使用 Create CT 连接纹理系统，与防火机壳同机制但独立互不连接。
+     */
+    public static final DeferredBlock<Block> COLD_RESISTANT_CASING =
+            BLOCKS.register("cold_resistant_casing", () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .strength(3.5F, 6.0F)
+                    .sound(SoundType.DEEPSLATE)
+                    .pushReaction(PushReaction.NORMAL)));
+    public static final DeferredItem<BlockItem> COLD_RESISTANT_CASING_ITEM =
+            ITEMS.register("cold_resistant_casing", () -> new BlockItem(COLD_RESISTANT_CASING.get(), new Item.Properties()));
+
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);

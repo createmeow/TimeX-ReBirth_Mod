@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": {"item": "timex_rebirth:aluminum_nugget"}
+  },
+  "result": {"id": "timex_rebirth:aluminum_ingot"}
+}

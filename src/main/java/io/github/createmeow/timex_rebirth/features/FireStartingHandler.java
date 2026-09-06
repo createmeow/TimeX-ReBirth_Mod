@@ -36,9 +36,24 @@ public class FireStartingHandler {
 
     private static boolean isSteelBar(ItemStack stack) {
         return stack.is(Items.IRON_INGOT) || stack.is(Items.IRON_NUGGET)
+                || stack.is(Items.RAW_IRON)
+                || stack.is(Items.COPPER_INGOT) || stack.is(Items.RAW_COPPER)
+                || stack.is(Items.GOLD_INGOT) || stack.is(Items.GOLD_NUGGET) || stack.is(Items.RAW_GOLD)
+                || stack.is(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_INGOT.get())
+                || stack.is(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_NUGGET.get())
+                || stack.is(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.RAW_ALUMINUM.get())
                 || stack.is(TimeXCompatItems.zincIngot())
-                || stack.is(TimeXCompatItems.zincNugget());
+                || stack.is(TimeXCompatItems.zincNugget())
+                || stack.is(TimeXCompatItems.rawZinc())
+                || stack.is(TimeXCompatItems.brassIngot())
+                || stack.is(TimeXCompatItems.brassNugget());
     }
+
+    /** 服务端点火冷却：防止主副手互换/快速右键导致同一位置连续点火 */
+    private static final java.util.Map<java.util.UUID, Long> LAST_IGNITE_TICK =
+            new java.util.concurrent.ConcurrentHashMap<>();
+    /** 冷却时间（tick）：20 tick = 1 秒 */
+    private static final long IGNITE_COOLDOWN_TICKS = 10L;
 
     /** Create 锌锭/锌粒的注册名（Create 未安装时返回 AIR 判定 false）。 */
     private static class TimeXCompatItems {
@@ -50,6 +65,21 @@ public class FireStartingHandler {
         static net.minecraft.world.item.Item zincNugget() {
             return net.minecraft.core.registries.BuiltInRegistries.ITEM
                     .get(net.minecraft.resources.ResourceLocation.parse("create:zinc_nugget"));
+        }
+
+        static net.minecraft.world.item.Item brassIngot() {
+            return net.minecraft.core.registries.BuiltInRegistries.ITEM
+                    .get(net.minecraft.resources.ResourceLocation.parse("create:brass_ingot"));
+        }
+
+        static net.minecraft.world.item.Item brassNugget() {
+            return net.minecraft.core.registries.BuiltInRegistries.ITEM
+                    .get(net.minecraft.resources.ResourceLocation.parse("create:brass_nugget"));
+        }
+
+        static net.minecraft.world.item.Item rawZinc() {
+            return net.minecraft.core.registries.BuiltInRegistries.ITEM
+                    .get(net.minecraft.resources.ResourceLocation.parse("create:raw_zinc"));
         }
     }
 
@@ -135,6 +165,10 @@ public class FireStartingHandler {
             player.swing(InteractionHand.MAIN_HAND);
             return;
         }
+        // 服务端冷却：防止快速右键/主副手互换重复点火
+        long lastIgnite = LAST_IGNITE_TICK.getOrDefault(player.getUUID(), -IGNITE_COOLDOWN_TICKS);
+        if (level.getGameTime() - lastIgnite < IGNITE_COOLDOWN_TICKS) return;
+        LAST_IGNITE_TICK.put(player.getUUID(), level.getGameTime());
         level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 0.8F,
                 (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
 

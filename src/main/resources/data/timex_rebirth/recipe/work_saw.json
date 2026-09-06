@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "IA",
+    "SI"
+  ],
+  "key": {
+    "A": {
+      "tag": "timex_rebirth:sharp_items"
+    },
+    "S": {
+      "tag": "timex_rebirth:ropes"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:work_saw",
+    "count": 1
+  }
+}

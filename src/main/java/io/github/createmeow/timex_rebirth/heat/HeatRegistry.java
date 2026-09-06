@@ -116,9 +116,10 @@ public class HeatRegistry {
                         // 供热工业材料：耐热合金锭 + 隔热玻璃
                         output.accept(HeatMaterialsRegistry.HEAT_ALLOY_INGOT.get());
                         output.accept(HeatMaterialsRegistry.INSULATED_GLASS.get());
-                        // 防火材料：耐火砖 + 防火机壳
+                        // 防火材料：耐火砖 + 防火机壳 + 耐寒机壳
                         output.accept(FireproofRegistry.FIREPROOF_BRICK.get());
                         output.accept(FireproofRegistry.FIREPROOF_CASING_ITEM.get());
+                        output.accept(FireproofRegistry.COLD_RESISTANT_CASING_ITEM.get());
                         // 团队研究 / 科技树
                         output.accept(ResearchRegistry.RESEARCH_STATION_ITEM.get());
                         // 废土食物：炖菜/浓汤/罐头/肉干/蒸馏水/草药茶
@@ -157,6 +158,21 @@ public class HeatRegistry {
                         output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.DRY_TWIG.get());
                         output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.DRYING_RACK_ITEM.get());
                         output.accept(io.github.createmeow.timex_rebirth.features.KindlingRegistry.DRY_KINDLING_ITEM.get());
+                        // 燧石工具体系：草绳 + 燧石镐/斧/锹/锄
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.GRASS_ROPE.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.FLINT_PICKAXE.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.FLINT_AXE.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.FLINT_SHOVEL.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.FLINT_HOE.get());
+                        // 铝矿物链：粗铝/粗铝块/铝矿石/深层铝矿石/铝锭/铝粒/铝板/铝块
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.RAW_ALUMINUM.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.RAW_ALUMINUM_BLOCK_ITEM.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_ORE_ITEM.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.DEEPSLATE_ALUMINUM_ORE_ITEM.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_INGOT.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_NUGGET.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_SHEET.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_BLOCK_ITEM.get());
                     })
                     .build());
 

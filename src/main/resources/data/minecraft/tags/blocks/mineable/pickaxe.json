@@ -10,9 +10,16 @@
     "timex_rebirth:heat_module_slot",
     "timex_rebirth:heat_receiver",
     "timex_rebirth:fireproof_casing",
+    "timex_rebirth:cold_resistant_casing",
     "timex_rebirth:research_station",
     "timex_rebirth:frozen_rich_soil",
     "timex_rebirth:anti_freeze_dirt",
-    "timex_rebirth:anti_freeze_farmland"
+    "timex_rebirth:anti_freeze_farmland",
+    "timex_rebirth:aluminum_block",
+    "timex_rebirth:raw_aluminum_block",
+    "timex_rebirth:aluminum_ore",
+    "timex_rebirth:deepslate_aluminum_ore",
+    "timex_rebirth:quartz_ore",
+    "timex_rebirth:deepslate_quartz_ore"
   ]
 }

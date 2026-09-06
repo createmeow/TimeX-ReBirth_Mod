@@ -3,6 +3,9 @@ package io.github.createmeow.timex_rebirth.features;
 import io.github.createmeow.timex_rebirth.TimeXConfig;
 import io.github.createmeow.timex_rebirth.compat.ColdSweatCompat;
 import io.github.createmeow.timex_rebirth.compat.ImmersiveWeatheringCompat;
+import io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry;
+import io.github.createmeow.timex_rebirth.weather.TimeXWeather;
+import io.github.createmeow.timex_rebirth.weather.WeatherSystem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LightLayer;
@@ -50,7 +53,17 @@ public class SnowAccumulationHandler {
                 && state.getBlock() == Blocks.SNOW) {
             int layers = state.getValue(BlockStateProperties.LAYERS);
             if (layers < 5) {
-                level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.LAYERS, 1 + layers));
+                // 暴雪升级：少量概率把增厚中的雪层转化为「可疑的积雪」（内含可刷刮的战利品）
+                // 冰面上不生成可疑积雪（只正常加厚雪层）
+                if (WeatherSystem.getWeather(level) == TimeXWeather.BLIZZARD
+                        && level.getRandom().nextFloat() < TimeXConfig.BLIZZARD_SUSPICIOUS_SNOW_CHANCE.get()
+                        && !isIceBelow(level, pos)) {
+                    BlockState suspicious = FlintGearRegistry.SUSPICIOUS_SNOW.get().defaultBlockState()
+                            .setValue(BlockStateProperties.LAYERS, 1 + layers);
+                    level.setBlockAndUpdate(pos, suspicious);
+                } else {
+                    level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.LAYERS, 1 + layers));
+                }
             }
 
             // 积雪下方的地面替换为冻土变体
@@ -78,6 +91,13 @@ public class SnowAccumulationHandler {
             return temp < TimeXConfig.SNOW_ACCUMULATION_TEMP.get();
         }
         return level.getBiome(pos).value().getBaseTemperature() < 0.2;
+    }
+
+    /** 雪层下方是否为冰面（普通冰/浮冰/蓝冰/霜冰） */
+    private static boolean isIceBelow(ServerLevel level, BlockPos pos) {
+        Block below = level.getBlockState(pos.below()).getBlock();
+        return below == Blocks.ICE || below == Blocks.PACKED_ICE
+                || below == Blocks.BLUE_ICE || below == Blocks.FROSTED_ICE;
     }
 
     private static Block getSnowyTerrainReplacement(Block block) {

@@ -38,7 +38,8 @@
     "FarmersDelightStoveFuelMixin",
     "FarmersDelightStoveTickFuelMixin",
     "FurnaceFuelMixin",
-    "AbstractFurnaceBlockEntityAccessor"
+    "AbstractFurnaceBlockEntityAccessor",
+    "FrozenRottenFoodRenderMixin"
   ],
   "client": [
     "LevelRendererMixin",
@@ -49,7 +50,8 @@
     "ColdSweatOverlaysMixin",
     "RealityValueHudMixin",
     "ThirstBarRendererMixin",
-    "ImmersiveAircraftOverlayMixin"
+    "ImmersiveAircraftOverlayMixin",
+    "FrozenRottenFoodRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

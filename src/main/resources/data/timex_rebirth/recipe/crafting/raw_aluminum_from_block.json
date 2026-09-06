@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [{"item": "timex_rebirth:raw_aluminum_block"}],
+  "result": {"count": 9, "id": "timex_rebirth:raw_aluminum"}
+}

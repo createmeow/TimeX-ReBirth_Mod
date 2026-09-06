@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "step=0": {
+      "model": "timex_rebirth:block/workbench_half_stage_0"
+    },
+    "step=1": {
+      "model": "timex_rebirth:block/workbench_half_stage_1"
+    },
+    "step=2": {
+      "model": "timex_rebirth:block/workbench_half_stage_2"
+    }
+  }
+}

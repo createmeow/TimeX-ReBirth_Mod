@@ -1,0 +1,10 @@
+{
+  "type": "create:crushing",
+  "ingredients": [{"item": "timex_rebirth:aluminum_ore"}],
+  "results": [
+    {"id": "create:crushed_raw_aluminum"},
+    {"id": "create:crushed_raw_aluminum", "chance": 0.75},
+    {"id": "create:experience_nugget", "chance": 0.75},
+    {"id": "minecraft:cobblestone", "chance": 0.12}
+  ]
+}

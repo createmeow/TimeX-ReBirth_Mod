@@ -1,0 +1,13 @@
+{
+  "type": "timex_rebirth:flint_tool_repair",
+  "tool": {
+    "item": "timex_rebirth:flint_pickaxe"
+  },
+  "filler": {
+    "tag": "timex_rebirth:sharp_items"
+  },
+  "result": {
+    "id": "timex_rebirth:flint_pickaxe",
+    "count": 1
+  }
+}

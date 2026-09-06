@@ -11,7 +11,7 @@
   ],
   "type": "create:sequenced_assembly",
   "ingredient": {
-    "item": "basecore:electronic_component"
+    "item": "timex_rebirth:cold_resistant_casing"
   },
   "loops": 1,
   "results": [
@@ -121,6 +121,22 @@
         },
         {
           "item": "minecraft:redstone"
+        }
+      ],
+      "results": [
+        {
+          "id": "timex_rebirth:incomplete_basecore"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "timex_rebirth:incomplete_basecore"
+        },
+        {
+          "item": "timex_rebirth:aluminum_ingot"
         }
       ],
       "results": [

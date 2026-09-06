@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "condition": "neoforge:false"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "redstone",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "id": "minecraft:crafting_table",
+    "count": 1
+  }
+}

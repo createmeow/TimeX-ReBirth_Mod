@@ -1,0 +1,54 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "tag": "minecraft:planks"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "chance": 100.0,
+      "id": "minecraft:crafting_table"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "timex_rebirth:workbench_half" },
+        { "item": "timex_rebirth:work_shears" }
+      ],
+      "results": [
+        { "id": "timex_rebirth:workbench_half" }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "timex_rebirth:workbench_half" },
+        { "item": "timex_rebirth:work_hammer" }
+      ],
+      "results": [
+        { "id": "timex_rebirth:workbench_half" }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "timex_rebirth:workbench_half" },
+        { "item": "timex_rebirth:work_saw" }
+      ],
+      "results": [
+        { "id": "timex_rebirth:workbench_half" }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "timex_rebirth:workbench_half"
+  }
+}

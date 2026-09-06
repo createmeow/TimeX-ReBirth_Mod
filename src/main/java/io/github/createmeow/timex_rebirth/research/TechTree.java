@@ -62,7 +62,9 @@ public final class TechTree {
                 List.of(), List.of("use.enchanting_table")));
 
         // ── 装备：工具制造 → 制剑 → 盔甲打制 / 枪械组装（递进解锁）──
-        // 工具制造：门控斧/镐/铲/锄（原版各材质）与农夫乐事刀具的合成配方
+        // 工具制造：门控斧/镐/铲/锄（原版各材质）的合成配方
+        // 注意：农夫乐事刀具（flint_knife 等）不纳入门控，开局即可合成，
+        // 确保玩家在无研究台时也能获取枝条→草绳→燧石工具的基础生存链路。
         add(new TechNode("tool_making", "equipment",
                 10, 300, List.of("tools_maintenance"),
                 List.of("minecraft:wooden_pickaxe", "minecraft:stone_pickaxe", "minecraft:iron_pickaxe",
@@ -72,9 +74,7 @@ public final class TechTree {
                         "minecraft:wooden_shovel", "minecraft:stone_shovel", "minecraft:iron_shovel",
                         "minecraft:golden_shovel", "minecraft:diamond_shovel",
                         "minecraft:wooden_hoe", "minecraft:stone_hoe", "minecraft:iron_hoe",
-                        "minecraft:golden_hoe", "minecraft:diamond_hoe",
-                        "farmersdelight:flint_knife", "farmersdelight:iron_knife",
-                        "farmersdelight:diamond_knife", "farmersdelight:golden_knife"),
+                        "minecraft:golden_hoe", "minecraft:diamond_hoe"),
                 List.of()));
         // 制剑：门控剑/弓/弩/盾牌（冷兵器：近战与远程武器）的合成配方
         add(new TechNode("sword_crafting", "equipment",

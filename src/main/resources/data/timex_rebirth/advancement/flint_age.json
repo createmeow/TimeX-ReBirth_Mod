@@ -1,0 +1,76 @@
+{
+  "parent": "timex_rebirth:rope_up",
+  "display": {
+    "icon": {
+      "id": "timex_rebirth:flint_pickaxe"
+    },
+    "title": {
+      "translate": "advancement.timex_rebirth.flint_age.title"
+    },
+    "description": {
+      "translate": "advancement.timex_rebirth.flint_age.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:flint_pickaxe"
+            ]
+          }
+        ]
+      }
+    },
+    "axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:flint_axe"
+            ]
+          }
+        ]
+      }
+    },
+    "shovel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:flint_shovel"
+            ]
+          }
+        ]
+      }
+    },
+    "hoe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:flint_hoe"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickaxe",
+      "axe",
+      "shovel",
+      "hoe"
+    ]
+  ]
+}

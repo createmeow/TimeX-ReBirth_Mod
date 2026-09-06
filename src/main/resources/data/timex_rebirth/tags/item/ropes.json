@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "timex_rebirth:grass_rope",
+    {
+      "id": "additionaladditions:rope",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:rope",
+      "required": false
+    },
+    {
+      "id": "basecore:copper_wire",
+      "required": false
+    }
+  ]
+}

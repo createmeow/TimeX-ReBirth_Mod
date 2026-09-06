@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {"item": "create:crushed_raw_aluminum"},
+  "result": {"id": "timex_rebirth:aluminum_ingot"},
+  "experience": 0.7,
+  "cookingtime": 100
+}

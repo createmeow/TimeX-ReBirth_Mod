@@ -41,6 +41,7 @@ public class TimeXClient {
         ModKeys.init();
         registerFireproofCasingCT();
         registerHeatStationCasingCT();
+        registerColdResistantCasingCT();
     }
 
     /**
@@ -82,6 +83,21 @@ public class TimeXClient {
         ConnectedTextureBehaviour behaviour = new EncasedCTBehaviour(shift);
         CreateClient.MODEL_SWAPPER.getCustomBlockModels().register(
                 ResourceLocation.fromNamespaceAndPath(TimeX.MODID, blockId),
+                model -> new CTModel(model, behaviour));
+    }
+
+    /**
+     * 耐寒机壳连接纹理：与防火机壳同一 CT 机制，独立 SpriteShift，互不连接。
+     */
+    private static void registerColdResistantCasingCT() {
+        CTSpriteShiftEntry shift = CTSpriteShifter.getCT(
+                AllCTTypes.OMNIDIRECTIONAL,
+                ResourceLocation.fromNamespaceAndPath(TimeX.MODID, "block/cold_resistant_casing"),
+                ResourceLocation.fromNamespaceAndPath(TimeX.MODID, "block/cold_resistant_casing_connected"));
+        CreateClient.CASING_CONNECTIVITY.makeCasing(FireproofRegistry.COLD_RESISTANT_CASING.get(), shift);
+        ConnectedTextureBehaviour behaviour = new EncasedCTBehaviour(shift);
+        CreateClient.MODEL_SWAPPER.getCustomBlockModels().register(
+                ResourceLocation.fromNamespaceAndPath(TimeX.MODID, "cold_resistant_casing"),
                 model -> new CTModel(model, behaviour));
     }
 

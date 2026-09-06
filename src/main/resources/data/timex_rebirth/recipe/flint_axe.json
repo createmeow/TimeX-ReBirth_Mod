@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AS",
+    "AI"
+  ],
+  "key": {
+    "A": {
+      "tag": "timex_rebirth:sharp_items"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "tag": "timex_rebirth:ropes"
+    }
+  },
+  "result": {
+    "id": "timex_rebirth:flint_axe",
+    "count": 1
+  }
+}
