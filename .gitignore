@@ -46,3 +46,4 @@ repo/
 
 ### Local tool scripts (do not upload) ###
 tools/
+/gen_aluminum_textures.py
