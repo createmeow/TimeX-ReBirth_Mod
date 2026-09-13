@@ -68,6 +68,11 @@ public class FireToolRegistry {
     public static final DeferredItem<Item> ASH =
             ITEMS.register("ash", () -> new Item(new Properties()));
 
+    // ── 物品：用完的打火机 ──
+    /** 用完的打火机：64 耐久的凑合火源，右键绒毛堆直接点燃（每次 1 耐久）；考古可挖出残存 5~20 耐久的。 */
+    public static final DeferredItem<UsedLighterItem> USED_LIGHTER =
+            ITEMS.register("used_lighter", () -> new UsedLighterItem(new Properties().durability(64).stacksTo(1)));
+
     // ── 物品：枝条 / 干枝条 / 堆肥枝条（树叶采集 + 晾晒架）──
 /** 枝条：用剑/农夫乐事刀采集树叶概率掉落；在晾晒架上晒 20 秒变干枝条。 */
 public static final DeferredItem<Item> TWIG =

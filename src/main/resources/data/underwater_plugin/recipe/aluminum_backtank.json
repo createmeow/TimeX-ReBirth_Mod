@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "timex_rebirth:cold_resistant_casing"
+  },
+  "base": {
+    "item": "create:copper_backtank"
+  },
+  "addition": {
+    "item": "timex_rebirth:aluminum_block"
+  },
+  "result": {
+    "id": "underwater_plugin:aluminum_backtank",
+    "count": 1
+  }
+}

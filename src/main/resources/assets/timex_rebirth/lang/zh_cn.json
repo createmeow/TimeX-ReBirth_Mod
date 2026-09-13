@@ -379,6 +379,8 @@
   "item.timex_rebirth.waxed_cardboard": "涂蜡的纸板",
   "item.timex_rebirth.lit_waxed_cardboard": "点燃的涂蜡纸板",
   "item.timex_rebirth.ash": "灰烬",
+  "item.timex_rebirth.used_lighter": "用完的打火机",
+  "item.timex_rebirth.used_lighter.desc": "只差最后一口气的打火机。右键绒毛堆可以直接点燃（不看运气），每次消耗 1 耐久，64 次用完报废。考古时偶尔能从可疑的积雪里刷出残存 5~20 耐久的。",
   "item.timex_rebirth.molten_tallow_bucket": "融化的油脂桶",
   "item.timex_rebirth.molten_honeycomb_bucket": "融化的蜜脾桶",
   "fluid.timex_rebirth.molten_tallow": "融化的油脂",

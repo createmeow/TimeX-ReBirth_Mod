@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "underwater_plugin:aluminum_backtank"
+    ]
+  },
+  "criteria": {
+    "has_copper_backtank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "create:copper_backtank"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "underwater_plugin:aluminum_backtank"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_backtank",
+      "has_the_recipe"
+    ]
+  ]
+}

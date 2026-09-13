@@ -180,6 +180,21 @@
         {
           "type": "minecraft:item",
           "weight": 3,
+          "name": "timex_rebirth:used_lighter",
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.6875,
+                "max": 0.921875
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
           "name": "minecraft:iron_bars",
           "functions": [
             {

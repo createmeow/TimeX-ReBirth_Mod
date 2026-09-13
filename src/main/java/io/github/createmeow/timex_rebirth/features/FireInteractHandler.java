@@ -219,6 +219,24 @@ if (!lit && player.isShiftKeyDown() && (litMain || litOff)) {
     }
 
     /**
+     * 直接点燃 pos 处的绒毛堆本身（燧石概率成功 / 用完的打火机路径）：
+     * 变火焰 + 掉落对应耐久的"点燃的绒毛"（耐久 = 绒毛数量 × 10），并引燃六向邻居。
+     * <p>
+     * 必须先读 FUZZ 状态再变方块——{@link #igniteNeighbors} 只扫描六向邻居，
+     * 绒毛堆自身变为火焰后将不再出现在任何扫描结果中（直接点燃原先不掉落的原因）。
+     */
+    public static void igniteFuzzPileSelf(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        int fuzzCount = state.getBlock() instanceof FuzzPileBlock ? state.getValue(FuzzPileBlock.FUZZ) : 1;
+        ItemStack litFuzz = new ItemStack(FireToolRegistry.LIT_FUZZ.get());
+        LitFuzzItem.initFromFuzzCount(litFuzz, fuzzCount);
+        level.setBlockAndUpdate(pos, net.minecraft.world.level.block.Blocks.FIRE.defaultBlockState());
+        net.minecraft.world.Containers.dropItemStack(level,
+                pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, litFuzz);
+        igniteNeighbors(level, pos);
+    }
+
+    /**
      * 火焰蔓延引燃：当火焰方块放置/变化时，主动引燃其六向邻居。
      * 原版火焰在无可燃物支撑时会很快自然消亡，因此引燃必须在放火瞬间完成。
      */

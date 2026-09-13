@@ -36,6 +36,12 @@ public class BlizzardClientEvents {
         LocalPlayer player = mc.player;
         if (player == null || mc.level == null) return 0.0F;
         if (!ClientWeatherState.isBlizzard()) return 0.0F;
+        // 防寒面罩 + 铝背罐：防寒功能为铝背罐专属（配其他背罐只提供潜水视物，不挡暴雪白雾）。
+        // 雾强度目标归零，按过渡时间平滑消散，FOV 同步恢复。
+        if (player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(
+                com.createmeow.underwaterplugin.UnderwaterRegisters.FROST_MASK.get())
+                && player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).getItem()
+                        instanceof com.createmeow.underwaterplugin.AluminumBacktankItem) return 0.0F;
         Level level = mc.level;
         // 天空亮度作为暴露度指标：头顶有方块 → 亮度低 → 雾淡；水中天空亮度不归零，满足"躲水不停止"
         int light = level.getBrightness(LightLayer.SKY, BlockPos.containing(player.getEyePosition()));

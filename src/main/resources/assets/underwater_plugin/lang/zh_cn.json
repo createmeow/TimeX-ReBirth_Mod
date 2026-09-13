@@ -1,0 +1,8 @@
+{
+  "block.underwater_plugin.aluminum_backtank": "铝背罐",
+  "item.underwater_plugin.aluminum_backtank": "铝背罐",
+  "item.underwater_plugin.aluminum_backtank.desc": "由铜背罐锻造而成。水下时消耗压缩空气供呼吸；配合全套防寒装备可维持体温。",
+  "item.underwater_plugin.frost_mask": "防寒面罩",
+  "item.underwater_plugin.frost_leggings": "防寒护腿",
+  "item.underwater_plugin.frost_boots": "防寒靴子"
+}

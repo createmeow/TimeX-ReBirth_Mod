@@ -1,0 +1,8 @@
+{
+  "block.underwater_plugin.aluminum_backtank": "Aluminum Backtank",
+  "item.underwater_plugin.aluminum_backtank": "Aluminum Backtank",
+  "item.underwater_plugin.aluminum_backtank.desc": "Forged from a copper backtank. Consumes compressed air to breathe underwater; maintains body temperature when worn with the full frost gear set.",
+  "item.underwater_plugin.frost_mask": "Frost-Resistant Mask",
+  "item.underwater_plugin.frost_leggings": "Frost-Resistant Leggings",
+  "item.underwater_plugin.frost_boots": "Frost-Resistant Boots"
+}

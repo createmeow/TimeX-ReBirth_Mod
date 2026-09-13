@@ -20,6 +20,7 @@
     "timex_rebirth:aluminum_ore",
     "timex_rebirth:deepslate_aluminum_ore",
     "timex_rebirth:quartz_ore",
-    "timex_rebirth:deepslate_quartz_ore"
+    "timex_rebirth:deepslate_quartz_ore",
+    "underwater_plugin:aluminum_backtank"
   ]
 }

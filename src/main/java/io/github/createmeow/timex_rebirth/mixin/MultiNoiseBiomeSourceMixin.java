@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
@@ -84,6 +85,78 @@ public abstract class MultiNoiseBiomeSourceMixin {
     );
 
     /**
+     * Terralith 兼容（极寒主题）：官方温度标签为 temperate/lukewarm/warm 的非寒冷群系
+     * 映射为 Terralith 自带寒冷群系（保持地形特色：沙漠→砾石荒漠、丛林→西伯利亚针叶林等）。
+     * 官方已标 frozen/cold 或未标温度的群系（洞穴、alpha/mirage 特殊群系）不在表中，保持原样。
+     * 河流/海洋类对齐原版映射（frozen_river / ice_spikes）。
+     */
+    private static final Map<ResourceLocation, ResourceLocation> TERRALITH_COLD_VARIANT = Map.ofEntries(
+            // ── 温带 temperate ──
+            tEntry("birch_taiga", "wintry_forest"),
+            tEntry("blooming_plateau", "wintry_lowlands"),
+            tEntry("blooming_valley", "wintry_lowlands"),
+            tEntry("caldera", "frozen_cliffs"),
+            Map.entry(rl("terralith", "gravel_beach"), rl("minecraft", "snowy_beach")),
+            tEntry("haze_mountain", "rocky_mountains"),
+            tEntry("highlands", "snowy_shield"),
+            tEntry("lavender_forest", "wintry_forest"),
+            tEntry("lavender_valley", "wintry_lowlands"),
+            tEntry("orchid_swamp", "ice_marsh"),
+            tEntry("sakura_grove", "snowy_maple_forest"),
+            tEntry("sakura_valley", "snowy_maple_forest"),
+            tEntry("shrubland", "cold_shrubland"),
+            tEntry("skylands_autumn", "skylands_winter"),
+            tEntry("skylands_spring", "skylands_winter"),
+            tEntry("steppe", "wintry_lowlands"),
+            tEntry("stony_spires", "frozen_cliffs"),
+            tEntry("temperate_highlands", "siberian_grove"),
+            tEntry("valley_clearing", "wintry_lowlands"),
+            // ── 微温 lukewarm ──
+            tEntry("amethyst_canyon", "gravel_desert"),
+            tEntry("amethyst_rainforest", "siberian_taiga"),
+            tEntry("jungle_mountains", "siberian_grove"),
+            tEntry("rocky_jungle", "siberian_taiga"),
+            tEntry("tropical_jungle", "siberian_taiga"),
+            tEntry("arid_highlands", "wintry_lowlands"),
+            tEntry("ashen_savanna", "cold_shrubland"),
+            tEntry("fractured_savanna", "cold_shrubland"),
+            tEntry("savanna_badlands", "snowy_badlands"),
+            tEntry("savanna_slopes", "snowy_shield"),
+            tEntry("basalt_cliffs", "gravel_desert"),
+            tEntry("brushland", "cold_shrubland"),
+            tEntry("granite_cliffs", "frozen_cliffs"),
+            tEntry("hot_shrubland", "cold_shrubland"),
+            tEntry("skylands_summer", "skylands_winter"),
+            tEntry("volcanic_crater", "frozen_cliffs"),
+            tEntry("volcanic_peaks", "emerald_peaks"),
+            // ── 温暖 warm ──
+            tEntry("bryce_canyon", "snowy_badlands"),
+            tEntry("painted_mountains", "emerald_peaks"),
+            tEntry("red_oasis", "gravel_desert"),
+            tEntry("white_mesa", "gravel_desert"),
+            tEntry("desert_oasis", "gravel_desert"),
+            tEntry("desert_spires", "frozen_cliffs"),
+            tEntry("lush_desert", "gravel_desert"),
+            tEntry("sandstone_valley", "wintry_lowlands"),
+            tEntry("ancient_sands", "gravel_desert"),
+            tEntry("desert_canyon", "gravel_desert"),
+            Map.entry(rl("terralith", "warm_river"), rl("minecraft", "frozen_river")),
+            Map.entry(rl("terralith", "deep_warm_ocean"), rl("minecraft", "ice_spikes"))
+    );
+
+    /** Terralith 兜底气候标签（未显式映射的新增群系用；Terralith 未加载时标签为空，不触发）。 */
+    private static final TagKey<Biome> C_IS_HOT = TagKey.create(Registries.BIOME, rl("c", "is_hot"));
+    private static final TagKey<Biome> C_IS_TEMPERATE = TagKey.create(Registries.BIOME, rl("c", "is_temperate"));
+
+    private static ResourceLocation rl(String ns, String path) {
+        return ResourceLocation.fromNamespaceAndPath(ns, path);
+    }
+
+    private static Map.Entry<ResourceLocation, ResourceLocation> tEntry(String name, String cold) {
+        return Map.entry(rl("terralith", name), rl("terralith", cold));
+    }
+
+    /**
      * 直接读取当前服务器的 registry（不做跨调用缓存）：
      * 新开世界或 /reload 数据包重载都会重建 RegistryAccess，产生新的 Biome/PlacedFeature 实例，
      * 若缓存旧 registry 的 Holder，会触发 applyBiomeDecoration 中 FeatureSorter 的
@@ -101,14 +174,27 @@ public abstract class MultiNoiseBiomeSourceMixin {
         Optional<ResourceKey<Biome>> keyOpt = biome.unwrapKey();
         if (keyOpt.isEmpty()) return;
         ResourceLocation source = keyOpt.get().location();
-        // 只映射原版生物群系，模组群系保持原样
-        if (!source.getNamespace().equals("minecraft")) return;
-
-        ResourceLocation target = COLD_VARIANT.get(source);
-        if (target == null) return; // 本身已是寒冷群系（如 snowy_plains）或无需映射
 
         Registry<Biome> registry = getBiomeRegistry();
         if (registry == null) return;
+
+        if (!source.getNamespace().equals("minecraft")) {
+            // 模组群系兼容（Terralith）：映射已知非寒冷群系；未映射的寒冷群系保持原样
+            ResourceLocation target = TERRALITH_COLD_VARIANT.get(source);
+            if (target == null) {
+                // 新版本新增群系兜底：官方标记为 hot/temperate 的映射到安全寒冷群系
+                if (biome.is(C_IS_HOT)) target = rl("terralith", "gravel_desert");
+                else if (biome.is(C_IS_TEMPERATE)) target = rl("terralith", "wintry_lowlands");
+                else return;
+            }
+            // 目标群系不存在（如旧版本 Terralith 缺群系）时保留原样，避免崩溃
+            Holder<Biome> cold = registry.getHolder(ResourceKey.create(Registries.BIOME, target)).orElse(null);
+            if (cold != null) cir.setReturnValue(cold);
+            return;
+        }
+
+        ResourceLocation target = COLD_VARIANT.get(source);
+        if (target == null) return; // 本身已是寒冷群系（如 snowy_plains）或无需映射
 
         cir.setReturnValue(registry.getHolderOrThrow(ResourceKey.create(Registries.BIOME, target)));
     }

@@ -376,6 +376,8 @@
   "item.timex_rebirth.waxed_cardboard": "Waxed Cardboard",
   "item.timex_rebirth.lit_waxed_cardboard": "Lit Waxed Cardboard",
   "item.timex_rebirth.ash": "Ash",
+  "item.timex_rebirth.used_lighter": "Used Lighter",
+  "item.timex_rebirth.used_lighter.desc": "A lighter on its last breath. Right-click a fuzz pile to light it directly (no luck involved), costing 1 durability per use; breaks after 64 uses. Brushing suspicious snow occasionally yields one with 5~20 durability left.",
   "item.timex_rebirth.molten_tallow_bucket": "Molten Tallow Bucket",
   "item.timex_rebirth.molten_honeycomb_bucket": "Molten Honeycomb Bucket",
   "fluid.timex_rebirth.molten_tallow": "Molten Tallow",

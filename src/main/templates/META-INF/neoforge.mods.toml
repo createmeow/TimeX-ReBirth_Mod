@@ -244,6 +244,50 @@ Provides night vision effect when worn and a visual overlay like pumpkin.
     ordering="NONE"
     side="BOTH"
 
+# ============================================================================
+# underwater_plugin - Fourth mod in this JAR
+# ============================================================================
+[[mods]]
+modId="${underwater_plugin_id}"
+version="${underwater_plugin_version}"
+displayName="${underwater_plugin_name}"
+authors="createmeow"
+description='''
+水下探索插件：溺水值系统、过深耗氧飙升（BetterDiving 机制）、深度加权溺水伤害、
+Cold Sweat 深度温度削减（每下潜 1 格环境温度额外 -2）。
+Underwater exploration: drowning value, depth-based oxygen drain (BetterDiving style),
+stronger drowning damage and Cold Sweat depth temperature drop.
+'''
+
+# underwater_plugin dependencies
+[[dependencies.${underwater_plugin_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${underwater_plugin_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+# Optional dependency on Create for diving equipment air drain (backtank over-depth usage)
+[[dependencies.${underwater_plugin_id}]]
+    modId="create"
+    type="optional"
+    ordering="NONE"
+    side="BOTH"
+
+# Optional dependency on Cold Sweat for depth-based temperature drop
+[[dependencies.${underwater_plugin_id}]]
+    modId="cold_sweat"
+    type="optional"
+    ordering="NONE"
+    side="BOTH"
+
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
 # stop your mod loading on the server for example.

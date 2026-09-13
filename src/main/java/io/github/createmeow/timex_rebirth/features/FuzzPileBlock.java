@@ -89,9 +89,8 @@ public class FuzzPileBlock extends Block {
 
         double chance = 0.20 * state.getValue(FUZZ);
         if (level.random.nextDouble() < chance) {
-            // 绒毛全消耗：原地变火焰并引燃邻居
-            level.setBlockAndUpdate(pos, net.minecraft.world.level.block.Blocks.FIRE.defaultBlockState());
-            FireInteractHandler.igniteNeighbors(level, pos);
+            // 绒毛全消耗：原地变火焰 + 掉落对应耐久的点燃绒毛，并引燃邻居
+            FireInteractHandler.igniteFuzzPileSelf(level, pos);
             level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.8F, 1.0F);
             player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
                     "message.timex_rebirth.fire_success"), true);

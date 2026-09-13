@@ -1,0 +1,15 @@
+{
+  "required_mods": [
+    "underwater_plugin"
+  ],
+  "type": "armor",
+  "item": {
+    "items": [
+      "underwater_plugin:frost_boots"
+    ]
+  },
+  "insulation": {
+    "cold": 3,
+    "heat": 0
+  }
+}

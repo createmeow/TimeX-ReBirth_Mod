@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "underwater_plugin:frost_leggings"
+    ]
+  },
+  "criteria": {
+    "has_cold_resistant_casing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "timex_rebirth:cold_resistant_casing"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "underwater_plugin:frost_leggings"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cold_resistant_casing",
+      "has_the_recipe"
+    ]
+  ]
+}

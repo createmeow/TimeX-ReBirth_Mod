@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "B B",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "timex_rebirth:aluminum_ingot"
+    },
+    "B": {
+      "item": "timex_rebirth:cold_resistant_casing"
+    }
+  },
+  "result": {
+    "id": "underwater_plugin:frost_boots",
+    "count": 1
+  }
+}

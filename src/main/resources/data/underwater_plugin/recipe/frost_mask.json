@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "AAA",
+    "BGB"
+  ],
+  "key": {
+    "A": {
+      "item": "timex_rebirth:aluminum_ingot"
+    },
+    "B": {
+      "item": "timex_rebirth:cold_resistant_casing"
+    },
+    "G": {
+      "item": "timex_rebirth:insulated_glass"
+    }
+  },
+  "result": {
+    "id": "underwater_plugin:frost_mask",
+    "count": 1
+  }
+}

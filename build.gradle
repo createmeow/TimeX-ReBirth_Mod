@@ -117,6 +117,10 @@ neoForge {
         "${project.night_vision_device_id}" {
             sourceSet(sourceSets.main)
         }
+        // underwater_plugin - fourth mod in this JAR
+        "${project.underwater_plugin_id}" {
+            sourceSet(sourceSets.main)
+        }
     }
 }
 
@@ -174,19 +178,23 @@ dependencies {
     compileOnly files("D:/MODS/1.21.1/timexrebirth-template-1.21.1/run/mods/emi-1.1.24+1.21.1+neoforge.jar")
 }
 
-// Catnip (net.createmod.catnip) 与 Registrate (com.tterrag.registrate) 打包在 Create jar 的嵌套 jar 内：
+// Catnip (net.createmod.catnip) / Registrate (com.tterrag.registrate) / Flywheel (dev.engine_room.flywheel)
+// 打包在 Create jar 的嵌套 jar 内：
 // - CTSpriteShiftEntry 的父类 SpriteShiftEntry 来自 catnip（ponder jar）
 // - CustomBlockModels.register 的参数类型 NonNullFunction 来自 Registrate
+// - SimpleBlockEntityVisualizer / SingleAxisRotatingVisual 的父接口来自 flywheel
 // 分别提取出来供编译。
 def ponderJarPath = file("build/tmp/create-nested/META-INF/jarjar/ponder-neoforge-1.0.82+mc1.21.1.jar")
 def registrateJarPath = file("build/tmp/create-nested/META-INF/jarjar/Registrate-MC1.21-1.3.0+67.jar")
+def flywheelJarPath = file("build/tmp/create-nested/META-INF/jarjar/flywheel-neoforge-1.21.1-1.0.6.jar")
 tasks.register('extractCreateNestedJars', Copy) {
     from zipTree(file("D:/MODS/已构建/[机械动力] create-1.21.1-6.0.10.jar"))
     include 'META-INF/jarjar/ponder-neoforge-1.0.82+mc1.21.1.jar'
     include 'META-INF/jarjar/Registrate-MC1.21-1.3.0+67.jar'
+    include 'META-INF/jarjar/flywheel-neoforge-1.21.1-1.0.6.jar'
     into file("build/tmp/create-nested")
 }
-sourceSets.main.compileClasspath += files(ponderJarPath, registrateJarPath)
+sourceSets.main.compileClasspath += files(ponderJarPath, registrateJarPath, flywheelJarPath)
 tasks.named('compileJava').configure {
     dependsOn 'extractCreateNestedJars'
 }
@@ -235,6 +243,10 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             night_vision_device_id     : project.night_vision_device_id,
             night_vision_device_name   : '夜视镜',
             night_vision_device_version: project.night_vision_device_version,
+            // underwater_plugin properties
+            underwater_plugin_id     : project.underwater_plugin_id,
+            underwater_plugin_name   : '水下探索插件',
+            underwater_plugin_version: project.underwater_plugin_version,
     ]
     inputs.properties replaceProperties
     expand replaceProperties

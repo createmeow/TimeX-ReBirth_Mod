@@ -8,6 +8,7 @@
     "timex_rebirth:research_station",
     "timex_rebirth:aluminum_block",
     "timex_rebirth:raw_aluminum_block",
-    "timex_rebirth:quartz_ore"
+    "timex_rebirth:quartz_ore",
+    "underwater_plugin:aluminum_backtank"
   ]
 }

@@ -151,6 +151,7 @@ public class HeatRegistry {
                         output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.WAXED_CARDBOARD.get());
                         output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.LIT_WAXED_CARDBOARD.get());
                         output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.ASH.get());
+                        output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.USED_LIGHTER.get());
                         output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.MOLTEN_TALLOW_BUCKET.get());
                         output.accept(io.github.createmeow.timex_rebirth.features.FireToolRegistry.MOLTEN_HONEYCOMB_BUCKET.get());
                         // 生火/晾晒：枝条 + 干枝条 + 晾晒架
@@ -173,6 +174,11 @@ public class HeatRegistry {
                         output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_NUGGET.get());
                         output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_SHEET.get());
                         output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.ALUMINUM_BLOCK_ITEM.get());
+                        // 水下探索插件：防寒装备 + 铝背罐
+                        com.createmeow.underwaterplugin.UnderwaterRegisters.addToTab(output);
+                        if (com.createmeow.underwaterplugin.UnderwaterCreateRegisters.createLoaded()) {
+                            com.createmeow.underwaterplugin.UnderwaterCreateRegisters.addToTab(output);
+                        }
                     })
                     .build());
 
