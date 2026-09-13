@@ -43,3 +43,6 @@ repo/
 /latest.log
 /debug.log
 /crash-*.txt
+
+### Local tool scripts (do not upload) ###
+tools/
