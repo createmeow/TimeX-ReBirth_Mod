@@ -25,8 +25,17 @@ public class TimeXMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if (mixinClassName.contains("Sable")) {
+            return ModList.get() != null && ModList.get().isLoaded("sable");
+        }
         if (mixinClassName.contains("AppleSkin")) {
             return ModList.get() != null && ModList.get().isLoaded("appleskin");
+        }
+        if (mixinClassName.contains("ThirstTooltip")) {
+            return ModList.get() != null && ModList.get().isLoaded("thirst");
+        }
+        if (mixinClassName.contains("RealityValueTooltip")) {
+            return ModList.get() != null && ModList.get().isLoaded("reality_value");
         }
         if (mixinClassName.contains("FarmersDelight")) {
             return ModList.get() != null && ModList.get().isLoaded("farmersdelight");

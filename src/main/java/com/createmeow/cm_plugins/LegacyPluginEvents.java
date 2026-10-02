@@ -15,8 +15,13 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
  */
 public class LegacyPluginEvents {
 
-    /** 公聊拦截：禁言 + 展示物品。 */
-    @SubscribeEvent
+    /**
+     * 公聊拦截：禁言 + 展示物品。
+     * <p>HIGH 优先级先于 cm_msg 通讯器（NORMAL）执行：含 [item] 关键词或玩家被禁言时
+     * 先取消事件，通讯器监听者（默认不接收已取消事件）即不会再重复分发该消息；
+     * 其余消息正常放行给通讯器处理。</p>
+     */
+    @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.HIGH)
     public static void onServerChat(ServerChatEvent event) {
         ServerPlayer player = event.getPlayer();
 

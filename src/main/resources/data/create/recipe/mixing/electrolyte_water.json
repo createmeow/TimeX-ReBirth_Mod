@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 250,
+      "fluid": "minecraft:water"
+    },
+    {
+      "item": "timex_rebirth:sugar_block"
+    }
+  ],
+  "results": [
+    {
+      "id": "timex_rebirth:electrolyte_water",
+      "amount": 250
+    }
+  ]
+}

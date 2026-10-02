@@ -1,0 +1,20 @@
+{
+  "item.currency_plugin.common_coin": "Fukongxiu Coin",
+  "item.currency_plugin.rare_coin": "Guishuangsheng Coin",
+  "currency.currency_plugin.common": "Fukongxiu",
+  "currency.currency_plugin.rare": "Guishuangsheng",
+  "gui.currency_plugin.purse_title": "Purse",
+  "gui.currency_plugin.extract": "Extract",
+  "gui.currency_plugin.store_all": "Store All",
+  "gui.currency_plugin.amount_hint": "Amount",
+  "block.currency_plugin.refining_machine": "Refining Machine",
+  "item.currency_plugin.incomplete_refining_machine": "Incomplete Refining Machine",
+  "gui.currency_plugin.refiner.input": "Input",
+  "gui.currency_plugin.refiner.output": "Output",
+  "gui.currency_plugin.extracted": "Extracted %s",
+  "gui.currency_plugin.no_balance": "No balance",
+  "gui.currency_plugin.balance": "Balance %s",
+  "jei.currency_plugin.refiner.title": "Refining Machine · Refine",
+  "jei.currency_plugin.refiner.points": "Refine %s-%s points",
+  "jei.currency_plugin.refiner.per_coin": "Every 100 points yields 1 Fukongxiu Coin"
+}

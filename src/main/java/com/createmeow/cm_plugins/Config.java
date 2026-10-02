@@ -59,7 +59,7 @@ public class Config {
             .defineInRange("spatialMaxSlots", 54, 1, 54);
 
     public static final ModConfigSpec.IntValue SPATIAL_SLOT_COST = BUILDER
-            .comment("Spatial inventory: cost per slot in numismaticoverhaul currency (bronze coins)")
+            .comment("Spatial inventory: cost per slot in currency_plugin currency (common coins)")
             .defineInRange("spatialSlotCost", 5000, 1, Integer.MAX_VALUE);
 
     public static final ModConfigSpec.IntValue SPATIAL_CONFIRMATION_TIMEOUT = BUILDER

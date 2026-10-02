@@ -1,0 +1,35 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "immersive_aircraft"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "SSS",
+    "HHE"
+  ],
+  "key": {
+    "S": [
+      {
+        "tag": "timex_rebirth:sail_components"
+      }
+    ],
+    "H": [
+      {
+        "item": "immersive_aircraft:hull"
+      }
+    ],
+    "E": [
+      {
+        "tag": "timex_rebirth:engine_components"
+      }
+    ]
+  },
+  "result": {
+    "id": "immersive_aircraft:airship"
+  }
+}

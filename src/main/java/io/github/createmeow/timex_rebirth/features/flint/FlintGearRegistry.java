@@ -6,6 +6,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoeItem;
@@ -14,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -171,8 +175,22 @@ public class FlintGearRegistry {
                             .pushReaction(PushReaction.DESTROY),
                     SoundEvents.BRUSH_GENERIC,
                     SoundEvents.BRUSH_SAND_COMPLETED));
-    public static final DeferredItem<BlockItem> SUSPICIOUS_SNOW_ITEM =
-            ITEMS.register("suspicious_snow", () -> new BlockItem(SUSPICIOUS_SNOW.get(), new Item.Properties()));
+    public static final DeferredItem<SuspiciousSnowBlockItem> SUSPICIOUS_SNOW_ITEM =
+            ITEMS.register("suspicious_snow", () -> new SuspiciousSnowBlockItem(SUSPICIOUS_SNOW.get(), new Item.Properties()));
+
+    /** 清刷机：背罐气动清刷积雪/可疑积雪（一次 120° 视角、前方 3 格）。
+     * 附加 1 攻击力 + 2 攻击速度：使 Hold My Item 将其按握持类（武器）正确显示。 */
+    public static final DeferredItem<SnowSweeperItem> SNOW_SWEEPER =
+            ITEMS.register("snow_sweeper", () -> new SnowSweeperItem(new Item.Properties()
+                    .durability(SnowSweeperItem.MAX_USES)
+                    .attributes(ItemAttributeModifiers.builder()
+                            .add(Attributes.ATTACK_DAMAGE,
+                                    new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 1.0, AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND)
+                            .add(Attributes.ATTACK_SPEED,
+                                    new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, -2.0, AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND)
+                            .build())));
 
     // ── 可疑积雪专用方块实体：指定工厂为自定义实体，保证刷刮逻辑在区块重载后仍为新逻辑 ──
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SuspiciousSnowBlockEntity>> SUSPICIOUS_SNOW_BE =

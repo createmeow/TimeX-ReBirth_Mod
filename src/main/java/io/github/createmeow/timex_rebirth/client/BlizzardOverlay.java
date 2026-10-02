@@ -46,9 +46,11 @@ public class BlizzardOverlay {
             float dt = Math.min((now - lastMillis) / 1000.0F, 0.1F);
             lastMillis = now;
             // 仅当暴风雪且玩家头顶直接暴露于天空（未受室内/檐下/洞穴遮挡）时保持覆盖层；
-            // 未直接接触暴风雪时缓慢淡出（canSeeSky 基于高度图，不受昼夜亮度影响）
+            // 未直接接触暴风雪时缓慢淡出（canSeeSky 基于高度图，不受昼夜亮度影响）；
+            // 防寒套装（面罩+铝背罐）完全豁免白幕
             float target = ClientWeatherState.isBlizzard()
-                    && mc.level.canSeeSky(BlockPos.containing(mc.player.getEyePosition())) ? 1.0F : 0.0F;
+                    && mc.level.canSeeSky(BlockPos.containing(mc.player.getEyePosition()))
+                    && !BlizzardClientEvents.hasColdGearImmunity() ? 1.0F : 0.0F;
             if (target > currentStrength) {
                 currentStrength = Math.min(currentStrength + dt * FADE_IN_RATE, target);
             } else {

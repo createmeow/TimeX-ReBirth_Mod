@@ -45,6 +45,14 @@ public class ResearchStationBlock extends Block implements EntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        // config 全局禁用研究系统：研究站不可用
+        if (!io.github.createmeow.timex_rebirth.TimeXConfig.RESEARCH_ENABLED.get()) {
+            if (!level.isClientSide) {
+                player.displayClientMessage(
+                        net.minecraft.network.chat.Component.translatable("research.timex_rebirth.disabled"), true);
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             ResearchNetwork.openStation(serverPlayer, pos);
         }

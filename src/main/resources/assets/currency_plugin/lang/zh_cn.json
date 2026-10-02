@@ -1,0 +1,20 @@
+{
+  "item.currency_plugin.common_coin": "腐空朽",
+  "item.currency_plugin.rare_coin": "归霜升",
+  "currency.currency_plugin.common": "腐空朽",
+  "currency.currency_plugin.rare": "归霜升",
+  "gui.currency_plugin.purse_title": "钱包",
+  "gui.currency_plugin.extract": "取出",
+  "gui.currency_plugin.store_all": "存入全部",
+  "gui.currency_plugin.amount_hint": "金额",
+  "block.currency_plugin.refining_machine": "提炼机",
+  "item.currency_plugin.incomplete_refining_machine": "未完成的提炼机",
+  "gui.currency_plugin.refiner.input": "原料",
+  "gui.currency_plugin.refiner.output": "产物",
+  "gui.currency_plugin.extracted": "取出 %s",
+  "gui.currency_plugin.no_balance": "余额不足",
+  "gui.currency_plugin.balance": "余额 %s",
+  "jei.currency_plugin.refiner.title": "提炼机 · 提炼",
+  "jei.currency_plugin.refiner.points": "提炼量 %s ~ %s",
+  "jei.currency_plugin.refiner.per_coin": "每 100 点提炼量产出 1 个腐空朽"
+}

@@ -18,6 +18,11 @@ public class TimeXNetwork {
                 WeatherSyncPacket.STREAM_CODEC,
                 TimeXNetwork::handleWeatherSync
         );
+        registrar.commonToServer(
+                SweeperConfigPayload.TYPE,
+                SweeperConfigPayload.STREAM_CODEC,
+                SweeperConfigPayload::handle
+        );
     }
 
     private static void handleWeatherSync(WeatherSyncPacket packet, IPayloadContext context) {

@@ -1,0 +1,9 @@
+{
+  "item": [
+    {
+      "items": ["currency_plugin:common_coin"]
+    }
+  ],
+  "type": "boiler",
+  "fuel": 500
+}

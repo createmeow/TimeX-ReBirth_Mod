@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "currency_plugin:block/refining_machine"
+    }
+  }
+}

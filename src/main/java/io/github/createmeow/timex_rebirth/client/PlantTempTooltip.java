@@ -30,6 +30,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,26 +57,30 @@ public class PlantTempTooltip {
         Component keyName = ModKeys.KEY_CROP_INFO.getTranslatedKeyMessage();
         List<Either<FormattedText, TooltipComponent>> elements = event.getTooltipElements();
 
-        // 提示行：未按住时仅显示"按住 [S] 查看"，按住时同样置顶
+        // 收集所有作物环境信息行，统一插入到物品名之后（index 1）
+        List<Either<FormattedText, TooltipComponent>> toAdd = new ArrayList<>();
+
         MutableComponent hint = Component.translatable("tooltip.timex_rebirth.hold", keyName)
                 .withStyle(pressed ? ChatFormatting.GRAY : ChatFormatting.DARK_GRAY);
-        elements.add(Either.left(hint));
-        if (!pressed) return;
+        toAdd.add(Either.left(hint));
+        if (pressed) {
+            BlockState dummy = block.defaultBlockState();
+            PlantTempData data = PlantFrostHandler.getPlantTempData(level, block);
+            PlantFrostHandler.Rating frost = PlantFrostHandler.getFrostRating(dummy, data);
+            PlantFrostHandler.Rating heat = PlantFrostHandler.getHeatRating(dummy, data);
 
-        BlockState dummy = block.defaultBlockState();
-        PlantTempData data = PlantFrostHandler.getPlantTempData(level, block);
-        PlantFrostHandler.Rating frost = PlantFrostHandler.getFrostRating(dummy, data);
-        PlantFrostHandler.Rating heat = PlantFrostHandler.getHeatRating(dummy, data);
+            toAdd.add(Either.left(Component.empty()));
+            toAdd.add(Either.left(Component.translatable("tooltip.timex_rebirth.frost_heat",
+                    rating(frost), rating(heat))));
+            if (data != null && !data.snowVulnerable()) {
+                toAdd.add(Either.left(Component.translatable("tooltip.timex_rebirth.snow_resist")));
+            }
+            if (data != null && !data.blizzardVulnerable()) {
+                toAdd.add(Either.left(Component.translatable("tooltip.timex_rebirth.blizzard_resist")));
+            }
+        }
 
-        elements.add(Either.left(Component.empty()));
-        elements.add(Either.left(Component.translatable("tooltip.timex_rebirth.frost_heat",
-                rating(frost), rating(heat))));
-        if (data != null && !data.snowVulnerable()) {
-            elements.add(Either.left(Component.translatable("tooltip.timex_rebirth.snow_resist")));
-        }
-        if (data != null && !data.blizzardVulnerable()) {
-            elements.add(Either.left(Component.translatable("tooltip.timex_rebirth.blizzard_resist")));
-        }
+        elements.addAll(1, toAdd);
     }
 
     /** 直接读取 GLFW 底层按键状态（同 FrostedHeart CInputHelper.isDown），尊重玩家改键。 */

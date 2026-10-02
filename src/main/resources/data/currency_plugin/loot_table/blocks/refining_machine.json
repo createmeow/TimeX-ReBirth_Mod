@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "currency_plugin:blocks/refining_machine",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "currency_plugin:refining_machine"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

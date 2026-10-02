@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": {
+    "currency_plugin:common_coin": {
+      "burn_time": 3200
+    }
+  }
+}

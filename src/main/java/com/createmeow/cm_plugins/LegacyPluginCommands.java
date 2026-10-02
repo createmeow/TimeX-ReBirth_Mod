@@ -131,7 +131,7 @@ public class LegacyPluginCommands {
         dispatcher.register(Commands.literal("showxyz")
                 .executes(LegacyPluginCommands::showXyz));
 
-        // ========== /autocoin（切换自动合并钱币开关）==========
+        // ========== /autocoin（切换自动吸收钱币开关）==========
         dispatcher.register(Commands.literal("autocoin")
                 .executes(LegacyPluginCommands::toggleAutoCoin));
     }
@@ -320,7 +320,7 @@ public class LegacyPluginCommands {
     private static int toggleAutoCoin(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
         boolean now = PlayerCoinConsolidationHandler.toggleAutoConsolidate(player.getUUID());
-        player.sendSystemMessage(Component.literal("§a自动合并钱币已" + (now ? "开启" : "关闭")));
+        player.sendSystemMessage(Component.literal("§a自动吸收钱币已" + (now ? "开启" : "关闭")));
         return Command.SINGLE_SUCCESS;
     }
 

@@ -71,6 +71,11 @@ public class ThirstCompat {
             put(foods, WastelandFoodRegistry.INSTANT_NOODLES.get(), 2, 3);
             put(drinks, WastelandFoodRegistry.HERBAL_TEA.get(), 5, 7);
 
+            // 本模组：生存补给食品（干粮消耗口渴，电解质水补水）
+            put(foods, io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.STACKED_COOKIES.get(), -2, 0);
+            put(foods, io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.COOKIES_ZIP.get(), -4, 0);
+            put(drinks, io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.ELECTROLYTE_WATER_BOTTLE.get(), 10, 15);
+
             // 农夫乐事：饮品（默认配置仅覆盖苹果酒/西瓜汁）
             put(drinks, item("farmersdelight", "hot_cocoa"), 5, 9);
             put(drinks, item("farmersdelight", "milk_bottle"), 5, 8);

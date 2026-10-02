@@ -56,6 +56,9 @@ public class TimeX {
         // ── 废土食物：炖菜/浓汤/罐头/肉干/蒸馏水/草药茶 ──
         WastelandFoodRegistry.register(modEventBus);
 
+        // ── 生存补给食品：堆叠/压缩曲奇 / 糖块 / 能量棒 / 电解质水 ──
+        io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.register(modEventBus);
+
         // ── 防冻系统：抗冻土壤 / 抗冻耕地 / 防冻剂 ──
         AntiFreezeRegistry.register(modEventBus);
 

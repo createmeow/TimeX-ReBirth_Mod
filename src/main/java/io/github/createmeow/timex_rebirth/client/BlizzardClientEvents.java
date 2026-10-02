@@ -30,18 +30,35 @@ public class BlizzardClientEvents {
     private static float currentFog = 0.0F;
     private static long prevFogTick = -1L;
 
+    /**
+     * 防寒套装（防寒面罩 + 铝背罐）完全豁免暴风雪视觉特效：
+     * 雾 / 雾色 / 视场角（本类）、屏幕白幕（{@link BlizzardOverlay}）、雪花墙（LevelRendererMixin）。
+     *
+     * <p>铝背罐按物品注册表 id 比较——{@code instanceof AluminumBacktankItem} 会在
+     * Create 未安装时因解析其 Create 父类导致 NoClassDefFoundError（注册表比较零类加载）。</p>
+     */
+    public static boolean hasColdGearImmunity() {
+        Minecraft mc = Minecraft.getInstance();
+        LocalPlayer player = mc.player;
+        if (player == null) return false;
+        // 防寒面罩：视觉豁免的关键件（护脸）
+        if (!player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(
+                com.createmeow.underwaterplugin.UnderwaterRegisters.FROST_MASK.get())) return false;
+        // 铝背罐：防寒功能为铝背罐专属（配其他背罐只提供潜水视物，不豁免暴雪特效）
+        net.minecraft.resources.ResourceLocation chestKey = net.minecraft.core.registries.BuiltInRegistries.ITEM
+                .getKey(player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).getItem());
+        return "underwater_plugin".equals(chestKey.getNamespace())
+                && "aluminum_backtank".equals(chestKey.getPath());
+    }
+
     /** 目标雾强度：暴风雪 + 头顶天空亮度决定（0 完全遮挡 → 1 完全露天）。 */
     private static float computeTargetFog() {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
         if (player == null || mc.level == null) return 0.0F;
         if (!ClientWeatherState.isBlizzard()) return 0.0F;
-        // 防寒面罩 + 铝背罐：防寒功能为铝背罐专属（配其他背罐只提供潜水视物，不挡暴雪白雾）。
-        // 雾强度目标归零，按过渡时间平滑消散，FOV 同步恢复。
-        if (player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(
-                com.createmeow.underwaterplugin.UnderwaterRegisters.FROST_MASK.get())
-                && player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).getItem()
-                        instanceof com.createmeow.underwaterplugin.AluminumBacktankItem) return 0.0F;
+        // 防寒面罩 + 铝背罐：雾强度目标归零，按过渡时间平滑消散，FOV 同步恢复
+        if (hasColdGearImmunity()) return 0.0F;
         Level level = mc.level;
         // 天空亮度作为暴露度指标：头顶有方块 → 亮度低 → 雾淡；水中天空亮度不归零，满足"躲水不停止"
         int light = level.getBrightness(LightLayer.SKY, BlockPos.containing(player.getEyePosition()));

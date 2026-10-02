@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": {"item": "minecraft:sugar"}
+  },
+  "result": {"id": "timex_rebirth:sugar_block"}
+}

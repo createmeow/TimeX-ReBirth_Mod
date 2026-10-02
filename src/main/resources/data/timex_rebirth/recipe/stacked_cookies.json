@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {"item": "minecraft:cookie"}
+  },
+  "result": {"id": "timex_rebirth:stacked_cookies"}
+}

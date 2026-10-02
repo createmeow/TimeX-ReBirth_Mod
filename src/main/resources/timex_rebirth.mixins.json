@@ -39,13 +39,20 @@
     "FarmersDelightStoveTickFuelMixin",
     "FurnaceFuelMixin",
     "AbstractFurnaceBlockEntityAccessor",
-    "FrozenRottenFoodRenderMixin"
+    "FrozenRottenFoodRenderMixin",
+    "SableExplosiveBlockCallbackMixin",
+    "SableSubLevelPhysicsSystemMixin",
+    "WeatheringHelperMixin",
+    "ModEventsMixin"
   ],
   "client": [
     "LevelRendererMixin",
     "GuiHudMixin",
     "BossHealthOverlayMixin",
     "AppleSkinOverlayMixin",
+    "AppleSkinTooltipMixin",
+    "ThirstTooltipMixin",
+    "RealityValueTooltipMixin",
     "FarmersDelightHudOverlaysMixin",
     "ColdSweatOverlaysMixin",
     "RealityValueHudMixin",

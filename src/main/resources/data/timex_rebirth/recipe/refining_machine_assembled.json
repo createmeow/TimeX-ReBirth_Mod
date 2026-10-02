@@ -1,0 +1,86 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "thirst"
+    }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "timex_rebirth:cold_resistant_casing"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "chance": 1.0,
+      "id": "currency_plugin:refining_machine"
+    },
+    {
+      "chance": 0.5,
+      "id": "minecraft:cobblestone"
+    },
+    {
+      "chance": 0.3,
+      "id": "minecraft:gravel"
+    },
+    {
+      "chance": 0.2,
+      "id": "minecraft:sand"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:cutting",
+      "ingredients": [
+        {
+          "item": "currency_plugin:incomplete_refining_machine"
+        }
+      ],
+      "processing_time": 100,
+      "results": [
+        {
+          "id": "currency_plugin:incomplete_refining_machine"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "currency_plugin:incomplete_refining_machine"
+        },
+        {
+          "item": "create:mechanical_press"
+        }
+      ],
+      "results": [
+        {
+          "id": "currency_plugin:incomplete_refining_machine"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "currency_plugin:incomplete_refining_machine"
+        },
+        {
+          "item": "thirst:sand_filter"
+        }
+      ],
+      "results": [
+        {
+          "id": "currency_plugin:incomplete_refining_machine"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "currency_plugin:incomplete_refining_machine"
+  }
+}

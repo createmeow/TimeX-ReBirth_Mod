@@ -122,6 +122,8 @@ public class HeatRegistry {
                         output.accept(FireproofRegistry.COLD_RESISTANT_CASING_ITEM.get());
                         // 团队研究 / 科技树
                         output.accept(ResearchRegistry.RESEARCH_STATION_ITEM.get());
+                        // 燧石工具体系：清刷机（背罐气动清刷积雪/可疑积雪）
+                        output.accept(io.github.createmeow.timex_rebirth.features.flint.FlintGearRegistry.SNOW_SWEEPER.get());
                         // 废土食物：炖菜/浓汤/罐头/肉干/蒸馏水/草药茶
                         output.accept(WastelandFoodRegistry.WASTELAND_STEW.get());
                         output.accept(WastelandFoodRegistry.WASTELAND_BROTH.get());
@@ -131,6 +133,12 @@ public class HeatRegistry {
                         output.accept(WastelandFoodRegistry.INSTANT_NOODLES.get());
                         output.accept(WastelandFoodRegistry.PAPER_BOWL.get());
                         output.accept(WastelandFoodRegistry.HERBAL_TEA.get());
+                        // 生存补给食品：堆叠/压缩曲奇 / 糖块 / 能量棒 / 瓶装电解质水
+                        output.accept(io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.STACKED_COOKIES.get());
+                        output.accept(io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.COOKIES_ZIP.get());
+                        output.accept(io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.SUGAR_BLOCK.get());
+                        output.accept(io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.ENERGY_BAR.get());
+                        output.accept(io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.ELECTROLYTE_WATER_BOTTLE.get());
                         // 废土物资：绘制台 / 爆炸箭 / 西瓜皮 / 废旧物品
                         output.accept(WastelandRegistry.DRAWING_TABLE_ITEM.get());
                         output.accept(WastelandRegistry.EXPLOSIVE_ARROW.get());

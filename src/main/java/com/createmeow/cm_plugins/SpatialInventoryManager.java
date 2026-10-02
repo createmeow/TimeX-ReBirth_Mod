@@ -367,15 +367,12 @@ public class SpatialInventoryManager {
             }
 
             int cost = Config.SPATIAL_SLOT_COST.getAsInt();
-            long balance = NumismaticHelper.getValue(player);
-            if (balance < cost) {
+            // 按总值扣费：先腐空朽后归霜升，不找零
+            if (!CurrencyCompat.modify(player, -cost)) {
                 player.sendSystemMessage(Component.literal("§c余额不足! 需要 §e" + cost + " §c青铜币"));
                 player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.BLOCKS, 1.0F, 1.0F);
                 return;
             }
-
-            // Deduct currency using numismaticoverhaul
-            NumismaticHelper.modify(player, -cost);
             data.unlockedSlots++;
 
             player.sendSystemMessage(Component.literal("§a成功解锁新空间格! 当前空间: §e" + data.unlockedSlots + "格"));

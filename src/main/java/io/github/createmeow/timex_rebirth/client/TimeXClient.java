@@ -204,6 +204,24 @@ public class TimeXClient {
             return ResourceLocation.withDefaultNamespace("block/water_flow");
         }
     }, io.github.createmeow.timex_rebirth.features.FireToolRegistry.MOLTEN_HONEYCOMB_TYPE);
+
+    // 电解质水流体渲染：原版水纹理 + 淡蓝青染色（#7FD4E8 电解质水感）
+    event.registerFluidType(new IClientFluidTypeExtensions() {
+        @Override
+        public int getTintColor() {
+            return 0xFF7FD4E8;
+        }
+
+        @Override
+        public ResourceLocation getStillTexture() {
+            return ResourceLocation.withDefaultNamespace("block/water_still");
+        }
+
+        @Override
+        public ResourceLocation getFlowingTexture() {
+            return ResourceLocation.withDefaultNamespace("block/water_flow");
+        }
+    }, io.github.createmeow.timex_rebirth.food.SupplyFoodRegistry.ELECTROLYTE_WATER_FLUID_TYPE);
     }
 }
 

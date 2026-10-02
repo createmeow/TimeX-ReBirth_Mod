@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -101,7 +102,10 @@ public class SuspiciousSnowBrushHandler {
             if (be instanceof SuspiciousSnowBlockEntity snowBE) {
                 snowBE.complete(level, player);
             } else {
-                completeFallback(level, pos, state, player);
+                ItemStack tool = player.getMainHandItem().is(Items.BRUSH)
+                        ? player.getMainHandItem()
+                        : player.getOffhandItem();
+                completeFallback(level, pos, state, player, tool);
             }
             damageBrush(player);
             clearSession(player);
@@ -113,15 +117,17 @@ public class SuspiciousSnowBrushHandler {
         }
     }
 
-    /** 方块实体缺失时的兜底完成逻辑 */
-    private static void completeFallback(ServerLevel level, BlockPos pos, BlockState state, ServerPlayer player) {
+    /**
+     * 清刷完成的兜底逻辑（方块实体缺失时使用）：
+     * 掉落对应积雪层数的战利品并转为普通积雪，供 {@link SnowSweeperItem} 复用。
+     *
+     * @param tool 参与战利品上下文的工具（刷子清刷传手中刷子，清刷机清刷传清刷机本身）
+     */
+    public static void completeFallback(ServerLevel level, BlockPos pos, BlockState state, Player player, ItemStack tool) {
         if (state.getBlock() instanceof SuspiciousSnowBlock snow) {
             level.playSound(null, pos, snow.getBrushCompletedSound(),
                     net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, 1.0F);
         }
-        ItemStack tool = player.getMainHandItem().is(Items.BRUSH)
-                ? player.getMainHandItem()
-                : player.getOffhandItem();
         var lootTable = level.getServer().reloadableRegistries()
                 .getLootTable(FlintGearRegistry.SUSPICIOUS_SNOW_LOOT);
         var params = new net.minecraft.world.level.storage.loot.LootParams.Builder(level)

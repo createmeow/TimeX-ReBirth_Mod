@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "currency_plugin:item/rare_coin"
+  }
+}

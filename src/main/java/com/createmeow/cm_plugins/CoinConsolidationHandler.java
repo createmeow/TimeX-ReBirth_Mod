@@ -1,5 +1,7 @@
 package com.createmeow.cm_plugins;
 
+import com.createmeow.currency_plugin.currency.Currency;
+import com.createmeow.currency_plugin.item.CoinItem;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -8,9 +10,12 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 处理 NumismaticOverhaul 钱币兼容：
- * 在遗体加入世界时扫描其所有物品，合并钱币为钱袋放入额外空间。
+ * 处理 currency_plugin 钱币兼容：
+ * 在遗体加入世界时扫描其所有物品，合并钱币为合法堆叠放入额外空间。
  */
 public class CoinConsolidationHandler {
 
@@ -40,21 +45,11 @@ public class CoinConsolidationHandler {
         }
     }
 
+    /**
+     * 遗体钱币合并：<b>按货币种类分别合并</b>（腐空朽只与腐空朽合并，
+     * 归霜升只与归霜升合并，不进行跨种类换算），放入额外空间。
+     */
     private void consolidateCorpse(Entity corpseEntity) throws Exception {
-        // 检查 NumismaticOverhaul 是否加载
-        Class<?> coinItemClass;
-        Class<?> currencyEnumClass;
-        Class<?> moneyBagItemClass;
-        try {
-            coinItemClass = Class.forName("tallestred.numismaticoverhaul.item.CoinItem");
-            currencyEnumClass = Class.forName("tallestred.numismaticoverhaul.currency.Currency");
-            moneyBagItemClass = Class.forName("tallestred.numismaticoverhaul.item.MoneyBagItem");
-        } catch (ClassNotFoundException e) {
-            createmeowsplugins.LOGGER.info("[CoinConsolidation] NumismaticOverhaul 未安装，跳过");
-            return;
-        }
-
-        // 获取 Death 对象
         var getDeathMethod = corpseEntity.getClass().getMethod("getDeath");
         Object death = getDeathMethod.invoke(corpseEntity);
         if (death == null) {
@@ -62,9 +57,7 @@ public class CoinConsolidationHandler {
             return;
         }
 
-        createmeowsplugins.LOGGER.info("[CoinConsolidation] Death 对象类型: {}", death.getClass().getName());
-
-        long totalRawValue = 0;
+        var totals = new java.util.EnumMap<Currency, Long>(Currency.class);
         int coinCount = 0;
 
         // 扫描 4 个空间
@@ -74,48 +67,47 @@ public class CoinConsolidationHandler {
                 var method = death.getClass().getMethod(getter);
                 Object raw = method.invoke(death);
                 if (raw == null) continue;
-                @SuppressWarnings("unchecked")
                 NonNullList<ItemStack> items = (NonNullList<ItemStack>) raw;
                 if (items.isEmpty()) continue;
 
-                createmeowsplugins.LOGGER.info("[CoinConsolidation]  {}: {} 个物品", getter, items.size());
-
-                var toRemove = new java.util.ArrayList<ItemStack>();
+                var toRemove = new ArrayList<ItemStack>();
                 for (ItemStack stack : items) {
                     if (stack.isEmpty()) continue;
-                    if (coinItemClass.isInstance(stack.getItem())) {
-                        Object currency = coinItemClass.getField("currency").get(stack.getItem());
-                        long count = stack.getCount();
-                        long rawValue = (long) currencyEnumClass.getMethod("getRawValue", long.class).invoke(currency, count);
-                        totalRawValue += rawValue;
-                        coinCount += count;
+                    if (stack.getItem() instanceof CoinItem coinItem) {
+                        totals.merge(coinItem.currency, (long) stack.getCount(), Long::sum);
+                        coinCount += stack.getCount();
                         toRemove.add(stack);
                     }
                 }
                 if (!toRemove.isEmpty()) {
                     items.removeAll(toRemove);
-                    createmeowsplugins.LOGGER.info("[CoinConsolidation]   → 移除了 {} 个钱币", toRemove.size());
                 }
             } catch (NoSuchMethodException e) {
-                createmeowsplugins.LOGGER.warn("[CoinConsolidation]  方法 {} 不存在", getter);
+                // getter 不存在，跳过
             }
         }
 
-        if (totalRawValue <= 0) {
-            createmeowsplugins.LOGGER.info("[CoinConsolidation] 未找到钱币，跳过");
-            return;
-        }
+        if (totals.isEmpty()) return;
 
-        // 创建钱袋放入额外空间
-        ItemStack moneyBag = (ItemStack) moneyBagItemClass.getMethod("fromRawValue", long.class)
-                .invoke(null, totalRawValue);
+        // 按种类重新生成堆叠（不换算面值），每堆最多 99
+        List<ItemStack> stacks = new ArrayList<>();
+        for (var entry : totals.entrySet()) {
+            long count = entry.getValue();
+            while (count > 0) {
+                int size = (int) Math.min(count, 99);
+                stacks.add(new ItemStack(entry.getKey().asItem(), size));
+                count -= size;
+            }
+        }
 
         var getAdditionalItemsMethod = death.getClass().getMethod("getAdditionalItems");
         @SuppressWarnings("unchecked")
         NonNullList<ItemStack> additionalItems = (NonNullList<ItemStack>) getAdditionalItemsMethod.invoke(death);
-        additionalItems.add(moneyBag);
+        for (ItemStack stack : stacks) {
+            additionalItems.add(stack);
+        }
 
-        createmeowsplugins.LOGGER.info("[CoinConsolidation] ✅ 合并完成: {} 枚钱币 ({}) → 1 个钱袋（额外空间）",
-                coinCount, totalRawValue);
+        createmeowsplugins.LOGGER.info("[CoinConsolidation] 合并完成: {} 枚钱币 → {} 堆（按种类合并，额外空间）",
+                coinCount, stacks.size());
     }
 }

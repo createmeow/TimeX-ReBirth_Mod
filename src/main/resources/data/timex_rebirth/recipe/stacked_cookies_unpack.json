@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "timex_rebirth:stacked_cookies"
+    }
+  ],
+  "result": {"id": "minecraft:cookie", "count": 9}
+}

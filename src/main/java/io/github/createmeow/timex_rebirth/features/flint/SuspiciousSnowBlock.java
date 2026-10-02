@@ -110,6 +110,25 @@ public class SuspiciousSnowBlock extends BrushableBlock {
         return !below.isEmpty();
     }
 
+    /**
+     * 失去支撑（下方方块被移除）时立即破坏，按方块自身战利品表掉落
+     * （50% 掉落规则沿用 suspicious_snow.json，精准采集走 {@link #getDrops} 的雪层+废品逻辑）。
+     */
+    @Override
+    public BlockState updateShape(BlockState state, net.minecraft.core.Direction direction,
+                                     BlockState neighborState, net.minecraft.world.level.LevelAccessor level,
+                                     BlockPos pos, BlockPos neighborPos) {
+        if (direction == net.minecraft.core.Direction.DOWN && !state.canSurvive(level, pos)) {
+            if (level instanceof ServerLevel server) {
+                Block.dropResources(state, server, pos, null);
+                server.removeBlock(pos, false);
+            } else {
+                return Blocks.AIR.defaultBlockState();
+            }
+        }
+        return state;
+    }
+
     @Override
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
         ItemStack tool = builder.getOptionalParameter(LootContextParams.TOOL);

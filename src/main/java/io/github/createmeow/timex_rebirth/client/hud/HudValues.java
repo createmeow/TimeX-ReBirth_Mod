@@ -2,8 +2,10 @@ package io.github.createmeow.timex_rebirth.client.hud;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModList;
 
 import java.lang.reflect.Field;
@@ -17,7 +19,8 @@ import java.lang.reflect.Method;
  *   <li>理智/健康（RealityValue）：{@code ClientPlayerExData.getSanity()/getHealth()}</li>
  *   <li>口渴（ThirstWasTaken）：{@code ModAttachment.PLAYER_THIRST} 附件的 {@code getThirst()}</li>
  *   <li>体温（ColdSweat）：{@code Temperature.get(player, Trait.CORE/WORLD)}</li>
- *   <li>金币（NumismaticOverhaul）：{@code CurrencyHolder.getValue(player)}</li>
+ *   <li>金钱（currency_plugin）：{@code CurrencyHolder.getBalance(player, currency)}（双独立余额）</li>
+ *   <li>零件（basecore）：扫描背包统计 {@code basecore:part} 数量</li>
  *   <li>飞机耐久/引擎（Immersive Aircraft）：{@code AircraftEntity.getHealth()/getEnginePower()}</li>
  * </ul>
  *
@@ -118,12 +121,14 @@ public final class HudValues {
     /** 快照字段：所有跨模组数据的时序缓存。 */
     private static float snapRvSanity;
     private static float snapRvHealth;
+    private static float snapRvImmunity;
+    private static float snapRvEnergy;
     private static float snapThirst;
     private static float snapThirstQuenched;
     private static double snapCsCore;
     private static double snapCsWorld;
     private static double snapCsWorldCelsius;
-    private static long snapCurrencyRaw;
+    private static long snapBasecoreParts;
     private static boolean snapInAircraft;
     private static float snapAircraftDurability;
     private static float snapAircraftEngine;
@@ -154,6 +159,8 @@ public final class HudValues {
             case 0 -> {
                 snapRvSanity = computeRvSanity();
                 snapRvHealth = computeRvHealth();
+                snapRvImmunity = computeRvImmunity();
+                snapRvEnergy = computeRvEnergy();
             }
             case 1 -> {
                 snapThirst = computeThirst();
@@ -165,7 +172,8 @@ public final class HudValues {
             }
             case 3 -> {
                 snapCsWorldCelsius = computeCsWorldCelsius(snapCsWorld);
-                snapCurrencyRaw = computeCurrencyRaw();
+                snapBasecoreParts = computeBasecoreParts();
+                // currency_plugin 货币改为实时读取（与钱包 UI 一致），不再走轮询快照
             }
             case 4 -> {
                 snapInAircraft = computeInAircraft();
@@ -187,6 +195,8 @@ public final class HudValues {
     private static Class<?> rvClientDataClass;
     private static Method rvGetSanityMethod;
     private static Method rvGetHealthMethod;
+    private static Method rvGetImmunityMethod;
+    private static Method rvGetEnergyMethod;
     private static Object rvDefaultMaxHealth;
 
     private static boolean rvLoaded() {
@@ -197,6 +207,8 @@ public final class HudValues {
                     rvClientDataClass = Class.forName("dev.anye.mc.reality_value.cap.ClientPlayerExData");
                     rvGetSanityMethod = rvClientDataClass.getMethod("getSanity");
                     rvGetHealthMethod = rvClientDataClass.getMethod("getHealth");
+                    rvGetImmunityMethod = rvClientDataClass.getMethod("getImmunity");
+                    rvGetEnergyMethod = rvClientDataClass.getMethod("getEnergy");
                     Class<?> capClass = Class.forName("dev.anye.mc.reality_value.cap.PlayerExCap");
                     Field f = capClass.getField("DefaultMaxHealth");
                     rvDefaultMaxHealth = f.get(null);
@@ -270,25 +282,48 @@ public final class HudValues {
         return csLoaded;
     }
 
-    private static volatile boolean numChecked = false;
-    private static boolean numLoaded = false;
-    private static Method numGetValueMethod;
-
-    private static boolean numLoaded() {
-        if (!numChecked) {
-            numChecked = true;
-            try {
-                if (ModList.get().isLoaded("numismaticoverhaul")) {
-                    Class<?> currencyHolderClass = Class.forName("tallestred.numismaticoverhaul.cap.CurrencyHolder");
-                    numGetValueMethod = currencyHolderClass.getMethod("getValue",
-                            net.minecraft.world.entity.player.Player.class);
-                    numLoaded = true;
-                }
-            } catch (Exception e) {
-                numLoaded = false;
+    /** basecore 零件（basecore:part）——直接扫描背包，无需反射。 */
+    private static int computeBasecoreParts() {
+        LocalPlayer p = player();
+        if (p == null) return 0;
+        int count = 0;
+        var inventory = p.getInventory();
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (stack.isEmpty()) continue;
+            if (BuiltInRegistries.ITEM.getKey(stack.getItem()).toString().equals("basecore:part")) {
+                count += stack.getCount();
             }
         }
-        return numLoaded;
+        return count;
+    }
+
+    // ── currency_plugin 反射检测（双独立余额：腐空朽/归霜升，互不转换） ──
+
+    private static volatile boolean cpChecked = false;
+    private static boolean cpLoadedFlag = false;
+    private static Method cpGetBalanceMethod;
+    private static Object cpCommon;
+    private static Object cpRare;
+
+    private static boolean cpLoaded() {
+        if (!cpChecked) {
+            cpChecked = true;
+            try {
+                if (ModList.get().isLoaded("currency_plugin")) {
+                    Class<?> currencyHolderClass = Class.forName("com.createmeow.currency_plugin.cap.CurrencyHolder");
+                    Class<?> currencyEnum = Class.forName("com.createmeow.currency_plugin.currency.Currency");
+                    cpGetBalanceMethod = currencyHolderClass.getMethod("getBalance",
+                            net.minecraft.world.entity.player.Player.class, currencyEnum);
+                    cpCommon = currencyEnum.getEnumConstants()[0]; // COMMON 腐空朽
+                    cpRare = currencyEnum.getEnumConstants()[1];   // RARE 归霜升
+                    cpLoadedFlag = true;
+                }
+            } catch (Exception e) {
+                cpLoadedFlag = false;
+            }
+        }
+        return cpLoadedFlag;
     }
 
     private static volatile boolean iaChecked = false;
@@ -343,6 +378,26 @@ public final class HudValues {
         if (!rvLoaded()) return 0;
         try {
             return round1(((Number) rvGetHealthMethod.invoke(null)).floatValue());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /** 免疫力=健康的饱和度（健康的隐藏值，用于 healthy_none 叠加显示）。 */
+    private static float computeRvImmunity() {
+        if (!rvLoaded()) return 0;
+        try {
+            return round1(((Number) rvGetImmunityMethod.invoke(null)).floatValue());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /** 精力=理智的饱和度（理智的隐藏值，用于 sanity_none 叠加显示）。 */
+    private static float computeRvEnergy() {
+        if (!rvLoaded()) return 0;
+        try {
+            return round1(((Number) rvGetEnergyMethod.invoke(null)).floatValue());
         } catch (Exception e) {
             return 0;
         }
@@ -426,11 +481,12 @@ public final class HudValues {
         }
     }
 
-    private static long computeCurrencyRaw() {
+    /** 反射读取指定货币余额（枚数，互不转换）。 */
+    private static long computeCurrencyPluginBalance(Object currency) {
         LocalPlayer p = player();
-        if (!numLoaded() || p == null) return 0;
+        if (!cpLoaded() || p == null) return 0;
         try {
-            return ((Number) numGetValueMethod.invoke(null, p)).longValue();
+            return ((Number) cpGetBalanceMethod.invoke(null, p, currency)).longValue();
         } catch (Exception e) {
             return 0;
         }
@@ -484,6 +540,18 @@ public final class HudValues {
         return snapRvHealth;
     }
 
+    /** RealityValue 免疫力（=健康的隐藏值，1 秒快照）。 */
+    public static float realityValueImmunity() {
+        ensureSnapshot();
+        return snapRvImmunity;
+    }
+
+    /** RealityValue 精力（=理智的隐藏值，1 秒快照）。 */
+    public static float realityValueEnergy() {
+        ensureSnapshot();
+        return snapRvEnergy;
+    }
+
     /** ThirstWasTaken 口渴值（0~20，1 秒快照）。 */
     public static float thirst() {
         ensureSnapshot();
@@ -514,22 +582,25 @@ public final class HudValues {
         return snapCsWorldCelsius;
     }
 
-    /** NumismaticOverhaul 原始货币值（1 秒快照）。 */
-    public static long numismaticRaw() {
+    /** 腐空朽余额（实时读取，独立于归霜升，互不转换）。 */
+    public static long currencyPluginCommon() {
+        return computeCurrencyPluginBalance(cpCommon);
+    }
+
+    /** 归霜升余额（实时读取，独立于腐空朽，互不转换）。 */
+    public static long currencyPluginRare() {
+        return computeCurrencyPluginBalance(cpRare);
+    }
+
+    /** basecore 零件持有量（背包扫描，1 秒快照）。 */
+    public static int basecoreParts() {
         ensureSnapshot();
-        return snapCurrencyRaw;
+        return (int) snapBasecoreParts;
     }
 
-    public static long numismaticBronze() {
-        return numismaticRaw() % 100;
-    }
-
-    public static long numismaticSilver() {
-        return (numismaticRaw() % 10000) / 100;
-    }
-
-    public static long numismaticGold() {
-        return numismaticRaw() / 10000;
+    /** currency_plugin 是否已加载。 */
+    public static boolean hasCurrencyPlugin() {
+        return cpLoaded();
     }
 
     /** 是否正在驾驶沉浸式飞机（1 秒快照）。 */

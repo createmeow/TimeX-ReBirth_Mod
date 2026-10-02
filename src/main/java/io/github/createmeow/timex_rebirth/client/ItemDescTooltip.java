@@ -7,13 +7,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 /**
- * 统一渲染物品描述：若存在 "item.&lt;命名空间&gt;.&lt;id&gt;.desc" 语言键则追加到 Tooltip 底部（灰色），
+ * 统一渲染物品描述：若存在 "item.&lt;命名空间&gt;.&lt;id&gt;.desc" 语言键则插入到物品名之后（灰色），
  * 使 anti_freeze.desc / fireproof_brick.desc / heat_bridge_module.desc 等键生效。
+ * <p>使用 {@link EventPriority#LOWEST} 确保在其他 tooltip 处理器之后执行，
+ * 使描述行紧邻物品名（温度/食物值行之后）。
  * <p>
  * 注意：basecore 模块物品（{@link BasecoreModuleItem} 子类）由基类 appendHoverText 自行添加描述，
  * 此处必须排除，否则描述会显示两次。
@@ -21,7 +24,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 @EventBusSubscriber(modid = TimeX.MODID, value = Dist.CLIENT)
 public class ItemDescTooltip {
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         if (stack.isEmpty()) return;
@@ -29,7 +32,7 @@ public class ItemDescTooltip {
         if (item instanceof dev.anye.mc.basecore.item.module.BasecoreModuleItem) return;
         String key = item.getDescriptionId() + ".desc";
         if (I18n.exists(key)) {
-            event.getToolTip().add(Component.translatable(key).withStyle(ChatFormatting.GRAY));
+            event.getToolTip().add(1, Component.translatable(key).withStyle(ChatFormatting.GRAY));
         }
     }
 }

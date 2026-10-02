@@ -1,5 +1,6 @@
 package io.github.createmeow.timex_rebirth.mixin;
 
+import io.github.createmeow.timex_rebirth.client.BlizzardClientEvents;
 import io.github.createmeow.timex_rebirth.client.BlizzardRenderer;
 import io.github.createmeow.timex_rebirth.client.ClientWeatherState;
 import net.minecraft.client.Camera;
@@ -46,6 +47,11 @@ public abstract class LevelRendererMixin {
     private void timex_rebirth$renderBlizzard(LightTexture lightTexture, float partialTick,
                                               double x, double y, double z, CallbackInfo ci) {
         if (ClientWeatherState.isBlizzard() && this.level != null) {
+            // 防寒套装（面罩+铝背罐）：完全豁免暴风雪视觉特效，不渲染雪花墙（音效不受影响）
+            if (BlizzardClientEvents.hasColdGearImmunity()) {
+                ci.cancel();
+                return;
+            }
             BlizzardRenderer.renderBlizzard(this.minecraft, this.level, lightTexture,
                     this.ticks, partialTick, x, y, z);
             ci.cancel();

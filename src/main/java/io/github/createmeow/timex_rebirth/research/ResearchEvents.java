@@ -29,12 +29,18 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
  */
 public class ResearchEvents {
 
+    /** 研究系统是否被 config 全局禁用。 */
+    private static boolean disabled() {
+        return !TimeXConfig.RESEARCH_ENABLED.get();
+    }
+
     // ── 研究点数获取：击杀敌对生物 / 首领 ──
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
         if (event.getEntity().level().isClientSide) return;
         if (!(event.getSource().getEntity() instanceof ServerPlayer player)) return;
+        if (disabled()) return; // config 全局禁用研究系统
 
         int points = 0;
         if (event.getEntity() instanceof WitherBoss || event.getEntity() instanceof EnderDragon) {
@@ -66,6 +72,7 @@ public class ResearchEvents {
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (disabled()) return; // config 全局禁用研究系统：解除全部权限拦截
         BlockState clicked = event.getLevel().getBlockState(event.getPos());
         // 与已放置的门控方块交互同样需要对应研究（防御炮/加密容器/热源组件/机械动力方块）
         ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(clicked.getBlock());
@@ -101,6 +108,7 @@ public class ResearchEvents {
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (disabled()) return; // config 全局禁用研究系统：解除全部权限拦截
         checkItemUse(player, event.getItemStack(), event);
     }
 

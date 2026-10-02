@@ -1,5 +1,6 @@
 package com.createmeow.cm_plugins;
 
+import com.createmeow.currency_plugin.currency.Currency;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -122,8 +123,8 @@ public class ModCommands {
         );
 
         // ========== /setcoin command ==========
-        // Only register if NumismaticOverhaul is available
-        if (NumismaticHelper.isAvailable()) {
+        // Only register if currency system is available
+        if (CurrencyCompat.isAvailable()) {
             dispatcher.register(Commands.literal("setcoin")
                     .requires(src -> src.hasPermission(2))
                     .then(Commands.argument("player", EntityArgument.player())
@@ -135,13 +136,12 @@ public class ModCommands {
                                                         ServerPlayer target = EntityArgument.getPlayer(ctx, "player");
                                                         String cointype = StringArgumentType.getString(ctx, "cointype");
                                                         int value = IntegerArgumentType.getInteger(ctx, "value");
-                                                        Object currency = NumismaticHelper.parseCurrency(cointype);
+                                                        Currency currency = CurrencyCompat.parseCurrency(cointype);
                                                         if (currency == null) {
-                                                            ctx.getSource().sendFailure(Component.literal("§c无效的货币类型。可用: bronze, silver, gold"));
+                                                            ctx.getSource().sendFailure(Component.literal("§c无效的货币类型。可用: common/rare"));
                                                             return 0;
                                                         }
-                                                        long rawValue = NumismaticHelper.getRawValue(currency, value);
-                                                        NumismaticHelper.modify(target, rawValue);
+                                                        CurrencyCompat.addBalance(target, currency, value);
                                                         ctx.getSource().sendSuccess(() ->
                                                                         Component.literal("§a已为 " + target.getName().getString() + " 添加 " + value + " " + cointype),
                                                                 true);
@@ -158,15 +158,13 @@ public class ModCommands {
                                                         ServerPlayer target = EntityArgument.getPlayer(ctx, "player");
                                                         String cointype = StringArgumentType.getString(ctx, "cointype");
                                                         int value = IntegerArgumentType.getInteger(ctx, "value");
-                                                        Object currency = NumismaticHelper.parseCurrency(cointype);
+                                                        Currency currency = CurrencyCompat.parseCurrency(cointype);
                                                         if (currency == null) {
-                                                            ctx.getSource().sendFailure(Component.literal("§c无效的货币类型。可用: bronze, silver, gold"));
+                                                            ctx.getSource().sendFailure(Component.literal("§c无效的货币类型。可用: common/rare"));
                                                             return 0;
                                                         }
-                                                        long rawValue = NumismaticHelper.getRawValue(currency, value);
-                                                        long currentValue = NumismaticHelper.getValue(target);
-                                                        long newValue = Math.max(0, currentValue - rawValue);
-                                                        NumismaticHelper.setValue(target, newValue);
+                                                        long currentCount = CurrencyCompat.getBalance(target, currency);
+                                                        CurrencyCompat.setBalance(target, currency, Math.max(0, currentCount - value));
                                                         ctx.getSource().sendSuccess(() ->
                                                                         Component.literal("§a已从 " + target.getName().getString() + " 扣除 " + value + " " + cointype),
                                                                 true);
@@ -183,13 +181,12 @@ public class ModCommands {
                                                         ServerPlayer target = EntityArgument.getPlayer(ctx, "player");
                                                         String cointype = StringArgumentType.getString(ctx, "cointype");
                                                         int value = IntegerArgumentType.getInteger(ctx, "value");
-                                                        Object currency = NumismaticHelper.parseCurrency(cointype);
+                                                        Currency currency = CurrencyCompat.parseCurrency(cointype);
                                                         if (currency == null) {
-                                                            ctx.getSource().sendFailure(Component.literal("§c无效的货币类型。可用: bronze, silver, gold"));
+                                                            ctx.getSource().sendFailure(Component.literal("§c无效的货币类型。可用: common/rare"));
                                                             return 0;
                                                         }
-                                                        long rawValue = NumismaticHelper.getRawValue(currency, value);
-                                                        NumismaticHelper.setValue(target, rawValue);
+                                                        CurrencyCompat.setBalance(target, currency, value);
                                                         ctx.getSource().sendSuccess(() ->
                                                                         Component.literal("§a已将 " + target.getName().getString() + " 的 " + cointype + " 设置为 " + value),
                                                                 true);
@@ -199,7 +196,7 @@ public class ModCommands {
                                     )
                             )
                     )
-            );
+        );
         }
 
         // ========== /combatmode command ==========
@@ -262,6 +259,8 @@ public class ModCommands {
         builder.suggest("bronze");
         builder.suggest("silver");
         builder.suggest("gold");
+        builder.suggest("common");
+        builder.suggest("rare");
         return builder.buildFuture();
     };
 }

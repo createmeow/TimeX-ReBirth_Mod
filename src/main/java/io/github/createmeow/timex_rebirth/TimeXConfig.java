@@ -131,6 +131,9 @@ public class TimeXConfig {
             .defineInRange("heat_station.adapter_capacity", 4000, 100, 100000);
 
     // ── 团队研究 / 科技树 ──
+    public static final ModConfigSpec.BooleanValue RESEARCH_ENABLED = BUILDER
+            .comment("是否启用研究系统（关闭后完全禁用：不再获得研究点数、解除全部研究权限拦截、研究站与 /timexresearch 命令不可用）")
+            .define("research.enabled", true);
     public static final ModConfigSpec.IntValue RESEARCH_POINTS_PER_HOSTILE = BUILDER
             .comment("击杀敌对生物获得的研究点数")
             .defineInRange("research.points_per_hostile", 1, 0, 100);
@@ -159,6 +162,12 @@ public class TimeXConfig {
     public static final ModConfigSpec.IntValue FIRE_FUEL_CAP_TICKS = BUILDER
             .comment("火焰燃料上限 (tick)：19200 ≈ 16 分钟")
             .defineInRange("fire.fuel_cap_ticks", 19200, 200, 240000);
+
+    // ========== Sable Physics ==========
+    public static final ModConfigSpec.IntValue SABLE_PHYSICS_SKIP_TICKS = BUILDER
+            .comment("Sable 物理优化：每 N+1 个 tick 只执行 1 次物理步进",
+                    "0 = 禁用（全速 20Hz），1 = 减半（10Hz），2 = 降至约 6.7Hz")
+            .defineInRange("sable.physics_skip_ticks", 0, 0, 10);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

@@ -30,7 +30,7 @@ import java.util.Map;
  *   <li>bottom-centered：左上角 = (sw/2 + x, sh + y)；bottom-right：= (sw + x, sh + y)；等</li>
  *   <li>进度条：value_mode=percentage 时 progress/100，float 直用；smooth 时 0.95/0.05 平滑</li>
  *   <li>所有数据经 {@link HudValues} 读取，跨模组（RealityValue/ThirstWasTaken/ColdSweat/
- *       NumismaticOverhaul/ImmersiveAircraft）数据缺失时优雅降级</li>
+ *       currency_plugin/ImmersiveAircraft）数据缺失时优雅降级</li>
  * </ul>
  */
 public final class TimeXHudRenderer {
@@ -51,6 +51,7 @@ public final class TimeXHudRenderer {
     private static boolean thermometerResolved;
     /** AppleSkin 是否安装（ModList 查询缓存）。 */
     private static Boolean appleskinLoaded;
+    private static Boolean realityValueLoaded;
     /** 效果 Holder 解析缓存（effectId -> Holder）。 */
     private static final Map<ResourceLocation, net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>> effectHolderCache = new HashMap<>();
 
@@ -107,6 +108,12 @@ public final class TimeXHudRenderer {
         if (survival && isAppleSkinLoaded()) {
             renderSaturationOverlay(g, sw / 2 - 91, sh - 39, 12, 12, satPct(p), "hungry_none");
             renderSaturationOverlay(g, sw / 2 - 77, sh - 39, 12, 12, quenchedPct(p), "thirsty_none");
+        }
+        // RealityValue 兼容：在健康/理智条上叠加 healthy_none / sanity_none 显示免疫力与精力
+        // （免疫力=健康的饱和度，精力=理智的饱和度，见 ClientPlayerExData）
+        if (survival && isRealityValueLoaded()) {
+            renderSaturationOverlay(g, sw / 2 - 63, sh - 39, 12, 12, rvImmunityPct(p), "healthy_none");
+            renderSaturationOverlay(g, sw / 2 - 49, sh - 39, 12, 12, rvEnergyPct(p), "sanity_none");
         }
 
         // 坐骑条（乘坐有生命实体时）
@@ -178,11 +185,15 @@ public final class TimeXHudRenderer {
         // 顶部文本：金币 / 坐标 / FPS
         if (HudVariables.is("xyz", "开")) {
             renderText(g, 1, 11, "X: " + (int) Math.floor(p.getX()) + " Y: " + (int) Math.floor(p.getY())
-                    + " Z: " + (int) Math.floor(p.getZ()) + " D:" + viewDir(p), false);
+                    + " Z: " + (int) Math.floor(p.getZ()) + " D: " + viewDir(p), false);
         }
-        // 金币文本：使用 TimeX-Fontpark 的货币图标字体 U+EC00(铜)/U+EC02(银)/U+EC01(金)
-        renderText(g, -1, 2, "\uEC00: " + fmt0(HudValues.numismaticBronze()) + " \uEC02: "
-                + fmt0(HudValues.numismaticSilver()) + " \uEC01: " + fmt0(HudValues.numismaticGold()), false);
+        // 金币文本：currency_plugin（腐空朽/归霜升）+ basecore 零件
+        // 符号来自 TimeX-Fontpark：\uEC0B=腐空朽 \uEC0C=归霜升 \uEC0D=零件
+        if (HudValues.hasCurrencyPlugin()) {
+            renderText(g, -1, 2, " \uEC0B: " + fmt0(HudValues.currencyPluginCommon())
+                    + " \uEC0C: " + fmt0(HudValues.currencyPluginRare())
+                    + " \uEC0D: " + fmt0(HudValues.basecoreParts()), false);
+        }
         renderText(g, 1, sh - 35, "FPS: " + HudValues.fps(), false);
     }
 
@@ -463,6 +474,14 @@ public final class TimeXHudRenderer {
         return appleskinLoaded;
     }
 
+    /** 是否安装 RealityValue（ModList 查询缓存一次，避免逐帧调用）。 */
+    private static boolean isRealityValueLoaded() {
+        if (realityValueLoaded == null) {
+            realityValueLoaded = ModList.get() != null && ModList.get().isLoaded("reality_value");
+        }
+        return realityValueLoaded;
+    }
+
     /** cold_sweat 温度计物品（缓存，避免每帧查注册表 + 建对象）。 */
     private static ItemStack thermometer() {
         if (!thermometerResolved) {
@@ -499,6 +518,18 @@ public final class TimeXHudRenderer {
     private static float rvSanityPct(LocalPlayer p) {
         float max = HudValues.realityValueMaxHealth();
         return max <= 0 ? 0 : Mth.clamp(HudValues.realityValueSanity() / max, 0f, 1f);
+    }
+
+    /** 免疫力百分比（=健康的隐藏值，用于 healthy_none 叠加显示）。 */
+    private static float rvImmunityPct(LocalPlayer p) {
+        float max = HudValues.realityValueMaxHealth();
+        return max <= 0 ? 0 : Mth.clamp(HudValues.realityValueImmunity() / max, 0f, 1f);
+    }
+
+    /** 精力百分比（=理智的隐藏值，用于 sanity_none 叠加显示）。 */
+    private static float rvEnergyPct(LocalPlayer p) {
+        float max = HudValues.realityValueMaxHealth();
+        return max <= 0 ? 0 : Mth.clamp(HudValues.realityValueEnergy() / max, 0f, 1f);
     }
 
     private static float armorPct(LocalPlayer p) {

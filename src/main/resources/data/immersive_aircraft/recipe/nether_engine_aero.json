@@ -1,0 +1,45 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "immersive_aircraft"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CNC",
+    "BEB",
+    "RRR"
+  ],
+  "key": {
+    "C": [
+      {
+        "item": "minecraft:magma_cream"
+      }
+    ],
+    "B": [
+      {
+        "item": "minecraft:blaze_rod"
+      }
+    ],
+    "R": [
+      {
+        "item": "minecraft:nether_brick"
+      }
+    ],
+    "N": [
+      {
+        "item": "minecraft:netherite_ingot"
+      }
+    ],
+    "E": [
+      {
+        "tag": "timex_rebirth:engine_components"
+      }
+    ]
+  },
+  "result": {
+    "id": "immersive_aircraft:nether_engine"
+  }
+}

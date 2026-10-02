@@ -88,10 +88,22 @@ public class PluginFeatures {
             PacketDistributor.sendToPlayer(serverPlayer, new AutoCoinStatePayload(
                     PlayerCoinConsolidationHandler.isAutoConsolidate(serverPlayer.getUUID())));
 
-            // 登录时强制同步 NumismaticOverhaul 货币：用 setValue 重置当前值触发
-            // 服务端→客户端同步，等价于「+1 铜 再 -1 铜」但不刷提示、不改余额。
-            if (NumismaticHelper.isAvailable()) {
-                NumismaticHelper.setValue(serverPlayer, NumismaticHelper.getValue(serverPlayer));
+            // 首次同步「物品收集过滤」状态到客户端
+            ItemFilterHandler.FilterData filter = ItemFilterHandler.get(serverPlayer);
+            PacketDistributor.sendToPlayer(serverPlayer, new ItemFilterSyncPayload(
+                    filter.enabled(), String.join("|", filter.items())));
+
+            // 每次（含二次）进入游戏时给予 10 秒 Cold Sweat「恩典」效果：
+            // 低配置/高延迟玩家加载世界期间处于寒冷区域会被立即扣温冻死，
+            // 登录时补一段温度免疫作为缓冲。经注册表查找，避免编译期依赖 cold_sweat。
+            if (net.neoforged.fml.ModList.get().isLoaded("cold_sweat")) {
+                var grace = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT
+                        .get(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("cold_sweat", "grace"));
+                if (grace != null) {
+                    serverPlayer.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(grace),
+                            200, 0, true, false, true));
+                }
             }
         }
     }
@@ -101,14 +113,6 @@ public class PluginFeatures {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             SpatialInventoryManager.savePlayerData(serverPlayer);
             SpatialInventoryManager.cleanupPlayer(serverPlayer);
-        }
-    }
-
-    // 死亡后重生时客户端货币值可能显示为 0（服务端余额仍保留），需重新同步一次。
-    @SubscribeEvent
-    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        if (event.getEntity() instanceof ServerPlayer serverPlayer && NumismaticHelper.isAvailable()) {
-            NumismaticHelper.setValue(serverPlayer, NumismaticHelper.getValue(serverPlayer));
         }
     }
 }

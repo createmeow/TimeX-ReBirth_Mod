@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "create:white_sail", "required": false },
+    { "id": "simulated:white_symmetric_sail", "required": false }
+  ]
+}

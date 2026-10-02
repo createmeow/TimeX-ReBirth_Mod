@@ -202,9 +202,9 @@ Features: Random Zombie Health + No Mob Spawn + Spatial Inventory + Combat Log P
     ordering="NONE"
     side="BOTH"
 
-# Optional dependency on NumismaticOverhaul for currency system
+# Optional dependency on currency_plugin for currency system
 [[dependencies.${cm_plugins_id}]]
-    modId="numismaticoverhaul"
+    modId="currency_plugin"
     type="optional"
     ordering="NONE"
     side="BOTH"
@@ -285,6 +285,36 @@ stronger drowning damage and Cold Sweat depth temperature drop.
 [[dependencies.${underwater_plugin_id}]]
     modId="cold_sweat"
     type="optional"
+    ordering="NONE"
+    side="BOTH"
+
+# ============================================================================
+# currency_plugin - Fifth mod in this JAR
+# ============================================================================
+[[mods]]
+modId="${currency_plugin_id}"
+version="${currency_plugin_version}"
+displayName="${currency_plugin_name}"
+authors="createmeow"
+description='''
+货币插件：基于 NumismaticOverhaul 架构的轻量货币系统。
+两种钱币（普通 / 稀有），背包内置取出页面，不依赖 owolib。
+Currency plugin: lightweight currency system inspired by NumismaticOverhaul.
+Two coin tiers (common / rare), built-in purse overlay, no owolib dependency.
+'''
+
+# currency_plugin dependencies
+[[dependencies.${currency_plugin_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${currency_plugin_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 

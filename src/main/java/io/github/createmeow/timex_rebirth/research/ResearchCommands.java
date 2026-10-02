@@ -28,6 +28,8 @@ public class ResearchCommands {
 
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
+        // config 全局禁用研究系统：不注册 /timexresearch 命令
+        if (!io.github.createmeow.timex_rebirth.TimeXConfig.RESEARCH_ENABLED.get()) return;
         event.getDispatcher().register(Commands.literal("timexresearch")
                 .then(Commands.literal("agree")
                         .executes(ctx -> {

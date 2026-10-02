@@ -121,6 +121,10 @@ neoForge {
         "${project.underwater_plugin_id}" {
             sourceSet(sourceSets.main)
         }
+        // currency_plugin - fifth mod in this JAR
+        "${project.currency_plugin_id}" {
+            sourceSet(sourceSets.main)
+        }
     }
 }
 
@@ -154,7 +158,7 @@ dependencies {
 
     // 原生 HUD 依赖模组：编译期引用原生 HUD 隐藏 Mixin 的目标类，运行时须已加载。
     // RealityValue: PlayerExHudRenderer (原生理智/健康 HUD)
-    compileOnly files("D:/MODS/1.21.1/timexrebirth-template-1.21.1/run/mods/reality_value-1.21.1-1.0.1.jar")
+    compileOnly files("D:/MODS/1.21.1/timexrebirth-template-1.21.1/run/mods/reality_value-1.21.1-1.0.2.jar")
     // ThirstWasTaken: ThirstBarRenderer (原生口渴 HUD)
     compileOnly files("D:/MODS/1.21.1/timexrebirth-template-1.21.1/run/mods/[口渴] ThirstWasTaken-1.21.1-2.1.5.jar")
     // Immersive Aircraft: NeoForgeOverlayRenderer (原生耐久/引擎 HUD)
@@ -164,6 +168,10 @@ dependencies {
     // Create: compile-only for the fireproof casing connected-texture mechanism
     // (CTModel / CTSpriteShifter / EncasedCTBehaviour). Required at runtime.
     compileOnly files("D:/MODS/已构建/[机械动力] create-1.21.1-6.0.10.jar")
+
+    // Sable: compile-only for physics optimization and TNT collision fix mixins
+    // (ExplosiveBlockCallback / SubLevelPhysicsSystem). Required at runtime for mixins to apply.
+    compileOnly files("D:/MODS/已构建/sable-neoforge-1.21.1-2.0.3.jar")
 
     // FarmersDelight: compile-only for the cooking pot temperature preservation mixin
     // (CookingPotBlockEntity). Optional at runtime (gated by TimeXMixinPlugin).
@@ -176,6 +184,10 @@ dependencies {
     // EMI: compile-only for the drawing table recipe category (DrawingEmiPlugin).
     // The plugin class is only loaded by EMI's entrypoint scanner when EMI is present at runtime.
     compileOnly files("D:/MODS/1.21.1/timexrebirth-template-1.21.1/run/mods/emi-1.1.24+1.21.1+neoforge.jar")
+
+    // MrCrayfish Gun Mod (cgm): compile-only for GunFireEvent.Post (枪声吸引怪物).
+    // Handler 类经 ModList.isLoaded("cgm") 条件注册，运行时须已加载（mods 文件夹）。
+    compileOnly files("D:/MODS/1.21.1/timexrebirth-template-1.21.1/run/mods/cgm-1.4.4.jar")
 }
 
 // Catnip (net.createmod.catnip) / Registrate (com.tterrag.registrate) / Flywheel (dev.engine_room.flywheel)
@@ -197,27 +209,6 @@ tasks.register('extractCreateNestedJars', Copy) {
 sourceSets.main.compileClasspath += files(ponderJarPath, registrateJarPath, flywheelJarPath)
 tasks.named('compileJava').configure {
     dependsOn 'extractCreateNestedJars'
-}
-
-// Create numismaticoverhaul jar from pre-compiled classes in resources directory
-// This jar is used as compile-time stub only, NOT as a runtime mod
-def numismaticJarPath = file("build/tmp/numismaticoverhaul-1.21.1-2.0.1.jar")
-tasks.register('createNumismaticJar', Jar) {
-    destinationDirectory = file('build/tmp')
-    archiveFileName = 'numismaticoverhaul-1.21.1-2.0.1.jar'
-    from('numismaticoverhaul/numismaticoverhaul-逆向/src/main/resources') {
-        exclude 'META-INF/**'  // Exclude mods.toml so it won't be loaded as a mod
-    }
-    duplicatesStrategy = 'EXCLUDE'
-}
-
-// Only add to compile classpath, NOT runtime classpath
-// This ensures NumismaticOverhaul classes are available for compilation
-// but the JAR won't be loaded as a mod at runtime
-sourceSets.main.compileClasspath += files(numismaticJarPath)
-
-tasks.named('compileJava').configure {
-    dependsOn 'createNumismaticJar'
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -247,6 +238,10 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             underwater_plugin_id     : project.underwater_plugin_id,
             underwater_plugin_name   : '水下探索插件',
             underwater_plugin_version: project.underwater_plugin_version,
+            // currency_plugin properties
+            currency_plugin_id     : project.currency_plugin_id,
+            currency_plugin_name   : '货币插件',
+            currency_plugin_version: project.currency_plugin_version,
     ]
     inputs.properties replaceProperties
     expand replaceProperties

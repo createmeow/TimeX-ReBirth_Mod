@@ -1,0 +1,39 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "immersive_aircraft"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simulated"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CCC",
+    "CBC",
+    "CFC"
+  ],
+  "key": {
+    "C": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ],
+    "F": [
+      {
+        "item": "minecraft:blast_furnace"
+      }
+    ],
+    "B": [
+      {
+        "item": "simulated:engine_assembly"
+      }
+    ]
+  },
+  "result": {
+    "id": "immersive_aircraft:steel_boiler"
+  }
+}
